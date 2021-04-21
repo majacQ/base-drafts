@@ -5,10 +5,10 @@
 QUIC                                                           C. Krasic
 Internet-Draft                                                   Netflix
 Intended status: Standards Track                               M. Bishop
-Expires: 13 September 2021                           Akamai Technologies
+Expires: 23 October 2021                             Akamai Technologies
                                                         A. Frindell, Ed.
                                                                 Facebook
-                                                           12 March 2021
+                                                           21 April 2021
 
 
                   QPACK: Header Compression for HTTP/3
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 September 2021.
+   This Internet-Draft will expire on 23 October 2021.
 
 Copyright Notice
 
@@ -1213,11 +1213,11 @@ Table of Contents
 
    QPACK defines two settings for the HTTP/3 SETTINGS frame:
 
-   SETTINGS_QPACK_MAX_TABLE_CAPACITY (0x1):  The default value is zero.
+   SETTINGS_QPACK_MAX_TABLE_CAPACITY (0x01):  The default value is zero.
       See Section 3.2 for usage.  This is the equivalent of the
       SETTINGS_HEADER_TABLE_SIZE from HTTP/2.
 
-   SETTINGS_QPACK_BLOCKED_STREAMS (0x7):  The default value is zero.
+   SETTINGS_QPACK_BLOCKED_STREAMS (0x07):  The default value is zero.
       See Section 2.1.2.
 
 6.  Error Handling
@@ -1225,14 +1225,14 @@ Table of Contents
    The following error codes are defined for HTTP/3 to indicate failures
    of QPACK that prevent the stream or connection from continuing:
 
-   QPACK_DECOMPRESSION_FAILED (0x200):  The decoder failed to interpret
+   QPACK_DECOMPRESSION_FAILED (0x0200):  The decoder failed to interpret
       an encoded field section and is not able to continue decoding that
       field section.
 
-   QPACK_ENCODER_STREAM_ERROR (0x201):  The decoder failed to interpret
+   QPACK_ENCODER_STREAM_ERROR (0x0201):  The decoder failed to interpret
       an encoder instruction received on the encoder stream.
 
-   QPACK_DECODER_STREAM_ERROR (0x202):  The encoder failed to interpret
+   QPACK_DECODER_STREAM_ERROR (0x0202):  The encoder failed to interpret
       a decoder instruction received on the decoder stream.
 
 7.  Security Considerations
@@ -1490,6 +1490,11 @@ Table of Contents
 
 8.  IANA Considerations
 
+   This document makes multiple registrations in the registries defined
+   by [HTTP3].  The allocations created by this document are all
+   assigned permanent status and list a change controller of the IETF
+   and a contact of the HTTP working group (ietf-http-wg@w3.org).
+
 8.1.  Settings Registration
 
    This document specifies two settings.  The entries in the following
@@ -1499,9 +1504,9 @@ Table of Contents
        +==========================+======+===============+=========+
        | Setting Name             | Code | Specification | Default |
        +==========================+======+===============+=========+
-       | QPACK_MAX_TABLE_CAPACITY | 0x1  | Section 5     | 0       |
+       | QPACK_MAX_TABLE_CAPACITY | 0x01 | Section 5     | 0       |
        +--------------------------+------+---------------+---------+
-       | QPACK_BLOCKED_STREAMS    | 0x7  | Section 5     | 0       |
+       | QPACK_BLOCKED_STREAMS    | 0x07 | Section 5     | 0       |
        +--------------------------+------+---------------+---------+
 
                                   Table 1
@@ -1531,24 +1536,23 @@ Table of Contents
    following table are registered in the "HTTP/3 Error Code" registry
    established in [HTTP3].
 
-   +============================+=======+=============+===============+
-   | Name                       | Code  | Description | Specification |
-   +============================+=======+=============+===============+
-   | QPACK_DECOMPRESSION_FAILED | 0x200 | Decoding of | Section 6     |
-   |                            |       | a field     |               |
-   |                            |       | section     |               |
-   |                            |       | failed      |               |
-   +----------------------------+-------+-------------+---------------+
-   | QPACK_ENCODER_STREAM_ERROR | 0x201 | Error on    | Section 6     |
-   |                            |       | the encoder |               |
-   |                            |       | stream      |               |
-   +----------------------------+-------+-------------+---------------+
-   | QPACK_DECODER_STREAM_ERROR | 0x202 | Error on    | Section 6     |
-   |                            |       | the decoder |               |
-   |                            |       | stream      |               |
-   +----------------------------+-------+-------------+---------------+
+   +============================+========+=============+===============+
+   | Name                       | Code   |Description  | Specification |
+   +============================+========+=============+===============+
+   | QPACK_DECOMPRESSION_FAILED | 0x0200 |Decoding of a| Section 6     |
+   |                            |        |field section|               |
+   |                            |        |failed       |               |
+   +----------------------------+--------+-------------+---------------+
+   | QPACK_ENCODER_STREAM_ERROR | 0x0201 |Error on the | Section 6     |
+   |                            |        |encoder      |               |
+   |                            |        |stream       |               |
+   +----------------------------+--------+-------------+---------------+
+   | QPACK_DECODER_STREAM_ERROR | 0x0202 |Error on the | Section 6     |
+   |                            |        |decoder      |               |
+   |                            |        |stream       |               |
+   +----------------------------+--------+-------------+---------------+
 
-                                 Table 3
+                                  Table 3
 
 9.  References
 
@@ -1556,14 +1560,14 @@ Table of Contents
 
    [HTTP3]    Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 12 March 2021,
+              quic-http, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 12 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -1587,9 +1591,9 @@ Table of Contents
    [SEMANTICS]
               Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
               Semantics", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-semantics-14, 12 January 2021,
+              httpbis-semantics-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              semantics-14.txt>.
+              semantics-15.txt>.
 
 9.2.  Informative References
 

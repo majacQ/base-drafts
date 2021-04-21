@@ -11,10 +11,10 @@
        This document describes loss detection and congestion control mechanisms for
 QUIC. 
     " name="description">
-<meta content="xml2rfc 3.6.0" name="generator">
+<meta content="xml2rfc 3.7.0" name="generator">
 <meta content="draft-ietf-quic-recovery" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.6.0
+  xml2rfc 3.7.0
     Python 3.8.8
     appdirs 1.4.4
     ConfigArgParse 1.2.3
@@ -23,7 +23,7 @@ QUIC.
     intervaltree 3.1.0
     Jinja2 2.11.2
     kitchen 1.2.6
-    lxml 4.6.2
+    lxml 4.6.3
     pycountry 20.7.3
     pyflakes 2.2.0
     PyYAML 5.4.1
@@ -838,11 +838,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">QUIC Loss Detection</td>
-<td class="right">March 2021</td>
+<td class="right">April 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Iyengar &amp; Swett</td>
-<td class="center">Expires 19 September 2021</td>
+<td class="center">Expires 23 October 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -855,12 +855,12 @@ address div.right {
 <dd class="internet-draft">draft-ietf-quic-recovery</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-03-18" class="published">18 March 2021</time>
+<time datetime="2021-04-21" class="published">21 April 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-09-19">19 September 2021</time></dd>
+<dd class="expires"><time datetime="2021-10-23">23 October 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -912,7 +912,7 @@ code and issues list for this draft can be found at
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 September 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 October 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1679,7 +1679,8 @@ rttvar = kInitialRtt / 2
 <p id="section-5.3-13">RTT samples for the network path are recorded in latest_rtt; see
 <a href="#latest-rtt" class="xref">Section 5.1</a>. On the first RTT sample after initialization, the estimator is
 reset using that sample. This ensures that the estimator retains no history of
-past samples.<a href="#section-5.3-13" class="pilcrow">¶</a></p>
+past samples.  Packets sent on other paths do not contribute RTT samples to the
+current path, as described in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-transport#section-9.4" class="relref">Section 9.4</a> of [<a href="#QUIC-TRANSPORT" class="xref">QUIC-TRANSPORT</a>]</span>.<a href="#section-5.3-13" class="pilcrow">¶</a></p>
 <p id="section-5.3-14">On the first RTT sample after initialization, smoothed_rtt and rttvar are set as
 follows:<a href="#section-5.3-14" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-5.3-15">
@@ -1695,7 +1696,7 @@ ack_delay = decoded acknowledgment delay from ACK frame
 if (handshake confirmed):
   ack_delay = min(ack_delay, max_ack_delay)
 adjusted_rtt = latest_rtt
-if (min_rtt + ack_delay &lt; latest_rtt):
+if (latest_rtt &gt;= min_rtt + ack_delay):
   adjusted_rtt = latest_rtt - ack_delay
 smoothed_rtt = 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
 rttvar_sample = abs(smoothed_rtt - adjusted_rtt)
@@ -1926,9 +1927,14 @@ data it can send is limited to three times the amount of data received,
 as specified in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-transport#section-8.1" class="relref">Section 8.1</a> of [<a href="#QUIC-TRANSPORT" class="xref">QUIC-TRANSPORT</a>]</span>. If no additional data can be
 sent, the server's PTO timer MUST NOT be armed until datagrams have been
 received from the client, because packets sent on PTO count against the
-anti-amplification limit. Note that the server could fail to validate the
-client's address even if 0-RTT is accepted.<a href="#section-6.2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.2.1-2">Since the server could be blocked until more datagrams are received from the
+anti-amplification limit.<a href="#section-6.2.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.2.1-2">When the server receives a datagram from the client, the amplification limit is
+increased and the server resets the PTO timer.  If the PTO timer is then set to
+a time in the past, it is executed immediately. Doing so avoids sending new
+1-RTT packets prior to packets critical to the completion of the handshake.
+In particular, this can happen when 0-RTT is accepted but the server fails to
+validate the client's address.<a href="#section-6.2.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.2.1-3">Since the server could be blocked until more datagrams are received from the
 client, it is the client's responsibility to send packets to unblock the server
 until it is certain that the server has finished its address validation (see
 <span><a href="https://tools.ietf.org/html/draft-ietf-quic-transport#section-8" class="relref">Section 8</a> of [<a href="#QUIC-TRANSPORT" class="xref">QUIC-TRANSPORT</a>]</span>). That is, the client MUST set the probe timer
@@ -1936,7 +1942,7 @@ if the client has not received an acknowledgment for any of its Handshake
 packets and the handshake is not confirmed (see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>),
 even if there are no packets in flight. When the PTO fires, the client MUST
 send a Handshake packet if it has Handshake keys, otherwise it MUST send an
-Initial packet in a UDP datagram with a payload of at least 1200 bytes.<a href="#section-6.2.2.1-2" class="pilcrow">¶</a></p>
+Initial packet in a UDP datagram with a payload of at least 1200 bytes.<a href="#section-6.2.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2077,12 +2083,15 @@ in flight and are not congestion controlled.  Unlike TCP, QUIC can detect the
 loss of these packets and MAY use that information to adjust the congestion
 controller or the rate of ACK-only packets being sent, but this document does
 not describe a mechanism for doing so.<a href="#section-7-4" class="pilcrow">¶</a></p>
-<p id="section-7-5">The algorithm in this document specifies and uses the controller's congestion
-window in bytes.<a href="#section-7-5" class="pilcrow">¶</a></p>
-<p id="section-7-6">An endpoint MUST NOT send a packet if it would cause bytes_in_flight (see
+<p id="section-7-5">The congestion controller is per path, so packets sent on other paths do not
+alter the current path's congestion controller, as described in
+<span><a href="https://tools.ietf.org/html/draft-ietf-quic-transport#section-9.4" class="relref">Section 9.4</a> of [<a href="#QUIC-TRANSPORT" class="xref">QUIC-TRANSPORT</a>]</span>.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">The algorithm in this document specifies and uses the controller's congestion
+window in bytes.<a href="#section-7-6" class="pilcrow">¶</a></p>
+<p id="section-7-7">An endpoint MUST NOT send a packet if it would cause bytes_in_flight (see
 <a href="#vars-of-interest" class="xref">Appendix B.2</a>) to be larger than the congestion window, unless the packet
 is sent on a PTO timer expiration (see <a href="#pto" class="xref">Section 6.2</a>) or when entering recovery
-(see <a href="#recovery-period" class="xref">Section 7.3.2</a>).<a href="#section-7-6" class="pilcrow">¶</a></p>
+(see <a href="#recovery-period" class="xref">Section 7.3.2</a>).<a href="#section-7-7" class="pilcrow">¶</a></p>
 <div id="congestion-ecn">
 <section id="section-7.1">
         <h3 id="name-explicit-congestion-notific">
@@ -2546,11 +2555,11 @@ responses can be specified, such as (<span>[<a href="#RFC8511" class="xref">RFC8
 <dl class="references">
 <dt id="QUIC-TLS">[QUIC-TLS]</dt>
         <dd>
-<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-tls</span>, <time datetime="2021-03-18" class="refDate">18 March 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-tls</span>, <time datetime="2021-04-21" class="refDate">21 April 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC-TRANSPORT">[QUIC-TRANSPORT]</dt>
         <dd>
-<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-transport</span>, <time datetime="2021-03-18" class="refDate">18 March 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-transport</span>, <time datetime="2021-04-21" class="refDate">21 April 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2934,6 +2943,10 @@ OnDatagramReceived(datagram):
   // PTO timer to avoid deadlock.
   if (server was at anti-amplification limit):
     SetLossDetectionTimer()
+    if loss_detection_timer.timeout &lt; now():
+      // Execute PTO if it would have expired
+      // while the amplification limit applied.
+      OnLossDetectionTimeout()
 </pre><a href="#section-a.6-3" class="pilcrow">¶</a>
 </div>
 </section>
@@ -3010,7 +3023,7 @@ UpdateRtt(ack_delay):
 
   // Adjust for acknowledgment delay if plausible.
   adjusted_rtt = latest_rtt
-  if (latest_rtt &gt; min_rtt + ack_delay):
+  if (latest_rtt &gt;= min_rtt + ack_delay):
     adjusted_rtt = latest_rtt - ack_delay
 
   rttvar = 3/4 * rttvar + 1/4 * abs(smoothed_rtt - adjusted_rtt)
@@ -3046,8 +3059,8 @@ GetLossTimeAndSpace():
 GetPtoTimeAndSpace():
   duration = (smoothed_rtt + max(4 * rttvar, kGranularity))
       * (2 ^ pto_count)
-  // Arm PTO from now when there are no inflight packets.
-  if (no in-flight packets):
+  // Anti-deadlock PTO starts from the current time
+  if (no ack-eliciting packets in flight):
     assert(!PeerCompletedAddressValidation())
     if (has handshake keys):
       return (now() + duration), Handshake
@@ -3056,7 +3069,7 @@ GetPtoTimeAndSpace():
   pto_timeout = infinite
   pto_space = Initial
   for space in [ Initial, Handshake, ApplicationData ]:
-    if (no in-flight packets in space):
+    if (no ack-eliciting packets in flight in space):
         continue;
     if (space == ApplicationData):
       // Skip Application Data until handshake confirmed.
@@ -3126,12 +3139,7 @@ OnLossDetectionTimeout():
     SetLossDetectionTimer()
     return
 
-  if (bytes_in_flight &gt; 0):
-    // PTO. Send new data if available, else retransmit old data.
-    // If neither is available, send a single PING frame.
-    _, pn_space = GetPtoTimeAndSpace()
-    SendOneOrTwoAckElicitingPackets(pn_space)
-  else:
+  if (no ack-eliciting packets in flight):
     assert(!PeerCompletedAddressValidation())
     // Client sends an anti-deadlock packet: Initial is padded
     // to earn more anti-amplification credit,
@@ -3140,6 +3148,11 @@ OnLossDetectionTimeout():
       SendOneAckElicitingHandshakePacket()
     else:
       SendOneAckElicitingPaddedInitialPacket()
+  else:
+    // PTO. Send new data if available, else retransmit old data.
+    // If neither is available, send a single PING frame.
+    _, pn_space = GetPtoTimeAndSpace()
+    SendOneOrTwoAckElicitingPackets(pn_space)
 
   pto_count++
   SetLossDetectionTimer()
@@ -3512,8 +3525,8 @@ RemoveFromBytesInFlight(discarded_packets):
       <h2 id="name-change-log">
 <a href="#section-appendix.c" class="section-number selfRef">Appendix C. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
       </h2>
-<ul class="ulEmpty normal">
-<li class="ulEmpty normal" id="section-appendix.c-1.1">
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-appendix.c-1.1">
           <strong>RFC Editor's Note:</strong>  Please remove this section prior to
 publication of a final version of this document.<a href="#section-appendix.c-1.1" class="pilcrow">¶</a>
 </li>

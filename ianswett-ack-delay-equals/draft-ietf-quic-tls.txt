@@ -5,8 +5,8 @@
 QUIC                                                     M. Thomson, Ed.
 Internet-Draft                                                   Mozilla
 Intended status: Standards Track                          S. Turner, Ed.
-Expires: 13 September 2021                                         sn3rd
-                                                           12 March 2021
+Expires: 23 October 2021                                           sn3rd
+                                                           21 April 2021
 
 
                         Using TLS to Secure QUIC
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 September 2021.
+   This Internet-Draft will expire on 23 October 2021.
 
 Copyright Notice
 
@@ -707,7 +707,7 @@ Table of Contents
    its first cryptographic handshake message, which for TLS is the
    ClientHello.  Servers might need to parse the entire ClientHello
    (e.g., to access extensions such as Server Name Identification (SNI)
-   or Application Layer Protocol Negotiation (ALPN)) in order to decide
+   or Application-Layer Protocol Negotiation (ALPN)) in order to decide
    whether to accept the new incoming QUIC connection.  If the
    ClientHello spans multiple Initial packets, such servers would need
    to buffer the first received fragments, which could consume excessive
@@ -921,9 +921,9 @@ Table of Contents
    defined in Section 6 of [TLS13].
 
    A TLS alert is converted into a QUIC connection error.  The
-   AlertDescription value is added to 0x100 to produce a QUIC error code
-   from the range reserved for CRYPTO_ERROR.  The resulting value is
-   sent in a QUIC CONNECTION_CLOSE frame of type 0x1c.
+   AlertDescription value is added to 0x0100 to produce a QUIC error
+   code from the range reserved for CRYPTO_ERROR.  The resulting value
+   is sent in a QUIC CONNECTION_CLOSE frame of type 0x1c.
 
    QUIC is only able to convey an alert level of "fatal".  In TLS 1.3,
    the only existing uses for the "warning" level are to signal
@@ -935,8 +935,8 @@ Table of Contents
    QUIC permits the use of a generic code in place of a specific error
    code; see Section 11 of [QUIC-TRANSPORT].  For TLS alerts, this
    includes replacing any alert with a generic alert, such as
-   handshake_failure (0x128 in QUIC).  Endpoints MAY use a generic error
-   code to avoid possibly exposing confidential information.
+   handshake_failure (0x0128 in QUIC).  Endpoints MAY use a generic
+   error code to avoid possibly exposing confidential information.
 
 4.9.  Discarding Unused Keys
 
@@ -1605,7 +1605,7 @@ Table of Contents
    on KeyUpdate messages sent using 1-RTT encryption keys.  Endpoints
    MUST NOT send a TLS KeyUpdate message.  Endpoints MUST treat the
    receipt of a TLS KeyUpdate message as a connection error of type
-   0x10a, equivalent to a fatal TLS alert of unexpected_message; see
+   0x010a, equivalent to a fatal TLS alert of unexpected_message; see
    Section 4.8.
 
    Figure 9 shows a key update process, where the initial set of keys
@@ -1850,10 +1850,10 @@ Table of Contents
    reaching a state where key updates are not possible.
 
    For AEAD_AES_128_GCM and AEAD_AES_256_GCM, the confidentiality limit
-   is 2^(23) encrypted packets; see Appendix B.1.  For
+   is 2^23 encrypted packets; see Appendix B.1.  For
    AEAD_CHACHA20_POLY1305, the confidentiality limit is greater than the
-   number of possible packets (2^(62)) and so can be disregarded.  For
-   AEAD_AES_128_CCM, the confidentiality limit is 2^(21.5) encrypted
+   number of possible packets (2^62) and so can be disregarded.  For
+   AEAD_AES_128_CCM, the confidentiality limit is 2^21.5 encrypted
    packets; see Appendix B.2.  Applying a limit reduces the probability
    that an attacker can distinguish the AEAD in use from a random
    permutation; see [AEBounds], [ROBUST], and [GCM-MU].
@@ -1867,12 +1867,12 @@ Table of Contents
    AEAD_LIMIT_REACHED and not process any more packets.
 
    For AEAD_AES_128_GCM and AEAD_AES_256_GCM, the integrity limit is
-   2^(52) invalid packets; see Appendix B.1.  For
-   AEAD_CHACHA20_POLY1305, the integrity limit is 2^(36) invalid
-   packets; see [AEBounds].  For AEAD_AES_128_CCM, the integrity limit
-   is 2^(21.5) invalid packets; see Appendix B.2.  Applying this limit
-   reduces the probability that an attacker can successfully forge a
-   packet; see [AEBounds], [ROBUST], and [GCM-MU].
+   2^52 invalid packets; see Appendix B.1.  For AEAD_CHACHA20_POLY1305,
+   the integrity limit is 2^36 invalid packets; see [AEBounds].  For
+   AEAD_AES_128_CCM, the integrity limit is 2^21.5 invalid packets; see
+   Appendix B.2.  Applying this limit reduces the probability that an
+   attacker can successfully forge a packet; see [AEBounds], [ROBUST],
+   and [GCM-MU].
 
    Endpoints that limit the size of packets MAY use higher
    confidentiality and integrity limits; see Appendix B for details.
@@ -1891,7 +1891,7 @@ Table of Contents
 
 6.7.  Key Update Error Code
 
-   The KEY_UPDATE_ERROR error code (0xe) is used to signal errors
+   The KEY_UPDATE_ERROR error code (0x0e) is used to signal errors
    related to key updates.
 
 7.  Security of Initial Messages
@@ -1936,18 +1936,19 @@ Table of Contents
 
    When using ALPN, endpoints MUST immediately close a connection (see
    Section 10.2 of [QUIC-TRANSPORT]) with a no_application_protocol TLS
-   alert (QUIC error code 0x178; see Section 4.8) if an application
+   alert (QUIC error code 0x0178; see Section 4.8) if an application
    protocol is not negotiated.  While [ALPN] only specifies that servers
-   use this alert, QUIC clients MUST use error 0x178 to terminate a
+   use this alert, QUIC clients MUST use error 0x0178 to terminate a
    connection when ALPN negotiation fails.
 
    An application protocol MAY restrict the QUIC versions that it can
    operate over.  Servers MUST select an application protocol compatible
    with the QUIC version that the client has selected.  The server MUST
    treat the inability to select a compatible application protocol as a
-   connection error of type 0x178 (no_application_protocol).  Similarly,
-   a client MUST treat the selection of an incompatible application
-   protocol by a server as a connection error of type 0x178.
+   connection error of type 0x0178 (no_application_protocol).
+   Similarly, a client MUST treat the selection of an incompatible
+   application protocol by a server as a connection error of type
+   0x0178.
 
 8.2.  QUIC Transport Parameters Extension
 
@@ -1971,7 +1972,7 @@ Table of Contents
    MUST send the quic_transport_parameters extension; endpoints that
    receive ClientHello or EncryptedExtensions messages without the
    quic_transport_parameters extension MUST close the connection with an
-   error of type 0x16d (equivalent to a fatal TLS missing_extension
+   error of type 0x016d (equivalent to a fatal TLS missing_extension
    alert, see Section 4.8).
 
    Transport parameters become available prior to the completion of the
@@ -2129,7 +2130,7 @@ Table of Contents
    the protected fields.  Assuming that the AEAD acts as a PRF, if L
    bits are sampled, the odds of two ciphertext samples being identical
    approach 2^(-L/2), that is, the birthday bound.  For the algorithms
-   described in this document, that probability is one in 2^(64).
+   described in this document, that probability is one in 2^64.
 
    To prevent an attacker from modifying packet headers, the header is
    transitively authenticated using packet protection; the entire packet
@@ -2242,14 +2243,14 @@ Table of Contents
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", Work in Progress, Internet-Draft,
-              draft-ietf-quic-recovery, 12 March 2021,
+              draft-ietf-quic-recovery, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               recovery.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 12 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -2332,7 +2333,7 @@ Table of Contents
    [QUIC-HTTP]
               Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 12 March 2021,
+              quic-http, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 
@@ -2618,12 +2619,12 @@ Appendix B.  AEAD Algorithm Analysis
 
    The analyses that follow rely on a count of the number of block
    operations involved in producing each message.  This analysis is
-   performed for packets of size up to 2^(11) (l = 2^(7)) and 2^(16) (l
-   = 2^(12)).  A size of 2^(11) is expected to be a limit that matches
-   common deployment patterns, whereas the 2^(16) is the maximum
-   possible size of a QUIC packet.  Only endpoints that strictly limit
-   packet size can use the larger confidentiality and integrity limits
-   that are derived using the smaller packet size.
+   performed for packets of size up to 2^11 (l = 2^7) and 2^16 (l =
+   2^12).  A size of 2^11 is expected to be a limit that matches common
+   deployment patterns, whereas the 2^16 is the maximum possible size of
+   a QUIC packet.  Only endpoints that strictly limit packet size can
+   use the larger confidentiality and integrity limits that are derived
+   using the smaller packet size.
 
    For AEAD_AES_128_GCM and AEAD_AES_256_GCM, the message length (l) is
    the length of the associated data in blocks plus the length of the
@@ -2633,8 +2634,8 @@ Appendix B.  AEAD Algorithm Analysis
    the sum of: the length of the associated data in blocks, the length
    of the ciphertext in blocks, the length of the plaintext in blocks,
    plus 1.  In this analysis, this is simplified to a value of twice the
-   length of the packet in blocks (that is, "2l = 2^(8)" for packets
-   that are limited to 2^(11) bytes, or "2l = 2^(13)" otherwise).  This
+   length of the packet in blocks (that is, "2l = 2^8" for packets that
+   are limited to 2^11 bytes, or "2l = 2^13" otherwise).  This
    simplification is based on the packet containing all of the
    associated data and ciphertext.  This results in a 1 to 3 block
    overestimation of the number of operations per packet.
@@ -2665,15 +2666,15 @@ B.1.1.  Confidentiality Limit
 
    2 * (q * l)^2 / 2^n
 
-   For a target advantage of 2^(-57), this results in the relation:
+   For a target advantage of 2^-57, this results in the relation:
 
    q <= 2^35 / l
 
-   Thus, endpoints that do not send packets larger than 2^(11) bytes
-   cannot protect more than 2^(28) packets in a single connection
-   without causing an attacker to gain an larger advantage than the
-   target of 2^(-57).  The limit for endpoints that allow for the packet
-   size to be as large as 2^(16) is instead 2^(23).
+   Thus, endpoints that do not send packets larger than 2^11 bytes
+   cannot protect more than 2^28 packets in a single connection without
+   causing an attacker to gain an larger advantage than the target of
+   2^-57.  The limit for endpoints that allow for the packet size to be
+   as large as 2^16 is instead 2^23.
 
 B.1.2.  Integrity Limit
 
@@ -2683,18 +2684,17 @@ B.1.2.  Integrity Limit
    (1 / 2^(8 * n)) + ((2 * v) / 2^(2 * n))
            + ((2 * o * v) / 2^(k + n)) + (n * (v + (v * l)) / 2^k)
 
-   The goal is to limit this advantage to 2^(-57).  For
-   AEAD_AES_128_GCM, the fourth term in this inequality dominates the
-   rest, so the others can be removed without significant effect on the
-   result.  This produces the following approximation:
+   The goal is to limit this advantage to 2^-57.  For AEAD_AES_128_GCM,
+   the fourth term in this inequality dominates the rest, so the others
+   can be removed without significant effect on the result.  This
+   produces the following approximation:
 
    v <= 2^64 / l
 
    Endpoints that do not attempt to remove protection from packets
-   larger than 2^(11) bytes can attempt to remove protection from at
-   most 2^(57) packets.  Endpoints that do not restrict the size of
-   processed packets can attempt to remove protection from at most
-   2^(52) packets.
+   larger than 2^11 bytes can attempt to remove protection from at most
+   2^57 packets.  Endpoints that do not restrict the size of processed
+   packets can attempt to remove protection from at most 2^52 packets.
 
    For AEAD_AES_256_GCM, the same term dominates, but the larger value
    of k produces the following approximation:
@@ -2738,16 +2738,16 @@ B.2.  Analysis of AEAD_AES_128_CCM Usage Limits
 
    This produces a relation that combines both encryption and decryption
    attempts with the same limit as that produced by the theorem for
-   confidentiality alone.  For a target advantage of 2^(-57), this
-   results in:
+   confidentiality alone.  For a target advantage of 2^-57, this results
+   in:
 
    v + q <= 2^34.5 / l
 
    By setting "q = v", values for both confidentiality and integrity
-   limits can be produced.  Endpoints that limit packets to 2^(11) bytes
-   therefore have both confidentiality and integrity limits of 2^(26.5)
+   limits can be produced.  Endpoints that limit packets to 2^11 bytes
+   therefore have both confidentiality and integrity limits of 2^26.5
    packets.  Endpoints that do not restrict packet size have a limit of
-   2^(21.5).
+   2^21.5.
 
 Appendix C.  Change Log
 

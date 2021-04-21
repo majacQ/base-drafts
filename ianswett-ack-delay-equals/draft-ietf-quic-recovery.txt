@@ -5,8 +5,8 @@
 QUIC                                                     J. Iyengar, Ed.
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                           I. Swett, Ed.
-Expires: 13 September 2021                                        Google
-                                                           12 March 2021
+Expires: 23 October 2021                                          Google
+                                                           21 April 2021
 
 
                QUIC Loss Detection and Congestion Control
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 September 2021.
+   This Internet-Draft will expire on 23 October 2021.
 
 Copyright Notice
 
@@ -518,7 +518,9 @@ Table of Contents
    RTT samples for the network path are recorded in latest_rtt; see
    Section 5.1.  On the first RTT sample after initialization, the
    estimator is reset using that sample.  This ensures that the
-   estimator retains no history of past samples.
+   estimator retains no history of past samples.  Packets sent on other
+   paths do not contribute RTT samples to the current path, as described
+   in Section 9.4 of [QUIC-TRANSPORT].
 
    On the first RTT sample after initialization, smoothed_rtt and rttvar
    are set as follows:
@@ -532,7 +534,7 @@ Table of Contents
    if (handshake confirmed):
      ack_delay = min(ack_delay, max_ack_delay)
    adjusted_rtt = latest_rtt
-   if (min_rtt + ack_delay < latest_rtt):
+   if (latest_rtt >= min_rtt + ack_delay):
      adjusted_rtt = latest_rtt - ack_delay
    smoothed_rtt = 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
    rttvar_sample = abs(smoothed_rtt - adjusted_rtt)
@@ -760,9 +762,15 @@ Table of Contents
    data received, as specified in Section 8.1 of [QUIC-TRANSPORT].  If
    no additional data can be sent, the server's PTO timer MUST NOT be
    armed until datagrams have been received from the client, because
-   packets sent on PTO count against the anti-amplification limit.  Note
-   that the server could fail to validate the client's address even if
-   0-RTT is accepted.
+   packets sent on PTO count against the anti-amplification limit.
+
+   When the server receives a datagram from the client, the
+   amplification limit is increased and the server resets the PTO timer.
+   If the PTO timer is then set to a time in the past, it is executed
+   immediately.  Doing so avoids sending new 1-RTT packets prior to
+   packets critical to the completion of the handshake.  In particular,
+   this can happen when 0-RTT is accepted but the server fails to
+   validate the client's address.
 
    Since the server could be blocked until more datagrams are received
    from the client, it is the client's responsibility to send packets to
@@ -919,6 +927,10 @@ Table of Contents
    information to adjust the congestion controller or the rate of ACK-
    only packets being sent, but this document does not describe a
    mechanism for doing so.
+
+   The congestion controller is per path, so packets sent on other paths
+   do not alter the current path's congestion controller, as described
+   in Section 9.4 of [QUIC-TRANSPORT].
 
    The algorithm in this document specifies and uses the controller's
    congestion window in bytes.
@@ -1330,14 +1342,14 @@ Table of Contents
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
               QUIC", Work in Progress, Internet-Draft, draft-ietf-quic-
-              tls, 12 March 2021,
+              tls, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               tls.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 12 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -1618,6 +1630,10 @@ A.6.  On Receiving a Datagram
      // PTO timer to avoid deadlock.
      if (server was at anti-amplification limit):
        SetLossDetectionTimer()
+       if loss_detection_timer.timeout < now():
+         // Execute PTO if it would have expired
+         // while the amplification limit applied.
+         OnLossDetectionTimeout()
 
 A.7.  On Receiving an Acknowledgment
 
@@ -1689,7 +1705,7 @@ A.7.  On Receiving an Acknowledgment
 
      // Adjust for acknowledgment delay if plausible.
      adjusted_rtt = latest_rtt
-     if (latest_rtt > min_rtt + ack_delay):
+     if (latest_rtt >= min_rtt + ack_delay):
        adjusted_rtt = latest_rtt - ack_delay
 
      rttvar = 3/4 * rttvar + 1/4 * abs(smoothed_rtt - adjusted_rtt)
@@ -1722,8 +1738,8 @@ A.8.  Setting the Loss Detection Timer
    GetPtoTimeAndSpace():
      duration = (smoothed_rtt + max(4 * rttvar, kGranularity))
          * (2 ^ pto_count)
-     // Arm PTO from now when there are no inflight packets.
-     if (no in-flight packets):
+     // Anti-deadlock PTO starts from the current time
+     if (no ack-eliciting packets in flight):
        assert(!PeerCompletedAddressValidation())
        if (has handshake keys):
          return (now() + duration), Handshake
@@ -1732,7 +1748,7 @@ A.8.  Setting the Loss Detection Timer
      pto_timeout = infinite
      pto_space = Initial
      for space in [ Initial, Handshake, ApplicationData ]:
-       if (no in-flight packets in space):
+       if (no ack-eliciting packets in flight in space):
            continue;
        if (space == ApplicationData):
          // Skip Application Data until handshake confirmed.
@@ -1796,12 +1812,7 @@ A.9.  On Timeout
        SetLossDetectionTimer()
        return
 
-     if (bytes_in_flight > 0):
-       // PTO. Send new data if available, else retransmit old data.
-       // If neither is available, send a single PING frame.
-       _, pn_space = GetPtoTimeAndSpace()
-       SendOneOrTwoAckElicitingPackets(pn_space)
-     else:
+     if (no ack-eliciting packets in flight):
        assert(!PeerCompletedAddressValidation())
        // Client sends an anti-deadlock packet: Initial is padded
        // to earn more anti-amplification credit,
@@ -1810,6 +1821,11 @@ A.9.  On Timeout
          SendOneAckElicitingHandshakePacket()
        else:
          SendOneAckElicitingPaddedInitialPacket()
+     else:
+       // PTO. Send new data if available, else retransmit old data.
+       // If neither is available, send a single PING frame.
+       _, pn_space = GetPtoTimeAndSpace()
+       SendOneOrTwoAckElicitingPackets(pn_space)
 
      pto_count++
      SetLossDetectionTimer()

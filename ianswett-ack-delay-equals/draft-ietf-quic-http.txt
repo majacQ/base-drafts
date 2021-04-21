@@ -4,8 +4,8 @@
 
 QUIC                                                      M. Bishop, Ed.
 Internet-Draft                                                    Akamai
-Intended status: Standards Track                           18 March 2021
-Expires: 19 September 2021
+Intended status: Standards Track                           21 April 2021
+Expires: 23 October 2021
 
 
              Hypertext Transfer Protocol Version 3 (HTTP/3)
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 September 2021.
+   This Internet-Draft will expire on 23 October 2021.
 
 Copyright Notice
 
@@ -1478,8 +1478,8 @@ Table of Contents
 
 7.2.1.  DATA
 
-   DATA frames (type=0x0) convey arbitrary, variable-length sequences of
-   bytes associated with HTTP request or response content.
+   DATA frames (type=0x00) convey arbitrary, variable-length sequences
+   of bytes associated with HTTP request or response content.
 
    DATA frames MUST be associated with an HTTP request or response.  If
    a DATA frame is received on a control stream, the recipient MUST
@@ -1487,7 +1487,7 @@ Table of Contents
    Section 8.
 
    DATA Frame {
-     Type (i) = 0x0,
+     Type (i) = 0x00,
      Length (i),
      Data (..),
    }
@@ -1496,11 +1496,11 @@ Table of Contents
 
 7.2.2.  HEADERS
 
-   The HEADERS frame (type=0x1) is used to carry an HTTP field section,
+   The HEADERS frame (type=0x01) is used to carry an HTTP field section,
    encoded using QPACK.  See [QPACK] for more details.
 
    HEADERS Frame {
-     Type (i) = 0x1,
+     Type (i) = 0x01,
      Length (i),
      Encoded Field Section (..),
    }
@@ -1514,10 +1514,10 @@ Table of Contents
 
 7.2.3.  CANCEL_PUSH
 
-   The CANCEL_PUSH frame (type=0x3) is used to request cancellation of a
-   server push prior to the push stream being received.  The CANCEL_PUSH
-   frame identifies a server push by Push ID (see Section 4.4), encoded
-   as a variable-length integer.
+   The CANCEL_PUSH frame (type=0x03) is used to request cancellation of
+   a server push prior to the push stream being received.  The
+   CANCEL_PUSH frame identifies a server push by Push ID (see
+   Section 4.4), encoded as a variable-length integer.
 
    When a client sends CANCEL_PUSH, it is indicating that it does not
    wish to receive the promised resource.  The server SHOULD abort
@@ -1550,7 +1550,7 @@ Table of Contents
    treated as a connection error of type H3_FRAME_UNEXPECTED.
 
    CANCEL_PUSH Frame {
-     Type (i) = 0x3,
+     Type (i) = 0x03,
      Length (i),
      Push ID (i),
    }
@@ -1572,7 +1572,7 @@ Table of Contents
 
 7.2.4.  SETTINGS
 
-   The SETTINGS frame (type=0x4) conveys configuration parameters that
+   The SETTINGS frame (type=0x04) conveys configuration parameters that
    affect how endpoints communicate, such as preferences and constraints
    on peer behavior.  Individually, a SETTINGS parameter can also be
    referred to as a "setting"; the identifier and value of each setting
@@ -1618,7 +1618,7 @@ Table of Contents
    }
 
    SETTINGS Frame {
-     Type (i) = 0x4,
+     Type (i) = 0x04,
      Length (i),
      Setting (..) ...,
    }
@@ -1632,7 +1632,7 @@ Table of Contents
 
    The following settings are defined in HTTP/3:
 
-   SETTINGS_MAX_FIELD_SECTION_SIZE (0x6):  The default value is
+   SETTINGS_MAX_FIELD_SECTION_SIZE (0x06):  The default value is
       unlimited.  See Section 4.1.1.3 for usage.
 
    Setting identifiers of the format "0x1f * N + 0x21" for non-negative
@@ -1715,12 +1715,12 @@ Table of Contents
 
 7.2.5.  PUSH_PROMISE
 
-   The PUSH_PROMISE frame (type=0x5) is used to carry a promised request
-   header section from server to client on a request stream, as in
-   HTTP/2.
+   The PUSH_PROMISE frame (type=0x05) is used to carry a promised
+   request header section from server to client on a request stream, as
+   in HTTP/2.
 
    PUSH_PROMISE Frame {
-     Type (i) = 0x5,
+     Type (i) = 0x05,
      Length (i),
      Push ID (i),
      Encoded Field Section (..),
@@ -1774,7 +1774,7 @@ Table of Contents
 
 7.2.6.  GOAWAY
 
-   The GOAWAY frame (type=0x7) is used to initiate graceful shutdown of
+   The GOAWAY frame (type=0x07) is used to initiate graceful shutdown of
    an HTTP/3 connection by either endpoint.  GOAWAY allows an endpoint
    to stop accepting new requests or pushes while still finishing
    processing of previously received requests and pushes.  This enables
@@ -1782,7 +1782,7 @@ Table of Contents
    does not close a connection.
 
    GOAWAY Frame {
-     Type (i) = 0x7,
+     Type (i) = 0x07,
      Length (i),
      Stream ID/Push ID (..),
    }
@@ -1807,7 +1807,7 @@ Table of Contents
 
 7.2.7.  MAX_PUSH_ID
 
-   The MAX_PUSH_ID frame (type=0xd) is used by clients to control the
+   The MAX_PUSH_ID frame (type=0x0d) is used by clients to control the
    number of server pushes that the server can initiate.  This sets the
    maximum value for a Push ID that the server can use in PUSH_PROMISE
    and CANCEL_PUSH frames.  Consequently, this also limits the number of
@@ -1829,7 +1829,7 @@ Table of Contents
    as the server fulfills or cancels server pushes.
 
    MAX_PUSH_ID Frame {
-     Type (i) = 0xd,
+     Type (i) = 0x0d,
      Length (i),
      Push ID (i),
    }
@@ -1903,56 +1903,56 @@ Table of Contents
    terminating streams, aborting reading of streams, or immediately
    closing HTTP/3 connections.
 
-   H3_NO_ERROR (0x100):  No error.  This is used when the connection or
+   H3_NO_ERROR (0x0100):  No error.  This is used when the connection or
       stream needs to be closed, but there is no error to signal.
 
-   H3_GENERAL_PROTOCOL_ERROR (0x101):  Peer violated protocol
+   H3_GENERAL_PROTOCOL_ERROR (0x0101):  Peer violated protocol
       requirements in a way that does not match a more specific error
       code, or endpoint declines to use the more specific error code.
 
-   H3_INTERNAL_ERROR (0x102):  An internal error has occurred in the
+   H3_INTERNAL_ERROR (0x0102):  An internal error has occurred in the
       HTTP stack.
 
-   H3_STREAM_CREATION_ERROR (0x103):  The endpoint detected that its
+   H3_STREAM_CREATION_ERROR (0x0103):  The endpoint detected that its
       peer created a stream that it will not accept.
 
-   H3_CLOSED_CRITICAL_STREAM (0x104):  A stream required by the HTTP/3
+   H3_CLOSED_CRITICAL_STREAM (0x0104):  A stream required by the HTTP/3
       connection was closed or reset.
 
-   H3_FRAME_UNEXPECTED (0x105):  A frame was received that was not
+   H3_FRAME_UNEXPECTED (0x0105):  A frame was received that was not
       permitted in the current state or on the current stream.
 
-   H3_FRAME_ERROR (0x106):  A frame that fails to satisfy layout
+   H3_FRAME_ERROR (0x0106):  A frame that fails to satisfy layout
       requirements or with an invalid size was received.
 
-   H3_EXCESSIVE_LOAD (0x107):  The endpoint detected that its peer is
+   H3_EXCESSIVE_LOAD (0x0107):  The endpoint detected that its peer is
       exhibiting a behavior that might be generating excessive load.
 
-   H3_ID_ERROR (0x108):  A Stream ID or Push ID was used incorrectly,
+   H3_ID_ERROR (0x0108):  A Stream ID or Push ID was used incorrectly,
       such as exceeding a limit, reducing a limit, or being reused.
 
-   H3_SETTINGS_ERROR (0x109):  An endpoint detected an error in the
+   H3_SETTINGS_ERROR (0x0109):  An endpoint detected an error in the
       payload of a SETTINGS frame.
 
-   H3_MISSING_SETTINGS (0x10a):  No SETTINGS frame was received at the
+   H3_MISSING_SETTINGS (0x010a):  No SETTINGS frame was received at the
       beginning of the control stream.
 
-   H3_REQUEST_REJECTED (0x10b):  A server rejected a request without
+   H3_REQUEST_REJECTED (0x010b):  A server rejected a request without
       performing any application processing.
 
-   H3_REQUEST_CANCELLED (0x10c):  The request or its response (including
-      pushed response) is cancelled.
+   H3_REQUEST_CANCELLED (0x010c):  The request or its response
+      (including pushed response) is cancelled.
 
-   H3_REQUEST_INCOMPLETE (0x10d):  The client's stream terminated
+   H3_REQUEST_INCOMPLETE (0x010d):  The client's stream terminated
       without containing a fully-formed request.
 
-   H3_MESSAGE_ERROR (0x10e):  An HTTP message was malformed and cannot
+   H3_MESSAGE_ERROR (0x010e):  An HTTP message was malformed and cannot
       be processed.
 
-   H3_CONNECT_ERROR (0x10f):  The TCP connection established in response
-      to a CONNECT request was reset or abnormally closed.
+   H3_CONNECT_ERROR (0x010f):  The TCP connection established in
+      response to a CONNECT request was reset or abnormally closed.
 
-   H3_VERSION_FALLBACK (0x110):  The requested operation cannot be
+   H3_VERSION_FALLBACK (0x0110):  The requested operation cannot be
       served over HTTP/3.  The peer should retry over HTTP/1.1.
 
    Error codes of the format "0x1f * N + 0x21" for non-negative integer
@@ -2041,8 +2041,8 @@ Table of Contents
 
    Similarly, HTTP/3 can transport field values that are not valid.
    While most values that can be encoded will not alter field parsing,
-   carriage return (CR, ASCII 0xd), line feed (LF, ASCII 0xa), and the
-   zero character (NUL, ASCII 0x0) might be exploited by an attacker if
+   carriage return (CR, ASCII 0x0d), line feed (LF, ASCII 0x0d), and the
+   zero character (NUL, ASCII 0x0d) might be exploited by an attacker if
    they are translated verbatim.  Any request or response that contains
    a character not permitted in a field value MUST be treated as
    malformed (Section 4.1.3).  Valid characters are defined by the
@@ -2324,27 +2324,27 @@ Table of Contents
                  +==============+=======+===============+
                  | Frame Type   | Value | Specification |
                  +==============+=======+===============+
-                 | DATA         |  0x0  | Section 7.2.1 |
+                 | DATA         |  0x00 | Section 7.2.1 |
                  +--------------+-------+---------------+
-                 | HEADERS      |  0x1  | Section 7.2.2 |
+                 | HEADERS      |  0x01 | Section 7.2.2 |
                  +--------------+-------+---------------+
-                 | Reserved     |  0x2  | N/A           |
+                 | Reserved     |  0x02 | N/A           |
                  +--------------+-------+---------------+
-                 | CANCEL_PUSH  |  0x3  | Section 7.2.3 |
+                 | CANCEL_PUSH  |  0x03 | Section 7.2.3 |
                  +--------------+-------+---------------+
-                 | SETTINGS     |  0x4  | Section 7.2.4 |
+                 | SETTINGS     |  0x04 | Section 7.2.4 |
                  +--------------+-------+---------------+
-                 | PUSH_PROMISE |  0x5  | Section 7.2.5 |
+                 | PUSH_PROMISE |  0x05 | Section 7.2.5 |
                  +--------------+-------+---------------+
-                 | Reserved     |  0x6  | N/A           |
+                 | Reserved     |  0x06 | N/A           |
                  +--------------+-------+---------------+
-                 | GOAWAY       |  0x7  | Section 7.2.6 |
+                 | GOAWAY       |  0x07 | Section 7.2.6 |
                  +--------------+-------+---------------+
-                 | Reserved     |  0x8  | N/A           |
+                 | Reserved     |  0x08 | N/A           |
                  +--------------+-------+---------------+
-                 | Reserved     |  0x9  | N/A           |
+                 | Reserved     |  0x09 | N/A           |
                  +--------------+-------+---------------+
-                 | MAX_PUSH_ID  |  0xd  | Section 7.2.7 |
+                 | MAX_PUSH_ID  |  0x0d | Section 7.2.7 |
                  +--------------+-------+---------------+
 
                    Table 2: Initial HTTP/3 Frame Types
@@ -2387,17 +2387,17 @@ Table of Contents
      +========================+=======+=================+===========+
      | Setting Name           | Value | Specification   | Default   |
      +========================+=======+=================+===========+
-     | Reserved               |  0x0  | N/A             | N/A       |
+     | Reserved               |  0x00 | N/A             | N/A       |
      +------------------------+-------+-----------------+-----------+
-     | Reserved               |  0x2  | N/A             | N/A       |
+     | Reserved               |  0x02 | N/A             | N/A       |
      +------------------------+-------+-----------------+-----------+
-     | Reserved               |  0x3  | N/A             | N/A       |
+     | Reserved               |  0x03 | N/A             | N/A       |
      +------------------------+-------+-----------------+-----------+
-     | Reserved               |  0x4  | N/A             | N/A       |
+     | Reserved               |  0x04 | N/A             | N/A       |
      +------------------------+-------+-----------------+-----------+
-     | Reserved               |  0x5  | N/A             | N/A       |
+     | Reserved               |  0x05 | N/A             | N/A       |
      +------------------------+-------+-----------------+-----------+
-     | MAX_FIELD_SECTION_SIZE |  0x6  | Section 7.2.4.1 | Unlimited |
+     | MAX_FIELD_SECTION_SIZE |  0x06 | Section 7.2.4.1 | Unlimited |
      +------------------------+-------+-----------------+-----------+
 
                      Table 3: Initial HTTP/3 Settings
@@ -2437,80 +2437,81 @@ Table of Contents
    codes were selected from the range that operates on a Specification
    Required policy to avoid collisions with HTTP/2 error codes.
 
-   +===========================+=======+==============+===============+
-   | Name                      | Value | Description  | Specification |
-   +===========================+=======+==============+===============+
-   | H3_NO_ERROR               | 0x100 | No error     | Section 8.1   |
-   +---------------------------+-------+--------------+---------------+
-   | H3_GENERAL_PROTOCOL_ERROR | 0x101 | General      | Section 8.1   |
-   |                           |       | protocol     |               |
-   |                           |       | error        |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_INTERNAL_ERROR         | 0x102 | Internal     | Section 8.1   |
-   |                           |       | error        |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_STREAM_CREATION_ERROR  | 0x103 | Stream       | Section 8.1   |
-   |                           |       | creation     |               |
-   |                           |       | error        |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_CLOSED_CRITICAL_STREAM | 0x104 | Critical     | Section 8.1   |
-   |                           |       | stream was   |               |
-   |                           |       | closed       |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_FRAME_UNEXPECTED       | 0x105 | Frame not    | Section 8.1   |
-   |                           |       | permitted in |               |
-   |                           |       | the current  |               |
-   |                           |       | state        |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_FRAME_ERROR            | 0x106 | Frame        | Section 8.1   |
-   |                           |       | violated     |               |
-   |                           |       | layout or    |               |
-   |                           |       | size rules   |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_EXCESSIVE_LOAD         | 0x107 | Peer         | Section 8.1   |
-   |                           |       | generating   |               |
-   |                           |       | excessive    |               |
-   |                           |       | load         |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_ID_ERROR               | 0x108 | An           | Section 8.1   |
-   |                           |       | identifier   |               |
-   |                           |       | was used     |               |
-   |                           |       | incorrectly  |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_SETTINGS_ERROR         | 0x109 | SETTINGS     | Section 8.1   |
-   |                           |       | frame        |               |
-   |                           |       | contained    |               |
-   |                           |       | invalid      |               |
-   |                           |       | values       |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_MISSING_SETTINGS       | 0x10a | No SETTINGS  | Section 8.1   |
-   |                           |       | frame        |               |
-   |                           |       | received     |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_REQUEST_REJECTED       | 0x10b | Request not  | Section 8.1   |
-   |                           |       | processed    |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_REQUEST_CANCELLED      | 0x10c | Data no      | Section 8.1   |
-   |                           |       | longer       |               |
-   |                           |       | needed       |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_REQUEST_INCOMPLETE     | 0x10d | Stream       | Section 8.1   |
-   |                           |       | terminated   |               |
-   |                           |       | early        |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_MESSAGE_ERROR          | 0x10e | Malformed    | Section 8.1   |
-   |                           |       | message      |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_CONNECT_ERROR          | 0x10f | TCP reset or | Section 8.1   |
-   |                           |       | error on     |               |
-   |                           |       | CONNECT      |               |
-   |                           |       | request      |               |
-   +---------------------------+-------+--------------+---------------+
-   | H3_VERSION_FALLBACK       | 0x110 | Retry over   | Section 8.1   |
-   |                           |       | HTTP/1.1     |               |
-   +---------------------------+-------+--------------+---------------+
+   +===========================+========+==============+===============+
+   | Name                      | Value  | Description  | Specification |
+   +===========================+========+==============+===============+
+   | H3_NO_ERROR               | 0x0100 | No error     | Section 8.1   |
+   +---------------------------+--------+--------------+---------------+
+   | H3_GENERAL_PROTOCOL_ERROR | 0x0101 | General      | Section 8.1   |
+   |                           |        | protocol     |               |
+   |                           |        | error        |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_INTERNAL_ERROR         | 0x0102 | Internal     | Section 8.1   |
+   |                           |        | error        |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_STREAM_CREATION_ERROR  | 0x0103 | Stream       | Section 8.1   |
+   |                           |        | creation     |               |
+   |                           |        | error        |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_CLOSED_CRITICAL_STREAM | 0x0104 | Critical     | Section 8.1   |
+   |                           |        | stream was   |               |
+   |                           |        | closed       |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_FRAME_UNEXPECTED       | 0x0105 | Frame not    | Section 8.1   |
+   |                           |        | permitted    |               |
+   |                           |        | in the       |               |
+   |                           |        | current      |               |
+   |                           |        | state        |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_FRAME_ERROR            | 0x0106 | Frame        | Section 8.1   |
+   |                           |        | violated     |               |
+   |                           |        | layout or    |               |
+   |                           |        | size rules   |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_EXCESSIVE_LOAD         | 0x0107 | Peer         | Section 8.1   |
+   |                           |        | generating   |               |
+   |                           |        | excessive    |               |
+   |                           |        | load         |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_ID_ERROR               | 0x0108 | An           | Section 8.1   |
+   |                           |        | identifier   |               |
+   |                           |        | was used     |               |
+   |                           |        | incorrectly  |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_SETTINGS_ERROR         | 0x0109 | SETTINGS     | Section 8.1   |
+   |                           |        | frame        |               |
+   |                           |        | contained    |               |
+   |                           |        | invalid      |               |
+   |                           |        | values       |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_MISSING_SETTINGS       | 0x010a | No SETTINGS  | Section 8.1   |
+   |                           |        | frame        |               |
+   |                           |        | received     |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_REQUEST_REJECTED       | 0x010b | Request not  | Section 8.1   |
+   |                           |        | processed    |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_REQUEST_CANCELLED      | 0x010c | Data no      | Section 8.1   |
+   |                           |        | longer       |               |
+   |                           |        | needed       |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_REQUEST_INCOMPLETE     | 0x010d | Stream       | Section 8.1   |
+   |                           |        | terminated   |               |
+   |                           |        | early        |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_MESSAGE_ERROR          | 0x010e | Malformed    | Section 8.1   |
+   |                           |        | message      |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_CONNECT_ERROR          | 0x010f | TCP reset    | Section 8.1   |
+   |                           |        | or error on  |               |
+   |                           |        | CONNECT      |               |
+   |                           |        | request      |               |
+   +---------------------------+--------+--------------+---------------+
+   | H3_VERSION_FALLBACK       | 0x0110 | Retry over   | Section 8.1   |
+   |                           |        | HTTP/1.1     |               |
+   +---------------------------+--------+--------------+---------------+
 
-                   Table 4: Initial HTTP/3 Error Codes
+                    Table 4: Initial HTTP/3 Error Codes
 
    Each code of the format "0x1f * N + 0x21" for non-negative integer
    values of N (that is, 0x21, 0x40, ..., through 0x3ffffffffffffffe)
@@ -2568,9 +2569,9 @@ Table of Contents
 
    [CACHING]  Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
               Caching", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-cache-14, 12 January 2021,
+              httpbis-cache-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              cache-14.txt>.
+              cache-15.txt>.
 
    [HTTP-REPLAY]
               Thomson, M., Nottingham, M., and W. Tarreau, "Using Early
@@ -2579,14 +2580,14 @@ Table of Contents
 
    [QPACK]    Krasic, C., Bishop, M., and A. Frindell, Ed., "QPACK:
               Header Compression for HTTP over QUIC", Work in Progress,
-              Internet-Draft, draft-ietf-quic-qpack, 18 March 2021,
+              Internet-Draft, draft-ietf-quic-qpack, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               qpack.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 18 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -2626,9 +2627,9 @@ Table of Contents
    [SEMANTICS]
               Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
               Semantics", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-semantics-14, 12 January 2021,
+              httpbis-semantics-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              semantics-14.txt>.
+              semantics-15.txt>.
 
    [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -2654,9 +2655,9 @@ Table of Contents
 
    [HTTP11]   Fielding, R. T., Nottingham, M., and J. Reschke,
               "HTTP/1.1", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-messaging-14, 12 January 2021,
+              httpbis-messaging-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              messaging-14.txt>.
+              messaging-15.txt>.
 
    [HTTP2]    Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
               Transfer Protocol Version 2 (HTTP/2)", RFC 7540,
@@ -2814,38 +2815,38 @@ A.2.4.  Guidance for New Frame Type Definitions
 
 A.2.5.  Comparison Between HTTP/2 and HTTP/3 Frame Types
 
-   DATA (0x0):  Padding is not defined in HTTP/3 frames.  See
+   DATA (0x00):  Padding is not defined in HTTP/3 frames.  See
       Section 7.2.1.
 
-   HEADERS (0x1):  The PRIORITY region of HEADERS is not defined in
+   HEADERS (0x01):  The PRIORITY region of HEADERS is not defined in
       HTTP/3 frames.  Padding is not defined in HTTP/3 frames.  See
       Section 7.2.2.
 
-   PRIORITY (0x2):  As described in Appendix A.2.1, HTTP/3 does not
+   PRIORITY (0x02):  As described in Appendix A.2.1, HTTP/3 does not
       provide a means of signaling priority.
 
-   RST_STREAM (0x3):  RST_STREAM frames do not exist in HTTP/3, since
+   RST_STREAM (0x03):  RST_STREAM frames do not exist in HTTP/3, since
       QUIC provides stream lifecycle management.  The same code point is
       used for the CANCEL_PUSH frame (Section 7.2.3).
 
-   SETTINGS (0x4):  SETTINGS frames are sent only at the beginning of
+   SETTINGS (0x04):  SETTINGS frames are sent only at the beginning of
       the connection.  See Section 7.2.4 and Appendix A.3.
 
-   PUSH_PROMISE (0x5):  The PUSH_PROMISE frame does not reference a
+   PUSH_PROMISE (0x05):  The PUSH_PROMISE frame does not reference a
       stream; instead the push stream references the PUSH_PROMISE frame
       using a Push ID.  See Section 7.2.5.
 
-   PING (0x6):  PING frames do not exist in HTTP/3, as QUIC provides
+   PING (0x06):  PING frames do not exist in HTTP/3, as QUIC provides
       equivalent functionality.
 
-   GOAWAY (0x7):  GOAWAY does not contain an error code.  In the client
+   GOAWAY (0x07):  GOAWAY does not contain an error code.  In the client
       to server direction, it carries a Push ID instead of a server
       initiated stream ID.  See Section 7.2.6.
 
-   WINDOW_UPDATE (0x8):  WINDOW_UPDATE frames do not exist in HTTP/3,
+   WINDOW_UPDATE (0x08):  WINDOW_UPDATE frames do not exist in HTTP/3,
       since QUIC provides flow control.
 
-   CONTINUATION (0x9):  CONTINUATION frames do not exist in HTTP/3;
+   CONTINUATION (0x09):  CONTINUATION frames do not exist in HTTP/3;
       instead, larger HEADERS/PUSH_PROMISE frames than HTTP/2 are
       permitted.
 
@@ -2872,32 +2873,32 @@ A.3.  HTTP/2 SETTINGS Parameters
 
    Below is a listing of how each HTTP/2 SETTINGS parameter is mapped:
 
-   SETTINGS_HEADER_TABLE_SIZE (0x1):  See [QPACK].
+   SETTINGS_HEADER_TABLE_SIZE (0x01):  See [QPACK].
 
-   SETTINGS_ENABLE_PUSH (0x2):  This is removed in favor of the
+   SETTINGS_ENABLE_PUSH (0x02):  This is removed in favor of the
       MAX_PUSH_ID frame, which provides a more granular control over
-      server push.  Specifying a setting with the identifier 0x2
+      server push.  Specifying a setting with the identifier 0x02
       (corresponding to the SETTINGS_ENABLE_PUSH parameter) in the
       HTTP/3 SETTINGS frame is an error.
 
-   SETTINGS_MAX_CONCURRENT_STREAMS (0x3):  QUIC controls the largest
+   SETTINGS_MAX_CONCURRENT_STREAMS (0x03):  QUIC controls the largest
       open Stream ID as part of its flow control logic.  Specifying a
-      setting with the identifier 0x3 (corresponding to the
+      setting with the identifier 0x03 (corresponding to the
       SETTINGS_MAX_CONCURRENT_STREAMS parameter) in the HTTP/3 SETTINGS
       frame is an error.
 
-   SETTINGS_INITIAL_WINDOW_SIZE (0x4):  QUIC requires both stream and
+   SETTINGS_INITIAL_WINDOW_SIZE (0x04):  QUIC requires both stream and
       connection flow control window sizes to be specified in the
       initial transport handshake.  Specifying a setting with the
-      identifier 0x4 (corresponding to the SETTINGS_INITIAL_WINDOW_SIZE
+      identifier 0x04 (corresponding to the SETTINGS_INITIAL_WINDOW_SIZE
       parameter) in the HTTP/3 SETTINGS frame is an error.
 
-   SETTINGS_MAX_FRAME_SIZE (0x5):  This setting has no equivalent in
-      HTTP/3.  Specifying a setting with the identifier 0x5
+   SETTINGS_MAX_FRAME_SIZE (0x05):  This setting has no equivalent in
+      HTTP/3.  Specifying a setting with the identifier 0x05
       (corresponding to the SETTINGS_MAX_FRAME_SIZE parameter) in the
       HTTP/3 SETTINGS frame is an error.
 
-   SETTINGS_MAX_HEADER_LIST_SIZE (0x6):  This setting identifier has
+   SETTINGS_MAX_HEADER_LIST_SIZE (0x06):  This setting identifier has
       been renamed SETTINGS_MAX_FIELD_SECTION_SIZE.
 
    In HTTP/3, setting values are variable-length integers (6, 14, 30, or
@@ -2927,44 +2928,44 @@ A.4.  HTTP/2 Error Codes
    The HTTP/2 error codes defined in Section 7 of [HTTP2] logically map
    to the HTTP/3 error codes as follows:
 
-   NO_ERROR (0x0):  H3_NO_ERROR in Section 8.1.
+   NO_ERROR (0x00):  H3_NO_ERROR in Section 8.1.
 
-   PROTOCOL_ERROR (0x1):  This is mapped to H3_GENERAL_PROTOCOL_ERROR
+   PROTOCOL_ERROR (0x01):  This is mapped to H3_GENERAL_PROTOCOL_ERROR
       except in cases where more specific error codes have been defined.
       Such cases include H3_FRAME_UNEXPECTED, H3_MESSAGE_ERROR, and
       H3_CLOSED_CRITICAL_STREAM defined in Section 8.1.
 
-   INTERNAL_ERROR (0x2):  H3_INTERNAL_ERROR in Section 8.1.
+   INTERNAL_ERROR (0x02):  H3_INTERNAL_ERROR in Section 8.1.
 
-   FLOW_CONTROL_ERROR (0x3):  Not applicable, since QUIC handles flow
+   FLOW_CONTROL_ERROR (0x03):  Not applicable, since QUIC handles flow
       control.
 
-   SETTINGS_TIMEOUT (0x4):  Not applicable, since no acknowledgment of
+   SETTINGS_TIMEOUT (0x04):  Not applicable, since no acknowledgment of
       SETTINGS is defined.
 
-   STREAM_CLOSED (0x5):  Not applicable, since QUIC handles stream
+   STREAM_CLOSED (0x05):  Not applicable, since QUIC handles stream
       management.
 
-   FRAME_SIZE_ERROR (0x6):  H3_FRAME_ERROR error code defined in
+   FRAME_SIZE_ERROR (0x06):  H3_FRAME_ERROR error code defined in
       Section 8.1.
 
-   REFUSED_STREAM (0x7):  H3_REQUEST_REJECTED (in Section 8.1) is used
+   REFUSED_STREAM (0x07):  H3_REQUEST_REJECTED (in Section 8.1) is used
       to indicate that a request was not processed.  Otherwise, not
       applicable because QUIC handles stream management.
 
-   CANCEL (0x8):  H3_REQUEST_CANCELLED in Section 8.1.
+   CANCEL (0x08):  H3_REQUEST_CANCELLED in Section 8.1.
 
-   COMPRESSION_ERROR (0x9):  Multiple error codes are defined in
+   COMPRESSION_ERROR (0x09):  Multiple error codes are defined in
       [QPACK].
 
-   CONNECT_ERROR (0xa):  H3_CONNECT_ERROR in Section 8.1.
+   CONNECT_ERROR (0x0a):  H3_CONNECT_ERROR in Section 8.1.
 
-   ENHANCE_YOUR_CALM (0xb):  H3_EXCESSIVE_LOAD in Section 8.1.
+   ENHANCE_YOUR_CALM (0x0b):  H3_EXCESSIVE_LOAD in Section 8.1.
 
-   INADEQUATE_SECURITY (0xc):  Not applicable, since QUIC is assumed to
+   INADEQUATE_SECURITY (0x0c):  Not applicable, since QUIC is assumed to
       provide sufficient security on all connections.
 
-   HTTP_1_1_REQUIRED (0xd):  H3_VERSION_FALLBACK in Section 8.1.
+   HTTP_1_1_REQUIRED (0x0d):  H3_VERSION_FALLBACK in Section 8.1.
 
    Error codes need to be defined for HTTP/2 and HTTP/3 separately.  See
    Section 11.2.3.
@@ -3170,7 +3171,7 @@ B.13.  Since draft-ietf-quic-http-20
 
 B.14.  Since draft-ietf-quic-http-19
 
-   *  SETTINGS_NUM_PLACEHOLDERS is 0x9 (#2443,#2530)
+   *  SETTINGS_NUM_PLACEHOLDERS is 0x09 (#2443,#2530)
 
    *  Non-zero bits in the Empty field of the PRIORITY frame MAY be
       treated as an error (#2501)
