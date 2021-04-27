@@ -5,8 +5,8 @@
 QUIC                                                     M. Thomson, Ed.
 Internet-Draft                                                   Mozilla
 Intended status: Standards Track                          S. Turner, Ed.
-Expires: 24 September 2021                                         sn3rd
-                                                           23 March 2021
+Expires: 29 October 2021                                           sn3rd
+                                                           27 April 2021
 
 
                         Using TLS to Secure QUIC
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 September 2021.
+   This Internet-Draft will expire on 29 October 2021.
 
 Copyright Notice
 
@@ -707,7 +707,7 @@ Table of Contents
    its first cryptographic handshake message, which for TLS is the
    ClientHello.  Servers might need to parse the entire ClientHello
    (e.g., to access extensions such as Server Name Identification (SNI)
-   or Application Layer Protocol Negotiation (ALPN)) in order to decide
+   or Application-Layer Protocol Negotiation (ALPN)) in order to decide
    whether to accept the new incoming QUIC connection.  If the
    ClientHello spans multiple Initial packets, such servers would need
    to buffer the first received fragments, which could consume excessive
@@ -921,9 +921,9 @@ Table of Contents
    defined in Section 6 of [TLS13].
 
    A TLS alert is converted into a QUIC connection error.  The
-   AlertDescription value is added to 0x100 to produce a QUIC error code
-   from the range reserved for CRYPTO_ERROR.  The resulting value is
-   sent in a QUIC CONNECTION_CLOSE frame of type 0x1c.
+   AlertDescription value is added to 0x0100 to produce a QUIC error
+   code from the range reserved for CRYPTO_ERROR.  The resulting value
+   is sent in a QUIC CONNECTION_CLOSE frame of type 0x1c.
 
    QUIC is only able to convey an alert level of "fatal".  In TLS 1.3,
    the only existing uses for the "warning" level are to signal
@@ -935,8 +935,8 @@ Table of Contents
    QUIC permits the use of a generic code in place of a specific error
    code; see Section 11 of [QUIC-TRANSPORT].  For TLS alerts, this
    includes replacing any alert with a generic alert, such as
-   handshake_failure (0x128 in QUIC).  Endpoints MAY use a generic error
-   code to avoid possibly exposing confidential information.
+   handshake_failure (0x0128 in QUIC).  Endpoints MAY use a generic
+   error code to avoid possibly exposing confidential information.
 
 4.9.  Discarding Unused Keys
 
@@ -1605,7 +1605,7 @@ Table of Contents
    on KeyUpdate messages sent using 1-RTT encryption keys.  Endpoints
    MUST NOT send a TLS KeyUpdate message.  Endpoints MUST treat the
    receipt of a TLS KeyUpdate message as a connection error of type
-   0x10a, equivalent to a fatal TLS alert of unexpected_message; see
+   0x010a, equivalent to a fatal TLS alert of unexpected_message; see
    Section 4.8.
 
    Figure 9 shows a key update process, where the initial set of keys
@@ -1891,7 +1891,7 @@ Table of Contents
 
 6.7.  Key Update Error Code
 
-   The KEY_UPDATE_ERROR error code (0xe) is used to signal errors
+   The KEY_UPDATE_ERROR error code (0x0e) is used to signal errors
    related to key updates.
 
 7.  Security of Initial Messages
@@ -1936,18 +1936,19 @@ Table of Contents
 
    When using ALPN, endpoints MUST immediately close a connection (see
    Section 10.2 of [QUIC-TRANSPORT]) with a no_application_protocol TLS
-   alert (QUIC error code 0x178; see Section 4.8) if an application
+   alert (QUIC error code 0x0178; see Section 4.8) if an application
    protocol is not negotiated.  While [ALPN] only specifies that servers
-   use this alert, QUIC clients MUST use error 0x178 to terminate a
+   use this alert, QUIC clients MUST use error 0x0178 to terminate a
    connection when ALPN negotiation fails.
 
    An application protocol MAY restrict the QUIC versions that it can
    operate over.  Servers MUST select an application protocol compatible
    with the QUIC version that the client has selected.  The server MUST
    treat the inability to select a compatible application protocol as a
-   connection error of type 0x178 (no_application_protocol).  Similarly,
-   a client MUST treat the selection of an incompatible application
-   protocol by a server as a connection error of type 0x178.
+   connection error of type 0x0178 (no_application_protocol).
+   Similarly, a client MUST treat the selection of an incompatible
+   application protocol by a server as a connection error of type
+   0x0178.
 
 8.2.  QUIC Transport Parameters Extension
 
@@ -1971,7 +1972,7 @@ Table of Contents
    MUST send the quic_transport_parameters extension; endpoints that
    receive ClientHello or EncryptedExtensions messages without the
    quic_transport_parameters extension MUST close the connection with an
-   error of type 0x16d (equivalent to a fatal TLS missing_extension
+   error of type 0x016d (equivalent to a fatal TLS missing_extension
    alert, see Section 4.8).
 
    Transport parameters become available prior to the completion of the
@@ -2242,14 +2243,14 @@ Table of Contents
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", Work in Progress, Internet-Draft,
-              draft-ietf-quic-recovery, 23 March 2021,
+              draft-ietf-quic-recovery, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               recovery.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 23 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -2332,7 +2333,7 @@ Table of Contents
    [QUIC-HTTP]
               Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 23 March 2021,
+              quic-http, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 

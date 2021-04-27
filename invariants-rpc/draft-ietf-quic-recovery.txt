@@ -5,8 +5,8 @@
 QUIC                                                     J. Iyengar, Ed.
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                           I. Swett, Ed.
-Expires: 25 September 2021                                        Google
-                                                           24 March 2021
+Expires: 29 October 2021                                          Google
+                                                           27 April 2021
 
 
                QUIC Loss Detection and Congestion Control
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 September 2021.
+   This Internet-Draft will expire on 29 October 2021.
 
 Copyright Notice
 
@@ -1342,14 +1342,14 @@ Table of Contents
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
               QUIC", Work in Progress, Internet-Draft, draft-ietf-quic-
-              tls, 24 March 2021,
+              tls, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               tls.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 24 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -1738,8 +1738,8 @@ A.8.  Setting the Loss Detection Timer
    GetPtoTimeAndSpace():
      duration = (smoothed_rtt + max(4 * rttvar, kGranularity))
          * (2 ^ pto_count)
-     // Arm PTO from now when there are no inflight packets.
-     if (no in-flight packets):
+     // Anti-deadlock PTO starts from the current time
+     if (no ack-eliciting packets in flight):
        assert(!PeerCompletedAddressValidation())
        if (has handshake keys):
          return (now() + duration), Handshake
@@ -1748,7 +1748,7 @@ A.8.  Setting the Loss Detection Timer
      pto_timeout = infinite
      pto_space = Initial
      for space in [ Initial, Handshake, ApplicationData ]:
-       if (no in-flight packets in space):
+       if (no ack-eliciting packets in flight in space):
            continue;
        if (space == ApplicationData):
          // Skip Application Data until handshake confirmed.
@@ -1812,12 +1812,7 @@ A.9.  On Timeout
        SetLossDetectionTimer()
        return
 
-     if (bytes_in_flight > 0):
-       // PTO. Send new data if available, else retransmit old data.
-       // If neither is available, send a single PING frame.
-       _, pn_space = GetPtoTimeAndSpace()
-       SendOneOrTwoAckElicitingPackets(pn_space)
-     else:
+     if (no ack-eliciting packets in flight):
        assert(!PeerCompletedAddressValidation())
        // Client sends an anti-deadlock packet: Initial is padded
        // to earn more anti-amplification credit,
@@ -1826,6 +1821,11 @@ A.9.  On Timeout
          SendOneAckElicitingHandshakePacket()
        else:
          SendOneAckElicitingPaddedInitialPacket()
+     else:
+       // PTO. Send new data if available, else retransmit old data.
+       // If neither is available, send a single PING frame.
+       _, pn_space = GetPtoTimeAndSpace()
+       SendOneOrTwoAckElicitingPackets(pn_space)
 
      pto_count++
      SetLossDetectionTimer()

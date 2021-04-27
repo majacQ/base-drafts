@@ -5,10 +5,10 @@
 QUIC                                                           C. Krasic
 Internet-Draft                                                   Netflix
 Intended status: Standards Track                               M. Bishop
-Expires: 25 September 2021                           Akamai Technologies
+Expires: 29 October 2021                             Akamai Technologies
                                                         A. Frindell, Ed.
                                                                 Facebook
-                                                           24 March 2021
+                                                           27 April 2021
 
 
                   QPACK: Header Compression for HTTP/3
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 September 2021.
+   This Internet-Draft will expire on 29 October 2021.
 
 Copyright Notice
 
@@ -1490,6 +1490,11 @@ Table of Contents
 
 8.  IANA Considerations
 
+   This document makes multiple registrations in the registries defined
+   by [HTTP3].  The allocations created by this document are all
+   assigned permanent status and list a change controller of the IETF
+   and a contact of the HTTP working group (ietf-http-wg@w3.org).
+
 8.1.  Settings Registration
 
    This document specifies two settings.  The entries in the following
@@ -1555,14 +1560,14 @@ Table of Contents
 
    [HTTP3]    Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 24 March 2021,
+              quic-http, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 24 March 2021,
+              Internet-Draft, draft-ietf-quic-transport, 27 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               transport.txt>.
 
@@ -1586,9 +1591,9 @@ Table of Contents
    [SEMANTICS]
               Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
               Semantics", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-semantics-14, 12 January 2021,
+              httpbis-semantics-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              semantics-14.txt>.
+              semantics-15.txt>.
 
 9.2.  Informative References
 
