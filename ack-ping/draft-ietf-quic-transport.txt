@@ -5,8 +5,8 @@
 QUIC                                                     J. Iyengar, Ed.
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                         M. Thomson, Ed.
-Expires: 3 October 2021                                          Mozilla
-                                                            1 April 2021
+Expires: 30 October 2021                                         Mozilla
+                                                           28 April 2021
 
 
            QUIC: A UDP-Based Multiplexed and Secure Transport
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 October 2021.
+   This Internet-Draft will expire on 30 October 2021.
 
 Copyright Notice
 
@@ -4192,7 +4192,7 @@ Table of Contents
    included in packets with ack-eliciting frames.  An endpoint SHOULD
    send an ACK frame with other frames when there are new ack-eliciting
    packets to acknowledge.  When only non-ack-eliciting packets need to
-   be acknowledged, an endpoint MAY choose to not send an ACK frame with
+   be acknowledged, an endpoint MAY choose not to send an ACK frame with
    outgoing frames until an ack-eliciting packet has been received.
 
    An endpoint that is only sending non-ack-eliciting packets might
@@ -8122,20 +8122,20 @@ Table of Contents
    [QUIC-INVARIANTS]
               Thomson, M., "Version-Independent Properties of QUIC",
               Work in Progress, Internet-Draft, draft-ietf-quic-
-              invariants, 1 April 2021,
+              invariants, 28 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               invariants.txt>.
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", Work in Progress, Internet-Draft,
-              draft-ietf-quic-recovery, 1 April 2021,
+              draft-ietf-quic-recovery, 28 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               recovery.txt>.
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using Transport
               Layer Security (TLS) to Secure QUIC", Work in Progress,
-              Internet-Draft, draft-ietf-quic-tls, 1 April 2021,
+              Internet-Draft, draft-ietf-quic-tls, 28 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               tls.txt>.
 
@@ -8245,9 +8245,9 @@ Table of Contents
    [QUIC-MANAGEABILITY]
               Kuehlewind, M. and B. Trammell, "Manageability of the QUIC
               Transport Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-quic-manageability-10, 22 February 2021,
+              draft-ietf-quic-manageability-11, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
-              manageability-10.txt>.
+              manageability-11.txt>.
 
    [RANDOM]   Eastlake 3rd, D., Schiller, J., and S. Crocker,
               "Randomness Requirements for Security", BCP 106, RFC 4086,
