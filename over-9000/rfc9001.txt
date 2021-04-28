@@ -2239,13 +2239,15 @@ Table of Contents
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
-              and Congestion Control", RFC 9002, 28 April 2021,
+              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
+              28 April 2021,
               <https://datatracker.ietf.org/doc/html/rfc9002>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
-              Multiplexed and Secure Transport", RFC 9000, 28 April
-              2021, <https://datatracker.ietf.org/doc/html/rfc9000>.
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, 28 April 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

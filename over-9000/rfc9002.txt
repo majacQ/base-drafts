@@ -1338,13 +1338,14 @@ Table of Contents
 10.1.  Normative References
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, 28 April 2021,
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, 28 April 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
-              Multiplexed and Secure Transport", RFC 9000, 28 April
-              2021, <https://datatracker.ietf.org/doc/html/rfc9000>.
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, 28 April 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

@@ -2586,8 +2586,9 @@ Table of Contents
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
-              Multiplexed and Secure Transport", RFC 9000, 28 April
-              2021, <https://datatracker.ietf.org/doc/html/rfc9000>.
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, 28 April 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC0793]  Postel, J., "Transmission Control Protocol", STD 7,
               RFC 793, DOI 10.17487/RFC0793, September 1981,
