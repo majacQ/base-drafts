@@ -755,15 +755,16 @@ Table of Contents
    included in a certificate and that the certificate is issued by a
    trusted entity (see for example [RFC2818]).
 
-   Note:  Where servers provide certificates for authentication, the
-      size of the certificate chain can consume a large number of bytes.
-      Controlling the size of certificate chains is critical to
-      performance in QUIC as servers are limited to sending 3 bytes for
-      every byte received prior to validating the client address; see
-      Section 8.1 of [QUIC-TRANSPORT].  The size of a certificate chain
-      can be managed by limiting the number of names or extensions;
-      using keys with small public key representations, like ECDSA; or
-      by using certificate compression [COMPRESS].
+      |  Note: Where servers provide certificates for authentication,
+      |  the size of the certificate chain can consume a large number of
+      |  bytes.  Controlling the size of certificate chains is critical
+      |  to performance in QUIC as servers are limited to sending 3
+      |  bytes for every byte received prior to validating the client
+      |  address; see Section 8.1 of [QUIC-TRANSPORT].  The size of a
+      |  certificate chain can be managed by limiting the number of
+      |  names or extensions; using keys with small public key
+      |  representations, like ECDSA; or by using certificate
+      |  compression [COMPRESS].
 
    A server MAY request that the client authenticate during the
    handshake.  A server MAY refuse a connection if the client is unable
@@ -1136,13 +1137,13 @@ Table of Contents
    changes the Destination Connection ID it uses in response to an
    Initial packet from the server.
 
-   Note:  The Destination Connection ID field could be any length up to
-      20 bytes, including zero length if the server sends a Retry packet
-      with a zero-length Source Connection ID field.  After a Retry, the
-      Initial keys provide the client no assurance that the server
-      received its packet, so the client has to rely on the exchange
-      that included the Retry packet to validate the server address; see
-      Section 8.1 of [QUIC-TRANSPORT].
+      |  Note: The Destination Connection ID field could be any length
+      |  up to 20 bytes, including zero length if the server sends a
+      |  Retry packet with a zero-length Source Connection ID field.
+      |  After a Retry, the Initial keys provide the client no assurance
+      |  that the server received its packet, so the client has to rely
+      |  on the exchange that included the Retry packet to validate the
+      |  server address; see Section 8.1 of [QUIC-TRANSPORT].
 
    Appendix A contains sample Initial packets.
 
@@ -1163,10 +1164,9 @@ Table of Contents
    authentication tag and produce an output 16 bytes larger than their
    input.
 
-   Note:  An endpoint MUST NOT reject a ClientHello that offers a cipher
-      suite that it does not support, or it would be impossible to
-      deploy a new cipher suite.  This also applies to
-      TLS_AES_128_CCM_8_SHA256.
+   An endpoint MUST NOT reject a ClientHello that offers a cipher suite
+   that it does not support, or it would be impossible to deploy a new
+   cipher suite.  This also applies to TLS_AES_128_CCM_8_SHA256.
 
    When constructing packets, the AEAD function is applied prior to
    applying header protection; see Section 5.4.  The unprotected packet
@@ -1312,12 +1312,12 @@ Table of Contents
    and a sample of the ciphertext from the packet Payload field.
 
    The same number of bytes are always sampled, but an allowance needs
-   to be made for the endpoint removing protection, which will not know
-   the length of the Packet Number field.  The sample of ciphertext is
-   taken starting from an offset of 4 bytes after the start of the
-   Packet Number field.  That is, in sampling packet ciphertext for
-   header protection, the Packet Number field is assumed to be 4 bytes
-   long (its maximum possible encoded length).
+   to be made for the removal of protection by a receiving endpoint,
+   which will not know the length of the Packet Number field.  The
+   sample of ciphertext is taken starting from an offset of 4 bytes
+   after the start of the Packet Number field.  That is, in sampling
+   packet ciphertext for header protection, the Packet Number field is
+   assumed to be 4 bytes long (its maximum possible encoded length).
 
    An endpoint MUST discard packets that are not long enough to contain
    a complete sample.
@@ -1465,12 +1465,12 @@ Table of Contents
    Once a client has installed 1-RTT keys, it MUST NOT send any more
    0-RTT packets.
 
-   Note:  0-RTT data can be acknowledged by the server as it receives
-      it, but any packets containing acknowledgments of 0-RTT data
-      cannot have packet protection removed by the client until the TLS
-      handshake is complete.  The 1-RTT keys necessary to remove packet
-      protection cannot be derived until the client receives all server
-      handshake messages.
+      |  Note: 0-RTT data can be acknowledged by the server as it
+      |  receives it, but any packets containing acknowledgments of
+      |  0-RTT data cannot have packet protection removed by the client
+      |  until the TLS handshake is complete.  The 1-RTT keys necessary
+      |  to remove packet protection cannot be derived until the client
+      |  receives all server handshake messages.
 
 5.7.  Receiving Out-of-Order Protected Packets
 
@@ -1505,10 +1505,10 @@ Table of Contents
    packets protected with 1-RTT keys MAY be stored and later decrypted
    and used once the handshake is complete.
 
-   Note:  TLS implementations might provide all 1-RTT secrets prior to
-      handshake completion.  Even where QUIC implementations have 1-RTT
-      read keys, those keys are not to be used prior to completing the
-      handshake.
+      |  Note: TLS implementations might provide all 1-RTT secrets prior
+      |  to handshake completion.  Even where QUIC implementations have
+      |  1-RTT read keys, those keys are not to be used prior to
+      |  completing the handshake.
 
    The requirement for the server to wait for the client Finished
    message creates a dependency on that message being delivered.  A
@@ -1668,9 +1668,9 @@ Table of Contents
    higher than or equal to the former, another key update can be
    initiated.
 
-   Note:  Keys of packets other than the 1-RTT packets are never
-      updated; their keys are derived solely from the TLS handshake
-      state.
+      |  Note: Keys of packets other than the 1-RTT packets are never
+      |  updated; their keys are derived solely from the TLS handshake
+      |  state.
 
    The endpoint that initiates a key update also updates the keys that
    it uses for receiving packets.  These keys will be needed to process
@@ -1727,10 +1727,9 @@ Table of Contents
    timing side-channel signal that might indicate that the Key Phase bit
    was invalid (see Section 9.5).  Endpoints can use randomized packet
    protection keys in place of discarded keys when key updates are not
-   yet permitted.  Using randomized keys will generate no variation in
-   the timing signal produced by attempting to remove packet protection,
-   and results in all packets with an invalid Key Phase bit being
-   rejected.
+   yet permitted.  Using randomized keys ensures that attempting to
+   remove packet protection does not result in timing variations, and
+   results in packets with an invalid Key Phase bit being rejected.
 
    The process of creating new packet protection keys for receiving
    packets could reveal that a key update has occurred.  An endpoint MAY
@@ -2060,14 +2059,13 @@ Table of Contents
    last beyond the lifetime of the connection, except for those produced
    by the application protocol that QUIC serves.
 
-   Important:  TLS session tickets and address validation tokens are
-      used to carry QUIC configuration information between connections,
-      specifically to enable a server to efficiently recover state that
-      is used in connection establishment and address validation.  These
-      MUST NOT be used to communicate application semantics between
-      endpoints; clients MUST treat them as opaque values.  The
-      potential for reuse of these tokens means that they require
-      stronger protections against replay.
+   TLS session tickets and address validation tokens are used to carry
+   QUIC configuration information between connections, specifically, to
+   enable a server to efficiently recover state that is used in
+   connection establishment and address validation.  These MUST NOT be
+   used to communicate application semantics between endpoints; clients
+   MUST treat them as opaque values.  The potential for reuse of these
+   tokens means that they require stronger protections against replay.
 
    A server that accepts 0-RTT on a connection incurs a higher cost than
    accepting a connection without 0-RTT.  This includes higher
@@ -2307,8 +2305,7 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/rfc20>.
 
    [CCM-ANALYSIS]
-              Jonsson, J., "On the Security of CTR + CBC-MAC", Selected
-              Areas in Cryptography pp. 76-93,
+              Jonsson, J., "On the Security of CTR + CBC-MAC",
               DOI 10.1007/3-540-36492-7_7, 2003,
               <https://doi.org/10.1007/3-540-36492-7_7>.
 
@@ -2338,8 +2335,7 @@ Table of Contents
               November 2014.
 
    [NAN]      Bellare, M., Ng, R., and B. Tackmann, "Nonces Are Noticed:
-              AEAD Revisited", Advances in Cryptology - CRYPTO 2019 pp.
-              235-265, DOI 10.1007/978-3-030-26948-7_9, 2019,
+              AEAD Revisited", DOI 10.1007/978-3-030-26948-7_9, 2019,
               <https://doi.org/10.1007/978-3-030-26948-7_9>.
 
    [QUIC-HTTP]
