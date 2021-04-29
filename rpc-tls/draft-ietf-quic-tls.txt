@@ -405,17 +405,17 @@ Table of Contents
        | Packet Type         | Encryption Keys | PN Space         |
        +=====================+=================+==================+
        | Initial             | Initial secrets | Initial          |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
        | 0-RTT Protected     | 0-RTT           | Application data |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
        | Handshake           | Handshake       | Handshake        |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
        | Retry               | Retry           | N/A              |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
        | Version Negotiation | N/A             | N/A              |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
        | Short Header        | 1-RTT           | Application data |
-       +---------------------+-----------------+------------------+
+       +=====================+-----------------+------------------+
 
                  Table 1: Encryption Keys by Packet Type
 
@@ -2315,9 +2315,7 @@ Table of Contents
 
    [GCM-MU]   Hoang, V., Tessaro, S., and A. Thiruvengadam, "The Multi-
               user Security of GCM, Revisited: Tight Bounds for Nonce
-              Randomization", Proceedings of the 2018 ACM SIGSAC
-              Conference on Computer and Communications Security,
-              DOI 10.1145/3243734.3243816, January 2018,
+              Randomization", DOI 10.1145/3243734.3243816, 2018,
               <https://doi.org/10.1145/3243734.3243816>.
 
    [HTTP-REPLAY]
