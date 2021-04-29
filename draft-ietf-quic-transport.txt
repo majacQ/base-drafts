@@ -433,8 +433,8 @@ Table of Contents
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
    Commonly used terms in the document are described below.
@@ -6726,8 +6726,8 @@ Table of Contents
    Error Code:  A variable-length integer error code that indicates the
       reason for closing this connection.  A CONNECTION_CLOSE frame of
       type 0x1c uses codes from the space defined in Section 20.1.  A
-      CONNECTION_CLOSE frame of type 0x1d uses codes from the
-      application protocol error code space; see Section 20.2.
+      CONNECTION_CLOSE frame of type 0x1d uses codes defined by the
+      application protocol; see Section 20.2.
 
    Frame Type:  A variable-length integer encoding the type of frame
       that triggered the error.  A value of 0 (equivalent to the mention
