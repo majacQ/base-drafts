@@ -1493,10 +1493,11 @@ Table of Contents
    An endpoint SHOULD limit the number of connection IDs it has retired
    locally and have not yet been acknowledged.  An endpoint SHOULD allow
    for sending and tracking a number of RETIRE_CONNECTION_ID frames of
-   at least twice the active_connection_id limit.  An endpoint MUST NOT
-   forget a connection ID without retiring it, though it MAY choose to
-   treat having connection IDs in need of retirement that exceed this
-   limit as a connection error of type CONNECTION_ID_LIMIT_ERROR.
+   at least twice the value of the active_connection_id_limit transport
+   parameter.  An endpoint MUST NOT forget a connection ID without
+   retiring it, though it MAY choose to treat having connection IDs in
+   need of retirement that exceed this limit as a connection error of
+   type CONNECTION_ID_LIMIT_ERROR.
 
    Endpoints SHOULD NOT issue updates of the Retire Prior To field
    before receiving RETIRE_CONNECTION_ID frames that retire all
@@ -1545,8 +1546,8 @@ Table of Contents
    ID that matches a value the client selects.  Clients that choose to
    receive zero-length connection IDs can use the local address and port
    to identify a connection.  Packets that do not match an existing
-   connection, based on Destination Connection ID or, if this value is
-   zero length, local IP address and port, are discarded.
+   connection -- based on Destination Connection ID or, if this value is
+   zero length, local IP address and port -- are discarded.
 
    Due to packet reordering or loss, a client might receive packets for
    a connection that are encrypted with a key it has not yet computed.
@@ -2058,9 +2059,10 @@ Table of Contents
    initial_source_connection_id transport parameter to "C1".
 
    When the handshake does not include a Retry (Figure 7), the server
-   sets original_destination_connection_id to "S1" and
-   initial_source_connection_id to "S3".  In this case, the server does
-   not include a retry_source_connection_id transport parameter.
+   sets original_destination_connection_id to "S1" (note that this value
+   is chosen by the client) and initial_source_connection_id to "S3".
+   In this case, the server does not include a
+   retry_source_connection_id transport parameter.
 
    When the handshake includes a Retry (Figure 8), the server sets
    original_destination_connection_id to "S1",
@@ -2114,12 +2116,12 @@ Table of Contents
 
    Using 0-RTT depends on both client and server using protocol
    parameters that were negotiated from a previous connection.  To
-   enable 0-RTT, endpoints store the value of the server transport
+   enable 0-RTT, endpoints store the values of the server transport
    parameters from a connection and apply them to any 0-RTT packets that
-   are sent in subsequent connections to that peer that use a session
-   ticket issued on that connection.  This information is stored with
-   any information required by the application protocol or cryptographic
-   handshake; see Section 4.6 of [QUIC-TLS].
+   are sent in subsequent connections to that server when a session
+   ticket issued on that connection is used.  This information is stored
+   with any information required by the application protocol or
+   cryptographic handshake; see Section 4.6 of [QUIC-TLS].
 
    Remembered transport parameters apply to the new connection until the
    handshake completes and the client starts sending 1-RTT packets.
@@ -2138,7 +2140,7 @@ Table of Contents
    original_destination_connection_id, preferred_address,
    retry_source_connection_id, and stateless_reset_token.  The client
    MUST use the server's new values in the handshake instead; if the
-   server does not provide new values, the default value is used.
+   server does not provide new values, the default values are used.
 
    A client that attempts to send 0-RTT data MUST remember all other
    transport parameters used by the server that it is able to process.
@@ -3018,7 +3020,7 @@ Table of Contents
    activity on those paths to be linked by entities other than the peer.
 
    A client might wish to reduce linkability by switching to a new
-   connection ID, source UDP port, or IP address (see [RFC4941]) when
+   connection ID, source UDP port, or IP address (see [RFC8981]) when
    sending traffic after a period of inactivity.  Changing the address
    from which it sends packets at the same time might cause the server
    to detect a connection migration.  This ensures that the mechanisms
@@ -8303,11 +8305,6 @@ Table of Contents
               UDP", BCP 127, RFC 4787, DOI 10.17487/RFC4787, January
               2007, <https://datatracker.ietf.org/doc/html/rfc4787>.
 
-   [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
-              Extensions for Stateless Address Autoconfiguration in
-              IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
-              <https://datatracker.ietf.org/doc/html/rfc4941>.
-
    [RFC5681]  Allman, M., Paxson, V., and E. Blanton, "TCP Congestion
               Control", RFC 5681, DOI 10.17487/RFC5681, September 2009,
               <https://datatracker.ietf.org/doc/html/rfc5681>.
@@ -8327,6 +8324,12 @@ Table of Contents
               Explicit Congestion Notification (ECN)", RFC 8087,
               DOI 10.17487/RFC8087, March 2017,
               <https://datatracker.ietf.org/doc/html/rfc8087>.
+
+   [RFC8981]  Gont, F., Krishnan, S., Narten, T., and R. Draves,
+              "Temporary Address Extensions for Stateless Address
+              Autoconfiguration in IPv6", RFC 8981,
+              DOI 10.17487/RFC8981, February 2021,
+              <https://datatracker.ietf.org/doc/html/rfc8981>.
 
    [SEC-CONS] Rescorla, E. and B. Korver, "Guidelines for Writing RFC
               Text on Security Considerations", BCP 72, RFC 3552,
