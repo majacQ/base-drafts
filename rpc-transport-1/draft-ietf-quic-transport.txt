@@ -5,8 +5,8 @@
 QUIC                                                     J. Iyengar, Ed.
 Internet-Draft                                                    Fastly
 Intended status: Standards Track                         M. Thomson, Ed.
-Expires: 1 October 2021                                          Mozilla
-                                                           30 March 2021
+Expires: 1 November 2021                                         Mozilla
+                                                           30 April 2021
 
 
            QUIC: A UDP-Based Multiplexed and Secure Transport
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 October 2021.
+   This Internet-Draft will expire on 1 November 2021.
 
 Copyright Notice
 
@@ -117,9 +117,9 @@ Table of Contents
        7.4.2.  New Transport Parameters
      7.5.  Cryptographic Message Buffering
    8.  Address Validation
-     8.1.  Address Validation During Connection Establishment
+     8.1.  Address Validation during Connection Establishment
        8.1.1.  Token Construction
-       8.1.2.  Address Validation using Retry Packets
+       8.1.2.  Address Validation Using Retry Packets
        8.1.3.  Address Validation for Future Connections
        8.1.4.  Address Validation Token Integrity
      8.2.  Path Validation
@@ -140,7 +140,7 @@ Table of Contents
        9.6.1.  Communicating a Preferred Address
        9.6.2.  Migration to a Preferred Address
        9.6.3.  Interaction of Client Migration and Preferred Address
-     9.7.  Use of IPv6 Flow-Label and Migration
+     9.7.  Use of IPv6 Flow Label and Migration
    10. Connection Termination
      10.1.  Idle Timeout
        10.1.1.  Liveness Testing
@@ -148,7 +148,7 @@ Table of Contents
      10.2.  Immediate Close
        10.2.1.  Closing Connection State
        10.2.2.  Draining Connection State
-       10.2.3.  Immediate Close During the Handshake
+       10.2.3.  Immediate Close during the Handshake
      10.3.  Stateless Reset
        10.3.1.  Detecting a Stateless Reset
        10.3.2.  Calculating a Stateless Reset Token
@@ -319,7 +319,7 @@ Table of Contents
    interaction between a client and server.
 
    The QUIC handshake combines negotiation of cryptographic and
-   transport parameters.  QUIC integrates the TLS ([TLS13]) handshake,
+   transport parameters.  QUIC integrates the TLS handshake [TLS13],
    although using a customized framing for protecting packets.  The
    integration of TLS and QUIC is described in more detail in
    [QUIC-TLS].  The handshake is structured to permit the exchange of
@@ -331,11 +331,11 @@ Table of Contents
    packets contain frames, which carry control information and
    application data between endpoints.  QUIC authenticates the entirety
    of each packet and encrypts as much of each packet as is practical.
-   QUIC packets are carried in UDP datagrams ([UDP]) to better
-   facilitate deployment in existing systems and networks.
+   QUIC packets are carried in UDP datagrams [UDP] to better facilitate
+   deployment in existing systems and networks.
 
    Application protocols exchange information over a QUIC connection via
-   streams, which are ordered sequences of bytes.  Two types of stream
+   streams, which are ordered sequences of bytes.  Two types of streams
    can be created: bidirectional streams, which allow both endpoints to
    send data; and unidirectional streams, which allow a single endpoint
    to send data.  A credit-based scheme is used to limit stream creation
@@ -381,7 +381,7 @@ Table of Contents
 
       -  Section 7 details the process for establishing connections,
 
-      -  Section 8 describes address validation and critical denial of
+      -  Section 8 describes address validation and critical denial-of-
          service mitigations,
 
       -  Section 9 describes how endpoints migrate a connection to a new
@@ -406,17 +406,17 @@ Table of Contents
    *  Finally, encoding details of QUIC protocol elements are described
       in:
 
-      -  Section 15 (Versions),
+      -  Section 15 (versions),
 
-      -  Section 16 (Integer Encoding),
+      -  Section 16 (integer encoding),
 
-      -  Section 17 (Packet Headers),
+      -  Section 17 (packet headers),
 
-      -  Section 18 (Transport Parameters),
+      -  Section 18 (transport parameters),
 
-      -  Section 19 (Frames), and
+      -  Section 19 (frames), and
 
-      -  Section 20 (Errors).
+      -  Section 20 (errors).
 
    Accompanying documents describe QUIC's loss detection and congestion
    control [QUIC-RECOVERY], and the use of TLS and other cryptographic
@@ -437,14 +437,14 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   Commonly used terms in the document are described below.
+   Commonly used terms in this document are described below.
 
    QUIC:  The transport protocol described by this document.  QUIC is a
       name, not an acronym.
 
    Endpoint:  An entity that can participate in a QUIC connection by
       generating, receiving, and processing QUIC packets.  There are
-      only two types of endpoint in QUIC: client and server.
+      only two types of endpoints in QUIC: client and server.
 
    Client:  The endpoint that initiates a QUIC connection.
 
@@ -454,7 +454,7 @@ Table of Contents
       encapsulated in a UDP datagram.  One or more QUIC packets can be
       encapsulated in a single UDP datagram.
 
-   Ack-eliciting Packet:  A QUIC packet that contains frames other than
+   Ack-eliciting packet:  A QUIC packet that contains frames other than
       ACK, PADDING, and CONNECTION_CLOSE.  These cause a recipient to
       send an acknowledgment; see Section 13.2.1.
 
@@ -524,7 +524,7 @@ Table of Contents
    By convention, individual fields reference a complex field by using
    the name of the complex field.
 
-   For example:
+   Figure 1 provides an example:
 
    Example Structure {
      One-bit Field (1),
@@ -553,14 +553,14 @@ Table of Contents
    bidirectional.
 
    Streams can be created by sending data.  Other processes associated
-   with stream management - ending, cancelling, and managing flow
-   control - are all designed to impose minimal overheads.  For
-   instance, a single STREAM frame (Section 19.8) can open, carry data
-   for, and close a stream.  Streams can also be long-lived and can last
-   the entire duration of a connection.
+   with stream management - ending, canceling, and managing flow control
+   - are all designed to impose minimal overheads.  For instance, a
+   single STREAM frame (Section 19.8) can open, carry data for, and
+   close a stream.  Streams can also be long-lived and can last the
+   entire duration of a connection.
 
    Streams can be created by either endpoint, can concurrently send data
-   interleaved with other streams, and can be cancelled.  QUIC does not
+   interleaved with other streams, and can be canceled.  QUIC does not
    provide any means of ensuring ordering between bytes on different
    streams.
 
@@ -609,7 +609,7 @@ Table of Contents
                           Table 1: Stream ID Types
 
    The stream space for each type begins at the minimum value (0x00
-   through 0x03 respectively); successive streams of each type are
+   through 0x03, respectively); successive streams of each type are
    created with numerically increasing stream IDs.  A stream ID that is
    used out of order results in all streams of that type with lower-
    numbered stream IDs also being opened.
@@ -621,7 +621,7 @@ Table of Contents
    place data in order.
 
    Endpoints MUST be able to deliver stream data to an application as an
-   ordered byte-stream.  Delivering an ordered byte-stream requires that
+   ordered byte stream.  Delivering an ordered byte stream requires that
    an endpoint buffer any data that is received out of order, up to the
    advertised flow control limit.
 
@@ -662,7 +662,7 @@ Table of Contents
 
 2.4.  Operations on Streams
 
-   This document does not define an API for QUIC, but instead defines a
+   This document does not define an API for QUIC; it instead defines a
    set of functions on streams that application protocols can rely upon.
    An application protocol can assume that a QUIC implementation
    provides an interface that includes the operations described in this
@@ -700,11 +700,11 @@ Table of Contents
 
    This section describes streams in terms of their send or receive
    components.  Two state machines are described: one for the streams on
-   which an endpoint transmits data (Section 3.1), and another for
+   which an endpoint transmits data (Section 3.1) and another for
    streams on which an endpoint receives data (Section 3.2).
 
    Unidirectional streams use either the sending or receiving state
-   machine depending on the stream type and endpoint role.
+   machine, depending on the stream type and endpoint role.
    Bidirectional streams use both state machines at both endpoints.  For
    the most part, the use of these state machines is the same whether
    the stream is unidirectional or bidirectional.  The conditions for
@@ -722,11 +722,11 @@ Table of Contents
    behavior is consistent with an implementation that implements these
    states.
 
-   Note:  In some cases, a single event or action can cause a transition
-      through multiple states.  For instance, sending STREAM with a FIN
-      bit set can cause two state transitions for a sending stream: from
-      the Ready state to the Send state, and from the Send state to the
-      Data Sent state.
+      |  Note: In some cases, a single event or action can cause a
+      |  transition through multiple states.  For instance, sending
+      |  STREAM with a FIN bit set can cause two state transitions for a
+      |  sending stream: from the "Ready" state to the "Send" state, and
+      |  from the "Send" state to the "Data Sent" state.
 
 3.1.  Sending Stream States
 
@@ -782,9 +782,9 @@ Table of Contents
    0 for a server, type 1 for a client) starts in the "Ready" state when
    the receiving part is created.
 
-   In the "Send" state, an endpoint transmits - and retransmits as
-   necessary - stream data in STREAM frames.  The endpoint respects the
-   flow control limits set by its peer, and continues to accept and
+   In the "Send" state, an endpoint transmits -- and retransmits as
+   necessary -- stream data in STREAM frames.  The endpoint respects the
+   flow control limits set by its peer and continues to accept and
    process MAX_STREAM_DATA frames.  An endpoint in the "Send" state
    generates STREAM_DATA_BLOCKED frames if it is blocked from sending by
    stream flow control limits (Section 4.1).
@@ -804,7 +804,7 @@ Table of Contents
    part of the stream enters the "Data Recvd" state, which is a terminal
    state.
 
-   From any of the "Ready", "Send", or "Data Sent" states, an
+   From any state that is one of"Ready", "Send", or "Data Sent", an
    application can signal that it wishes to abandon transmission of
    stream data.  Alternatively, an endpoint might receive a STOP_SENDING
    frame from its peer.  In either case, the endpoint sends a
@@ -898,7 +898,7 @@ Table of Contents
    When a STREAM frame with a FIN bit is received, the final size of the
    stream is known; see Section 4.5.  The receiving part of the stream
    then enters the "Size Known" state.  In this state, the endpoint no
-   longer needs to send MAX_STREAM_DATA frames, it only receives any
+   longer needs to send MAX_STREAM_DATA frames; it only receives any
    retransmissions of stream data.
 
    Once all data for the stream has been received, the receiving part
@@ -911,7 +911,7 @@ Table of Contents
    to the application.  Once stream data has been delivered, the stream
    enters the "Data Read" state, which is a terminal state.
 
-   Receiving a RESET_STREAM frame in the "Recv" or "Size Known" states
+   Receiving a RESET_STREAM frame in the "Recv" or "Size Known" state
    causes the stream to enter the "Reset Recvd" state.  This might cause
    the delivery of stream data to the application to be interrupted.
 
@@ -922,7 +922,7 @@ Table of Contents
    implementation is free to manage this situation as it chooses.
 
    Sending RESET_STREAM means that an endpoint cannot guarantee delivery
-   of stream data; however there is no requirement that stream data not
+   of stream data; however, there is no requirement that stream data not
    be delivered if a RESET_STREAM is received.  An implementation MAY
    interrupt delivery of stream data, discard any data that was not
    consumed, and signal the receipt of the RESET_STREAM.  A RESET_STREAM
@@ -945,20 +945,20 @@ Table of Contents
    A sender MUST NOT send any of these frames from a terminal state
    ("Data Recvd" or "Reset Recvd").  A sender MUST NOT send a STREAM or
    STREAM_DATA_BLOCKED frame for a stream in the "Reset Sent" state or
-   any terminal state, that is, after sending a RESET_STREAM frame.  A
+   any terminal state -- that is, after sending a RESET_STREAM frame.  A
    receiver could receive any of these three frames in any state, due to
    the possibility of delayed delivery of packets carrying them.
 
-   The receiver of a stream sends MAX_STREAM_DATA (Section 19.10) and
-   STOP_SENDING frames (Section 19.5).
+   The receiver of a stream sends MAX_STREAM_DATA frames (Section 19.10)
+   and STOP_SENDING frames (Section 19.5).
 
-   The receiver only sends MAX_STREAM_DATA in the "Recv" state.  A
-   receiver MAY send STOP_SENDING in any state where it has not received
-   a RESET_STREAM frame; that is states other than "Reset Recvd" or
-   "Reset Read".  However there is little value in sending a
-   STOP_SENDING frame in the "Data Recvd" state, since all stream data
-   has been received.  A sender could receive either of these two frames
-   in any state as a result of delayed delivery of packets.
+   The receiver only sends MAX_STREAM_DATA frames in the "Recv" state.
+   A receiver MAY send STOP_SENDING frame in any state where it has not
+   received a RESET_STREAM frame -- that is, states other than "Reset
+   Recvd" or "Reset Read".  However, there is little value in sending a
+   STOP_SENDING frame in the "Data Recvd" state, as all stream data has
+   been received.  A sender could receive either of these two frames in
+   any state as a result of delayed delivery of packets.
 
 3.4.  Bidirectional Stream States
 
@@ -973,46 +973,48 @@ Table of Contents
    that loosely correspond to the stream states in HTTP/2 [HTTP2].  This
    shows that multiple states on sending or receiving parts of streams
    are mapped to the same composite state.  Note that this is just one
-   possibility for such a mapping; this mapping requires that data is
+   possibility for such a mapping; this mapping requires that data be
    acknowledged before the transition to a "closed" or "half-closed"
    state.
 
-     +======================+======================+=================+
-     | Sending Part         | Receiving Part       | Composite State |
-     +======================+======================+=================+
-     | No Stream/Ready      | No Stream/Recv *1    | idle            |
-     +----------------------+----------------------+-----------------+
-     | Ready/Send/Data Sent | Recv/Size Known      | open            |
-     +----------------------+----------------------+-----------------+
-     | Ready/Send/Data Sent | Data Recvd/Data Read | half-closed     |
-     |                      |                      | (remote)        |
-     +----------------------+----------------------+-----------------+
-     | Ready/Send/Data Sent | Reset Recvd/Reset    | half-closed     |
-     |                      | Read                 | (remote)        |
-     +----------------------+----------------------+-----------------+
-     | Data Recvd           | Recv/Size Known      | half-closed     |
-     |                      |                      | (local)         |
-     +----------------------+----------------------+-----------------+
-     | Reset Sent/Reset     | Recv/Size Known      | half-closed     |
-     | Recvd                |                      | (local)         |
-     +----------------------+----------------------+-----------------+
-     | Reset Sent/Reset     | Data Recvd/Data Read | closed          |
-     | Recvd                |                      |                 |
-     +----------------------+----------------------+-----------------+
-     | Reset Sent/Reset     | Reset Recvd/Reset    | closed          |
-     | Recvd                | Read                 |                 |
-     +----------------------+----------------------+-----------------+
-     | Data Recvd           | Data Recvd/Data Read | closed          |
-     +----------------------+----------------------+-----------------+
-     | Data Recvd           | Reset Recvd/Reset    | closed          |
-     |                      | Read                 |                 |
-     +----------------------+----------------------+-----------------+
+      +===================+=======================+=================+
+      | Sending Part      | Receiving Part        | Composite State |
+      +===================+=======================+=================+
+      | No Stream / Ready | No Stream / Recv (*1) | idle            |
+      +-------------------+-----------------------+-----------------+
+      | Ready / Send /    | Recv/Size Known       | open            |
+      | Data Sent         |                       |                 |
+      +-------------------+-----------------------+-----------------+
+      | Ready / Send /    | Data Recvd / Data     | half-closed     |
+      | Data Sent         | Read                  | (remote)        |
+      +-------------------+-----------------------+-----------------+
+      | Ready / Send /    | Reset Recvd / Reset   | half-closed     |
+      | Data Sent         | Read                  | (remote)        |
+      +-------------------+-----------------------+-----------------+
+      | Data Recvd        | Recv / Size Known     | half-closed     |
+      |                   |                       | (local)         |
+      +-------------------+-----------------------+-----------------+
+      | Reset Sent /      | Recv / Size Known     | half-closed     |
+      | Reset Recvd       |                       | (local)         |
+      +-------------------+-----------------------+-----------------+
+      | Reset Sent /      | Data Recvd / Data     | closed          |
+      | Reset Recvd       | Read                  |                 |
+      +-------------------+-----------------------+-----------------+
+      | Reset Sent /      | Reset Recvd / Reset   | closed          |
+      | Reset Recvd       | Read                  |                 |
+      +-------------------+-----------------------+-----------------+
+      | Data Recvd        | Data Recvd / Data     | closed          |
+      |                   | Read                  |                 |
+      +-------------------+-----------------------+-----------------+
+      | Data Recvd        | Reset Recvd / Reset   | closed          |
+      |                   | Read                  |                 |
+      +-------------------+-----------------------+-----------------+
 
             Table 2: Possible Mapping of Stream States to HTTP/2
 
-   Note (*1):  A stream is considered "idle" if it has not yet been
-      created, or if the receiving part of the stream is in the "Recv"
-      state without yet having received any frames.
+      |  Note (*1): A stream is considered "idle" if it has not yet been
+      |  created or if the receiving part of the stream is in the "Recv"
+      |  state without yet having received any frames.
 
 3.5.  Solicited State Transitions
 
@@ -1020,7 +1022,7 @@ Table of Contents
    on a stream, it can abort reading the stream and specify an
    application error code.
 
-   If the stream is in the "Recv" or "Size Known" states, the transport
+   If the stream is in the "Recv" or "Size Known" state, the transport
    SHOULD signal this by sending a STOP_SENDING frame to prompt closure
    of the stream in the opposite direction.  This typically indicates
    that the receiving application is no longer reading data it receives
@@ -1033,11 +1035,11 @@ Table of Contents
 
    A STOP_SENDING frame requests that the receiving endpoint send a
    RESET_STREAM frame.  An endpoint that receives a STOP_SENDING frame
-   MUST send a RESET_STREAM frame if the stream is in the Ready or Send
-   state.  If the stream is in the "Data Sent" state, the endpoint MAY
-   defer sending the RESET_STREAM frame until the packets containing
-   outstanding data are acknowledged or declared lost.  If any
-   outstanding data is declared lost, the endpoint SHOULD send a
+   MUST send a RESET_STREAM frame if the stream is in the "Ready" or
+   "Send" state.  If the stream is in the "Data Sent" state, the
+   endpoint MAY defer sending the RESET_STREAM frame until the packets
+   containing outstanding data are acknowledged or declared lost.  If
+   any outstanding data is declared lost, the endpoint SHOULD send a
    RESET_STREAM frame instead of retransmitting the data.
 
    An endpoint SHOULD copy the error code from the STOP_SENDING frame to
@@ -1048,13 +1050,13 @@ Table of Contents
 
    STOP_SENDING SHOULD only be sent for a stream that has not been reset
    by the peer.  STOP_SENDING is most useful for streams in the "Recv"
-   or "Size Known" states.
+   or "Size Known" state.
 
    An endpoint is expected to send another STOP_SENDING frame if a
    packet containing a previous STOP_SENDING is lost.  However, once
    either all stream data or a RESET_STREAM frame has been received for
-   the stream - that is, the stream is in any state other than "Recv" or
-   "Size Known" - sending a STOP_SENDING frame is unnecessary.
+   the stream -- that is, the stream is in any state other than "Recv"
+   or "Size Known" -- sending a STOP_SENDING frame is unnecessary.
 
    An endpoint that wishes to terminate both directions of a
    bidirectional stream can terminate one direction by sending a
@@ -1070,7 +1072,7 @@ Table of Contents
    flow controlled both individually and across a connection as a whole.
    A QUIC receiver controls the maximum amount of data the sender can
    send on a stream as well as across all streams at any time, as
-   described in Section 4.1 and Section 4.2.
+   described in Sections 4.1 and 4.2.
 
    Similarly, to limit concurrency within a connection, a QUIC endpoint
    controls the maximum cumulative number of streams that its peer can
@@ -1085,7 +1087,7 @@ Table of Contents
 
 4.1.  Data Flow Control
 
-   QUIC employs a limit-based flow-control scheme where a receiver
+   QUIC employs a limit-based flow control scheme where a receiver
    advertises the limit of total bytes it is prepared to receive on a
    given stream or for the entire connection.  This leads to two levels
    of data flow control in QUIC:
@@ -1095,15 +1097,15 @@ Table of Contents
       of data that can be sent on each stream.
 
    *  Connection flow control, which prevents senders from exceeding a
-      receiver's buffer capacity for the connection, by limiting the
+      receiver's buffer capacity for the connection by limiting the
       total bytes of stream data sent in STREAM frames on all streams.
 
    Senders MUST NOT send data in excess of either limit.
 
    A receiver sets initial limits for all streams through transport
    parameters during the handshake (Section 7.4).  Subsequently, a
-   receiver sends MAX_STREAM_DATA (Section 19.10) or MAX_DATA
-   (Section 19.9) frames to the sender to advertise larger limits.
+   receiver sends MAX_STREAM_DATA frames (Section 19.10) or MAX_DATA
+   frames (Section 19.9) to the sender to advertise larger limits.
 
    A receiver can advertise a larger limit for a stream by sending a
    MAX_STREAM_DATA frame with the corresponding stream ID.  A
@@ -1124,9 +1126,9 @@ Table of Contents
    is not an error to advertise a smaller limit, but the smaller limit
    has no effect.
 
-   A receiver MUST close the connection with a FLOW_CONTROL_ERROR error
-   (Section 11) if the sender violates the advertised connection or
-   stream data limits.
+   A receiver MUST close the connection with an error of type
+   FLOW_CONTROL_ERROR (Section 11) if the sender violates the advertised
+   connection or stream data limits.
 
    A sender MUST ignore any MAX_STREAM_DATA or MAX_DATA frames that do
    not increase flow control limits.
@@ -1232,7 +1234,7 @@ Table of Contents
    An endpoint will know the final size for a stream when the receiving
    part of the stream enters the "Size Known" or "Reset Recvd" state
    (Section 3).  The receiver MUST use the final size of the stream to
-   account for all bytes sent on the stream in its connection level flow
+   account for all bytes sent on the stream in its connection-level flow
    controller.
 
    An endpoint MUST NOT send data on a stream at or beyond the final
@@ -1240,13 +1242,14 @@ Table of Contents
 
    Once a final size for a stream is known, it cannot change.  If a
    RESET_STREAM or STREAM frame is received indicating a change in the
-   final size for the stream, an endpoint SHOULD respond with a
-   FINAL_SIZE_ERROR error; see Section 11.  A receiver SHOULD treat
-   receipt of data at or beyond the final size as a FINAL_SIZE_ERROR
-   error, even after a stream is closed.  Generating these errors is not
-   mandatory, because requiring that an endpoint generate these errors
-   also means that the endpoint needs to maintain the final size state
-   for closed streams, which could mean a significant state commitment.
+   final size for the stream, an endpoint SHOULD respond with an error
+   of type FINAL_SIZE_ERROR; see Section 11.  A receiver SHOULD treat
+   receipt of data at or beyond the final size as an error of type
+   FINAL_SIZE_ERROR, even after a stream is closed.  Generating these
+   errors is not mandatory, because requiring that an endpoint generate
+   these errors also means that the endpoint needs to maintain the final
+   size state for closed streams, which could mean a significant state
+   commitment.
 
 4.6.  Controlling Concurrency
 
@@ -1273,8 +1276,8 @@ Table of Contents
    (Section 11).
 
    Once a receiver advertises a stream limit using the MAX_STREAMS
-   frame, advertising a smaller limit has no effect.  A receiver MUST
-   ignore any MAX_STREAMS frame that does not increase the stream limit.
+   frame, advertising a smaller limit has no effect.  MAX_STREAMS frames
+   that do not increase the stream limit MUST be ignored.
 
    As with stream and connection flow control, this document leaves
    implementations to decide when and how many streams should be
@@ -1355,7 +1358,7 @@ Table of Contents
    of the Destination Connection ID field is expected to be known to
    endpoints.  Endpoints using a load balancer that routes based on
    connection ID could agree with the load balancer on a fixed length
-   for connection IDs, or agree on an encoding scheme.  A fixed portion
+   for connection IDs or agree on an encoding scheme.  A fixed portion
    could encode an explicit length, which allows the entire connection
    ID to vary in length and still be used by the load balancer.
 
@@ -1381,7 +1384,7 @@ Table of Contents
 
 5.1.1.  Issuing Connection IDs
 
-   Each Connection ID has an associated sequence number to assist in
+   Each connection ID has an associated sequence number to assist in
    detecting when NEW_CONNECTION_ID or RETIRE_CONNECTION_ID frames refer
    to the same value.  The initial connection ID issued by an endpoint
    is sent in the Source Connection ID field of the long packet header
@@ -1450,7 +1453,7 @@ Table of Contents
    An endpoint can change the connection ID it uses for a peer to
    another available one at any time during the connection.  An endpoint
    consumes connection IDs in response to a migrating peer; see
-   Section 9.5 for more.
+   Section 9.5 for more details.
 
    An endpoint maintains a set of connection IDs received from its peer,
    any of which it can use when sending packets.  When the endpoint
@@ -1501,7 +1504,7 @@ Table of Contents
 5.2.  Matching Packets to Connections
 
    Incoming packets are classified on receipt.  Packets can either be
-   associated with an existing connection, or - for servers -
+   associated with an existing connection or -- for servers --
    potentially create a new connection.
 
    Endpoints try to associate a packet with an existing connection.  If
@@ -1526,7 +1529,7 @@ Table of Contents
    Packets that are matched to an existing connection are discarded if
    the packets are inconsistent with the state of that connection.  For
    example, packets are discarded if they indicate a different protocol
-   version than that of the connection, or if the removal of packet
+   version than that of the connection or if the removal of packet
    protection is unsuccessful once the expected keys are available.
 
    Invalid packets that lack strong integrity protection, such as
@@ -1542,7 +1545,7 @@ Table of Contents
    receive zero-length connection IDs can use the local address and port
    to identify a connection.  Packets that do not match an existing
    connection, based on Destination Connection ID or, if this value is
-   zero-length, local IP address and port, are discarded.
+   zero length, local IP address and port, are discarded.
 
    Due to packet reordering or loss, a client might receive packets for
    a connection that are encrypted with a key it has not yet computed.
@@ -1569,11 +1572,11 @@ Table of Contents
    properly interpret the result.  Servers SHOULD respond with a Version
    Negotiation packet, provided that the datagram is sufficiently long.
 
-   Packets with a supported version, or no version field, are matched to
-   a connection using the connection ID or - for packets with zero-
-   length connection IDs - the local address and port.  These packets
+   Packets with a supported version, or no Version field, are matched to
+   a connection using the connection ID or -- for packets with zero-
+   length connection IDs -- the local address and port.  These packets
    are processed using the selected connection; otherwise, the server
-   continues below.
+   continues as described below.
 
    If the packet is an Initial packet fully conforming with the
    specification, the server proceeds with the handshake (Section 7).
@@ -1593,7 +1596,7 @@ Table of Contents
 
 5.2.3.  Considerations for Simple Load Balancers
 
-   A server deployment could load balance among servers using only
+   A server deployment could load-balance among servers using only
    source and destination IP addresses and ports.  Changes to the
    client's IP address or port could result in packets being forwarded
    to the wrong server.  Such a server deployment could use one of the
@@ -1601,7 +1604,7 @@ Table of Contents
    changes.
 
    *  Servers could use an out-of-band mechanism to forward packets to
-      the correct server based on Connection ID.
+      the correct server based on connection ID.
 
    *  If servers can use a dedicated server IP address or port, other
       than the one that the client initially connects to, they could use
@@ -1622,7 +1625,7 @@ Table of Contents
 
 5.3.  Operations on Connections
 
-   This document does not define an API for QUIC, but instead defines a
+   This document does not define an API for QUIC; it instead defines a
    set of functions for QUIC connections that application protocols can
    rely upon.  An application protocol can assume that an implementation
    of QUIC provides an interface that includes the operations described
@@ -1659,13 +1662,13 @@ Table of Contents
       (Section 7.4);
 
    *  control resource allocation for receive buffers by setting flow
-      control limits both for streams and for the connection
+      control limits both for streams and for the connection;
 
    *  identify whether the handshake has completed successfully or is
       still ongoing;
 
-   *  keep a connection from silently closing, either by generating PING
-      frames (Section 19.2) or by requesting that the transport send
+   *  keep a connection from silently closing, by either generating PING
+      frames (Section 19.2) or requesting that the transport send
       additional frames before the idle timeout expires (Section 10.1);
       and
 
@@ -1712,7 +1715,7 @@ Table of Contents
 
    Version Negotiation packets are designed to allow for functionality
    to be defined in the future that allows QUIC to negotiate the version
-   of QUIC to use for a connection.  Future standards-track
+   of QUIC to use for a connection.  Future Standards Track
    specifications might change how implementations that support multiple
    versions of QUIC react to Version Negotiation packets received in
    response to an attempt to establish a connection using this version.
@@ -1726,7 +1729,7 @@ Table of Contents
    lists the QUIC version selected by the client.
 
    How to perform version negotiation is left as future work defined by
-   future standards-track specifications.  In particular, that future
+   future Standards Track specifications.  In particular, that future
    work will ensure robustness against version downgrade attacks; see
    Section 21.12.
 
@@ -1758,7 +1761,7 @@ Table of Contents
 
    For a server to use a new version in the future, clients need to
    correctly handle unsupported versions.  Some version numbers
-   (0x?a?a?a?a as defined in Section 15) are reserved for inclusion in
+   (0x?a?a?a?a, as defined in Section 15) are reserved for inclusion in
    fields that contain version numbers.
 
    Endpoints MAY add reserved versions to any field where unknown or
@@ -1792,14 +1795,15 @@ Table of Contents
       -  every connection produces distinct and unrelated keys, and
 
       -  keying material is usable for packet protection for both 0-RTT
-         and 1-RTT packets
+         and 1-RTT packets.
 
    *  authenticated exchange of values for transport parameters of both
       endpoints, and confidentiality protection for server transport
-      parameters (see Section 7.4)
+      parameters (see Section 7.4).
 
    *  authenticated negotiation of an application protocol (TLS uses
-      ALPN [ALPN] for this purpose)
+      Application-Layer Protocol Negotiation (ALPN) [ALPN] for this
+      purpose).
 
    The CRYPTO frame can be sent in different packet number spaces
    (Section 12.3).  The offsets used by CRYPTO frames to ensure ordered
@@ -1809,8 +1813,8 @@ Table of Contents
    Figure 4 shows a simplified handshake and the exchange of packets and
    frames that are used to advance the handshake.  Exchange of
    application data during the handshake is enabled where possible,
-   shown with a '*'.  Once the handshake is complete, endpoints are able
-   to exchange application data freely.
+   shown with an asterisk ("*").  Once the handshake is complete,
+   endpoints are able to exchange application data freely.
 
    Client                                               Server
 
@@ -1852,13 +1856,13 @@ Table of Contents
    Figure 5 provides an overview of the 1-RTT handshake.  Each line
    shows a QUIC packet with the packet type and packet number shown
    first, followed by the frames that are typically contained in those
-   packets.  So, for instance the first packet is of type Initial, with
+   packets.  For instance, the first packet is of type Initial, with
    packet number 0, and contains a CRYPTO frame carrying the
    ClientHello.
 
    Multiple QUIC packets -- even of different packet types -- can be
    coalesced into a single UDP datagram; see Section 12.2.  As a result,
-   this handshake could consist of as few as 4 UDP datagrams, or any
+   this handshake could consist of as few as four UDP datagrams, or any
    number more (subject to limits inherent to the protocol, such as
    congestion control and anti-amplification).  For instance, the
    server's first flight contains Initial packets, Handshake packets,
@@ -1939,7 +1943,7 @@ Table of Contents
    its choosing and sets the Source Connection ID Length field to
    indicate the length.
 
-   The first flight of 0-RTT packets use the same Destination Connection
+   0-RTT packets in the first flight use the same Destination Connection
    ID and Source Connection ID values as the client's first Initial
    packet.
 
@@ -1948,11 +1952,11 @@ Table of Contents
    Destination Connection ID for subsequent packets, including any 0-RTT
    packets.  This means that a client might have to change the
    connection ID it sets in the Destination Connection ID field twice
-   during connection establishment: once in response to a Retry, and
-   once in response to an Initial packet from the server.  Once a client
-   has received a valid Initial packet from the server, it MUST discard
-   any subsequent packet it receives on that connection with a different
-   Source Connection ID.
+   during connection establishment: once in response to a Retry packet
+   and once in response to an Initial packet from the server.  Once a
+   client has received a valid Initial packet from the server, it MUST
+   discard any subsequent packet it receives on that connection with a
+   different Source Connection ID.
 
    A client MUST change the Destination Connection ID it uses for
    sending packets in response to only the first received Initial or
@@ -1992,14 +1996,14 @@ Table of Contents
    match the values that an endpoint used in the Destination and Source
    Connection ID fields of Initial packets that it sent (and received,
    for servers).  Endpoints MUST validate that received transport
-   parameters match received Connection ID values.  Including connection
-   ID values in transport parameters and verifying them ensures that
-   that an attacker cannot influence the choice of connection ID for a
+   parameters match received connection ID values.  Including connection
+   ID values in transport parameters and verifying them ensures that an
+   attacker cannot influence the choice of connection ID for a
    successful connection by injecting packets carrying attacker-chosen
    connection IDs during the handshake.
 
    An endpoint MUST treat absence of the initial_source_connection_id
-   transport parameter from either endpoint or absence of the
+   transport parameter from either endpoint or the absence of the
    original_destination_connection_id transport parameter from the
    server as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
@@ -2049,8 +2053,8 @@ Table of Contents
 
          Figure 8: Use of Connection IDs in a Handshake with Retry
 
-   In both cases (Figure 7 and Figure 8), the client sets the value of
-   the initial_source_connection_id transport parameter to "C1".
+   In both cases (Figures 7 and 8), the client sets the value of the
+   initial_source_connection_id transport parameter to "C1".
 
    When the handshake does not include a Retry (Figure 7), the server
    sets original_destination_connection_id to "S1" and
@@ -2095,15 +2099,15 @@ Table of Contents
    Endpoints use transport parameters to authenticate the negotiation of
    connection IDs during the handshake; see Section 7.3.
 
-   Application-Layer Protocol Negotiation (ALPN; see [ALPN]) allows
-   clients to offer multiple application protocols during connection
-   establishment.  The transport parameters that a client includes
-   during the handshake apply to all application protocols that the
-   client offers.  Application protocols can recommend values for
-   transport parameters, such as the initial flow control limits.
-   However, application protocols that set constraints on values for
-   transport parameters could make it impossible for a client to offer
-   multiple application protocols if these constraints conflict.
+   ALPN (see [ALPN]) allows clients to offer multiple application
+   protocols during connection establishment.  The transport parameters
+   that a client includes during the handshake apply to all application
+   protocols that the client offers.  Application protocols can
+   recommend values for transport parameters, such as the initial flow
+   control limits.  However, application protocols that set constraints
+   on values for transport parameters could make it impossible for a
+   client to offer multiple application protocols if these constraints
+   conflict.
 
 7.4.1.  Values of Transport Parameters for 0-RTT
 
@@ -2121,7 +2125,7 @@ Table of Contents
    Once the handshake completes, the client uses the transport
    parameters established in the handshake.  Not all transport
    parameters are remembered, as some do not apply to future connections
-   or they have no effect on use of 0-RTT.
+   or they have no effect on the use of 0-RTT.
 
    The definition of a new transport parameter (Section 7.4.2) MUST
    specify whether storing the transport parameter for 0-RTT is
@@ -2137,7 +2141,7 @@ Table of Contents
 
    A client that attempts to send 0-RTT data MUST remember all other
    transport parameters used by the server that it is able to process.
-   The server can remember these transport parameters, or store an
+   The server can remember these transport parameters or can store an
    integrity-protected copy of the values in the ticket and recover the
    information when accepting 0-RTT data.  A server uses the transport
    parameters in determining whether to accept 0-RTT data.
@@ -2146,7 +2150,7 @@ Table of Contents
    any limits or alter any values that might be violated by the client
    with its 0-RTT data.  In particular, a server that accepts 0-RTT data
    MUST NOT set values for the following parameters (Section 18.2) that
-   are smaller than the remembered value of the parameters.
+   are smaller than the remembered values of the parameters.
 
    *  active_connection_id_limit
 
@@ -2163,12 +2167,12 @@ Table of Contents
    *  initial_max_streams_uni
 
    Omitting or setting a zero value for certain transport parameters can
-   result in 0-RTT data being enabled, but not usable.  The applicable
+   result in 0-RTT data being enabled but not usable.  The applicable
    subset of transport parameters that permit sending of application
    data SHOULD be set to non-zero values for 0-RTT.  This includes
-   initial_max_data and either initial_max_streams_bidi and
-   initial_max_stream_data_bidi_remote, or initial_max_streams_uni and
-   initial_max_stream_data_uni.
+   initial_max_data and either (1) initial_max_streams_bidi and
+   initial_max_stream_data_bidi_remote, or (2) initial_max_streams_uni
+   and initial_max_stream_data_uni.
 
    A server might provide larger initial stream flow control limits for
    streams than the remembered values that a client applies when sending
@@ -2181,7 +2185,7 @@ Table of Contents
    parameters and reject 0-RTT if it selects smaller values.  Lowering
    the values of these parameters while also accepting 0-RTT data could
    degrade the performance of the connection.  Specifically, lowering
-   the max_udp_payload_size could result in dropped packets leading to
+   the max_udp_payload_size could result in dropped packets, leading to
    worse performance compared to rejecting 0-RTT data outright.
 
    A server MUST reject 0-RTT data if the restored values for transport
@@ -2202,10 +2206,10 @@ Table of Contents
 
    New transport parameters can be used to negotiate new protocol
    behavior.  An endpoint MUST ignore transport parameters that it does
-   not support.  Absence of a transport parameter therefore disables any
-   optional protocol feature that is negotiated using the parameter.  As
-   described in Section 18.1, some identifiers are reserved in order to
-   exercise this requirement.
+   not support.  The absence of a transport parameter therefore disables
+   any optional protocol feature that is negotiated using the parameter.
+   As described in Section 18.1, some identifiers are reserved in order
+   to exercise this requirement.
 
    A client that does not understand a transport parameter can discard
    it and attempt 0-RTT on subsequent connections.  However, if the
@@ -2213,7 +2217,7 @@ Table of Contents
    violating the constraints that the transport parameter establishes if
    it attempts 0-RTT.  New transport parameters can avoid this problem
    by setting a default of the most conservative value.  Clients can
-   avoid this problem by remembering all parameters, even ones not
+   avoid this problem by remembering all parameters, even those not
    currently supported.
 
    New transport parameters can be registered according to the rules in
@@ -2267,7 +2271,7 @@ Table of Contents
    Address validation is performed both during connection establishment
    (see Section 8.1) and during connection migration (see Section 8.2).
 
-8.1.  Address Validation During Connection Establishment
+8.1.  Address Validation during Connection Establishment
 
    Connection establishment implicitly provides address validation for
    both endpoints.  In particular, receipt of a packet protected with
@@ -2310,7 +2314,7 @@ Table of Contents
    all the data it has sent.  In this case, when the client has no
    reason to send additional packets, the server will be unable to send
    more data because it has not validated the client's address.  To
-   prevent this deadlock, clients MUST send a packet on a probe timeout
+   prevent this deadlock, clients MUST send a packet on a Probe Timeout
    (PTO, see Section 6.2 of [QUIC-RECOVERY]).  Specifically, the client
    MUST send an Initial packet in a UDP datagram that contains at least
    1200 bytes if it does not have Handshake keys, and otherwise send a
@@ -2332,10 +2336,10 @@ Table of Contents
 
    A token sent in a NEW_TOKEN frame or a Retry packet MUST be
    constructed in a way that allows the server to identify how it was
-   provided to a client.  These tokens are carried in the same field,
-   but require different handling from servers.
+   provided to a client.  These tokens are carried in the same field but
+   require different handling from servers.
 
-8.1.2.  Address Validation using Retry Packets
+8.1.2.  Address Validation Using Retry Packets
 
    Upon receiving the client's Initial packet, the server can request
    address validation by sending a Retry packet (Section 17.2.5)
@@ -2343,8 +2347,8 @@ Table of Contents
    Initial packets it sends for that connection after it receives the
    Retry packet.
 
-   In response to processing an Initial containing a token that was
-   provided in a Retry packet, a server cannot send another Retry
+   In response to processing an Initial packet containing a token that
+   was provided in a Retry packet, a server cannot send another Retry
    packet; it can only refuse the connection or permit it to proceed.
 
    As long as it is not possible for an attacker to generate a valid
@@ -2448,29 +2452,29 @@ Table of Contents
    connection attempt and cannot be used in subsequent connection
    attempts.
 
-   A client SHOULD NOT reuse a NEW_TOKEN token for different connection
-   attempts.  Reusing a token allows connections to be linked by
-   entities on the network path; see Section 9.5.
+   A client SHOULD NOT reuse a token from a NEW_TOKEN frame for
+   different connection attempts.  Reusing a token allows connections to
+   be linked by entities on the network path; see Section 9.5.
 
    Clients might receive multiple tokens on a single connection.  Aside
    from preventing linkability, any token can be used in any connection
    attempt.  Servers can send additional tokens to either enable address
-   validation for multiple connection attempts or to replace older
-   tokens that might become invalid.  For a client, this ambiguity means
-   that sending the most recent unused token is most likely to be
-   effective.  Though saving and using older tokens has no negative
-   consequences, clients can regard older tokens as being less likely be
-   useful to the server for address validation.
+   validation for multiple connection attempts or replace older tokens
+   that might become invalid.  For a client, this ambiguity means that
+   sending the most recent unused token is most likely to be effective.
+   Though saving and using older tokens have no negative consequences,
+   clients can regard older tokens as being less likely to be useful to
+   the server for address validation.
 
    When a server receives an Initial packet with an address validation
    token, it MUST attempt to validate the token, unless it has already
-   completed address validation.  If the token is invalid then the
+   completed address validation.  If the token is invalid, then the
    server SHOULD proceed as if the client did not have a validated
    address, including potentially sending a Retry.  Tokens provided with
    NEW_TOKEN frames and Retry packets can be distinguished by servers
-   (see Section 8.1.1), and the latter validated more strictly.  If the
-   validation succeeds, the server SHOULD then allow the handshake to
-   proceed.
+   (see Section 8.1.1), and the latter can be validated more strictly.
+   If the validation succeeds, the server SHOULD then allow the
+   handshake to proceed.
 
    Note:  The rationale for treating the client as unvalidated rather
       than discarding the packet is that the client might have received
@@ -2482,7 +2486,7 @@ Table of Contents
    In a stateless design, a server can use encrypted and authenticated
    tokens to pass information to clients that the server can later
    recover and use to validate a client address.  Tokens are not
-   integrated into the cryptographic handshake and so they are not
+   integrated into the cryptographic handshake, and so they are not
    authenticated.  For instance, a client might be able to reuse a
    token.  To avoid attacks that exploit this property, a server can
    limit its use of tokens to only the information needed to validate
@@ -2517,19 +2521,20 @@ Table of Contents
 
    Tokens sent in NEW_TOKEN frames MUST include information that allows
    the server to verify that the client IP address has not changed from
-   when the token was issued.  Servers can use tokens from NEW_TOKEN in
-   deciding not to send a Retry packet, even if the client address has
-   changed.  If the client IP address has changed, the server MUST
-   adhere to the anti-amplification limit; see Section 8.  Note that in
-   the presence of NAT, this requirement might be insufficient to
-   protect other hosts that share the NAT from amplification attack.
+   when the token was issued.  Servers can use tokens from NEW_TOKEN
+   frames in deciding not to send a Retry packet, even if the client
+   address has changed.  If the client IP address has changed, the
+   server MUST adhere to the anti-amplification limit; see Section 8.
+   Note that in the presence of NAT, this requirement might be
+   insufficient to protect other hosts that share the NAT from
+   amplification attacks.
 
    Attackers could replay tokens to use servers as amplifiers in DDoS
    attacks.  To protect against such attacks, servers MUST ensure that
    replay of tokens is prevented or limited.  Servers SHOULD ensure that
    tokens sent in Retry packets are only accepted for a short time, as
    they are returned immediately by clients.  Tokens that are provided
-   in NEW_TOKEN frames (Section 19.7) need to be valid for longer, but
+   in NEW_TOKEN frames (Section 19.7) need to be valid for longer but
    SHOULD NOT be accepted multiple times.  Servers are encouraged to
    allow tokens to be used only once, if possible; tokens MAY include
    additional information about clients to further narrow applicability
@@ -2540,8 +2545,8 @@ Table of Contents
    Path validation is used by both peers during connection migration
    (see Section 9) to verify reachability after a change of address.  In
    path validation, endpoints test reachability between a specific local
-   address and a specific peer address, where an address is the two-
-   tuple of IP address and port.
+   address and a specific peer address, where an address is the 2-tuple
+   of IP address and port.
 
    Path validation tests that packets sent on a path to a peer are
    received by that peer.  Path validation is used to ensure that
@@ -2562,16 +2567,16 @@ Table of Contents
    Path validation is not designed as a NAT traversal mechanism.  Though
    the mechanism described here might be effective for the creation of
    NAT bindings that support NAT traversal, the expectation is that one
-   or other peer is able to receive packets without first having sent a
+   endpoint is able to receive packets without first having sent a
    packet on that path.  Effective NAT traversal needs additional
    synchronization mechanisms that are not provided here.
 
    An endpoint MAY include other frames with the PATH_CHALLENGE and
    PATH_RESPONSE frames used for path validation.  In particular, an
    endpoint can include PADDING frames with a PATH_CHALLENGE frame for
-   Path Maximum Transmission Unit Discovery (PMTUD; see Section 14.2.1);
-   it can also include its own PATH_CHALLENGE frame with a PATH_RESPONSE
-   frame.
+   Path Maximum Transmission Unit Discovery (PMTUD); see Section 14.2.1.
+   An endpoint can also include its own PATH_CHALLENGE frame when
+   sending a PATH_RESPONSE frame.
 
    An endpoint uses a new connection ID for probes sent from a new local
    address; see Section 9.5.  When probing a new path, an endpoint can
@@ -2638,7 +2643,7 @@ Table of Contents
    PATH_CHALLENGE was received.  This ensures that path validation by a
    peer only succeeds if the path is functional in both directions.
    This requirement MUST NOT be enforced by the endpoint that initiates
-   path validation as that would enable an attack on migration; see
+   path validation, as that would enable an attack on migration; see
    Section 9.3.3.
 
    An endpoint MUST expand datagrams that contain a PATH_RESPONSE frame
@@ -2662,7 +2667,7 @@ Table of Contents
    on which the PATH_CHALLENGE was sent.
 
    If an endpoint sends a PATH_CHALLENGE frame in a datagram that is not
-   expanded to at least 1200 bytes, and if the response to it validates
+   expanded to at least 1200 bytes and if the response to it validates
    the peer address, the path is validated but not the path MTU.  As a
    result, the endpoint can now send more than three times the amount of
    data that has been received.  However, the endpoint MUST initiate
@@ -2681,9 +2686,9 @@ Table of Contents
    Endpoints SHOULD abandon path validation based on a timer.  When
    setting this timer, implementations are cautioned that the new path
    could have a longer round-trip time than the original.  A value of
-   three times the larger of the current Probe Timeout (PTO) or the PTO
-   for the new path (that is, using kInitialRtt as defined in
-   [QUIC-RECOVERY]) is RECOMMENDED.
+   three times the larger of the current PTO or the PTO for the new path
+   (that is, using kInitialRtt as defined in [QUIC-RECOVERY]) is
+   RECOMMENDED.
 
    This timeout allows for multiple PTOs to expire prior to failing path
    validation, so that loss of a single PATH_CHALLENGE or PATH_RESPONSE
@@ -2695,7 +2700,7 @@ Table of Contents
 
    When an endpoint abandons path validation, it determines that the
    path is unusable.  This does not necessarily imply a failure of the
-   connection - endpoints can continue sending packets over other paths
+   connection -- endpoints can continue sending packets over other paths
    as appropriate.  If no paths are available, an endpoint can wait for
    a new path to become available or close the connection.  An endpoint
    that has no valid network path to its peer MAY signal this using the
@@ -2718,7 +2723,7 @@ Table of Contents
    The design of QUIC relies on endpoints retaining a stable address for
    the duration of the handshake.  An endpoint MUST NOT initiate
    connection migration before the handshake is confirmed, as defined in
-   section 4.1.2 of [QUIC-TLS].
+   Section 4.1.2 of [QUIC-TLS].
 
    If the peer sent the disable_active_migration transport parameter, an
    endpoint also MUST NOT send packets (including probing packets; see
@@ -2774,8 +2779,8 @@ Table of Contents
    Each endpoint validates its peer's address during connection
    establishment.  Therefore, a migrating endpoint can send to its peer
    knowing that the peer is willing to receive at the peer's current
-   address.  Thus an endpoint can migrate to a new local address without
-   first validating the peer's address.
+   address.  Thus, an endpoint can migrate to a new local address
+   without first validating the peer's address.
 
    To establish reachability on the new path, an endpoint initiates path
    validation (Section 8.2) on the new path.  An endpoint MAY defer path
@@ -2807,10 +2812,10 @@ Table of Contents
    case that it receives reordered packets.
 
    An endpoint MAY send data to an unvalidated peer address, but it MUST
-   protect against potential attacks as described in Section 9.3.1 and
-   Section 9.3.2.  An endpoint MAY skip validation of a peer address if
-   that address has been seen recently.  In particular, if an endpoint
-   returns to a previously-validated path after detecting some form of
+   protect against potential attacks as described in Sections 9.3.1 and
+   9.3.2.  An endpoint MAY skip validation of a peer address if that
+   address has been seen recently.  In particular, if an endpoint
+   returns to a previously validated path after detecting some form of
    spurious migration, skipping address validation and restoring loss
    detection and congestion state can reduce the performance impact of
    the attack.
@@ -2836,7 +2841,7 @@ Table of Contents
    peer's new address to confirm the peer's possession of the new
    address.  Until a peer's address is deemed valid, an endpoint limits
    the amount of data it sends to that address; see Section 8.  In the
-   absence of this limit, an endpoint risks being used for a denial of
+   absence of this limit, an endpoint risks being used for a denial-of-
    service attack against an unsuspecting victim.
 
    If an endpoint skips validation of a peer address as described above,
@@ -2876,7 +2881,7 @@ Table of Contents
    the genuine packet, this will appear as a NAT rebinding.  Any genuine
    packet will be discarded as a duplicate.  If the attacker is able to
    continue forwarding packets, it might be able to cause migration to a
-   path via the attacker.  This places the attacker on path, giving it
+   path via the attacker.  This places the attacker on-path, giving it
    the ability to observe or drop all subsequent packets.
 
    This style of attack relies on the attacker using a path that has
@@ -2894,7 +2899,7 @@ Table of Contents
    previously active path using a PATH_CHALLENGE frame.  This induces
    the sending of new packets on that path.  If the path is no longer
    viable, the validation attempt will time out and fail; if the path is
-   viable, but no longer desired, the validation will succeed, but only
+   viable but no longer desired, the validation will succeed but only
    results in probing packets being sent on the path.
 
    An endpoint that receives a PATH_CHALLENGE on an active path SHOULD
@@ -2925,7 +2930,7 @@ Table of Contents
    On confirming a peer's ownership of its new address, an endpoint MUST
    immediately reset the congestion controller and round-trip time
    estimator for the new path to initial values (see Appendices A.3 and
-   B.3 in [QUIC-RECOVERY]) unless the only change in the peer's address
+   B.3 of [QUIC-RECOVERY]) unless the only change in the peer's address
    is its port number.  Because port-only changes are commonly the
    result of NAT rebinding or other middlebox activity, the endpoint MAY
    instead retain its congestion control state and round-trip estimate
@@ -2947,15 +2952,15 @@ Table of Contents
    (as described in [QUIC-RECOVERY]) could be adequate.  For instance,
    an endpoint might delay switching to a new congestion control context
    until it is confirmed that an old path is no longer needed (such as
-   the case in Section 9.3.3).
+   the case described in Section 9.3.3).
 
    A sender can make exceptions for probe packets so that their loss
    detection is independent and does not unduly cause the congestion
    controller to reduce its sending rate.  An endpoint might set a
-   separate timer when a PATH_CHALLENGE is sent, which is cancelled if
+   separate timer when a PATH_CHALLENGE is sent, which is canceled if
    the corresponding PATH_RESPONSE is received.  If the timer fires
    before the PATH_RESPONSE is received, the endpoint might send a new
-   PATH_CHALLENGE, and restart the timer for a longer period of time.
+   PATH_CHALLENGE and restart the timer for a longer period of time.
    This timer SHOULD be set as described in Section 6.2.1 of
    [QUIC-RECOVERY] and MUST NOT be more aggressive.
 
@@ -2974,14 +2979,14 @@ Table of Contents
    transmit with to a value that has not been used on another path.
 
    An endpoint MUST NOT reuse a connection ID when sending from more
-   than one local address, for example when initiating connection
+   than one local address -- for example, when initiating connection
    migration as described in Section 9.2 or when probing a new network
    path as described in Section 9.1.
 
    Similarly, an endpoint MUST NOT reuse a connection ID when sending to
    more than one destination address.  Due to network changes outside
    the control of its peer, an endpoint might receive packets from a new
-   source address with the same destination connection ID, in which case
+   source address with the same Destination Connection ID, in which case
    it MAY continue to use the current connection ID with the new remote
    address while still sending from the same local address.
 
@@ -3006,7 +3011,7 @@ Table of Contents
    server is able to associate packets with a zero-length connection ID
    to the right connection, it means that the server is using other
    information to demultiplex packets.  For example, a server might
-   provide a unique address to every client, for instance using HTTP
+   provide a unique address to every client -- for instance, using HTTP
    alternative services [ALTSVC].  Information that might allow correct
    routing of packets across multiple network paths will also allow
    activity on those paths to be linked by entities other than the peer.
@@ -3114,9 +3119,9 @@ Table of Contents
    If packets received at the server's preferred address have a
    different source address than observed from the client during the
    handshake, the server MUST protect against potential attacks as
-   described in Section 9.3.1 and Section 9.3.2.  In addition to
-   intentional simultaneous migration, this might also occur because the
-   client's access network used a different NAT binding for the server's
+   described in Sections 9.3.1 and 9.3.2.  In addition to intentional
+   simultaneous migration, this might also occur because the client's
+   access network used a different NAT binding for the server's
    preferred address.
 
    Servers SHOULD initiate path validation to the client's new address
@@ -3132,7 +3137,7 @@ Table of Contents
    ID available for migration, but the client MAY use this connection ID
    on any path.
 
-9.7.  Use of IPv6 Flow-Label and Migration
+9.7.  Use of IPv6 Flow Label and Migration
 
    Endpoints that send data using IPv6 SHOULD apply an IPv6 flow label
    in compliance with [RFC6437], unless the local API does not allow
@@ -3166,15 +3171,15 @@ Table of Contents
 
 10.1.  Idle Timeout
 
-   If a max_idle_timeout is specified by either peer in its transport
+   If a max_idle_timeout is specified by each endpoint in its transport
    parameters (Section 18.2), the connection is silently closed and its
    state is discarded when it remains idle for longer than the minimum
-   of both peers max_idle_timeout values.
+   of the max_idle_timeout value advertised by both endpoints.
 
    Each endpoint advertises a max_idle_timeout, but the effective value
    at an endpoint is computed as the minimum of the two advertised
    values (or the sole advertised value, if only one endpoint advertises
-   a nonzero value).  By announcing a max_idle_timeout, an endpoint
+   a non-zero value).  By announcing a max_idle_timeout, an endpoint
    commits to initiating an immediate close (Section 10.2) if it
    abandons the connection prior to the effective value.
 
@@ -3206,13 +3211,13 @@ Table of Contents
 10.1.2.  Deferring Idle Timeout
 
    An endpoint might need to send ack-eliciting packets to avoid an idle
-   timeout if it is expecting response data, but does not have or is
+   timeout if it is expecting response data but does not have or is
    unable to send application data.
 
    An implementation of QUIC might provide applications with an option
    to defer an idle timeout.  This facility could be used when the
    application wishes to avoid losing state that has been associated
-   with an open connection, but does not expect to exchange application
+   with an open connection but does not expect to exchange application
    data for some time.  With this option, an endpoint could send a PING
    frame (Section 19.2) periodically, which will cause the peer to
    restart its idle timeout period.  Sending a packet containing a PING
@@ -3229,7 +3234,7 @@ Table of Contents
    period longer than the time negotiated using the max_idle_timeout
    transport parameter; see Section 10.  However, state in middleboxes
    might time out earlier than that.  Though REQ-5 in [RFC4787]
-   recommends a 2 minute timeout interval, experience shows that sending
+   recommends a 2-minute timeout interval, experience shows that sending
    packets every 30 seconds is necessary to prevent the majority of
    middleboxes from losing state for UDP flows [GATEWAY].
 
@@ -3260,8 +3265,7 @@ Table of Contents
    The closing and draining connection states exist to ensure that
    connections close cleanly and that delayed or reordered packets are
    properly discarded.  These states SHOULD persist for at least three
-   times the current Probe Timeout (PTO) interval as defined in
-   [QUIC-RECOVERY].
+   times the current PTO interval as defined in [QUIC-RECOVERY].
 
    Disposing of connection state prior to exiting the closing or
    draining state could result in an endpoint generating a stateless
@@ -3271,7 +3275,7 @@ Table of Contents
    able to close the UDP socket, MAY end these states earlier to allow
    for faster resource recovery.  Servers that retain an open socket for
    accepting new connections SHOULD NOT end the closing or draining
-   states early.
+   state early.
 
    Once its closing or draining state ends, an endpoint SHOULD discard
    all connection state.  The endpoint MAY send a stateless reset in
@@ -3313,8 +3317,8 @@ Table of Contents
    packet in response to any received packet.
 
    Note:  Allowing retransmission of a closing packet is an exception to
-      the requirement that a new packet number be used for each packet
-      in Section 12.3.  Sending new packet numbers is primarily of
+      the requirement that a new packet number be used for each packet;
+      see Section 12.3.  Sending new packet numbers is primarily of
       advantage to loss recovery and congestion control, which are not
       expected to be relevant for a closed connection.  Retransmitting
       the final packet requires less state.
@@ -3352,10 +3356,10 @@ Table of Contents
    receives a CONNECTION_CLOSE frame, which indicates that the peer is
    also closing or draining.  In this case, the draining state ends when
    the closing state would have ended.  In other words, the endpoint
-   uses the same end time, but ceases transmission of any packets on
-   this connection.
+   uses the same end time but ceases transmission of any packets on this
+   connection.
 
-10.2.3.  Immediate Close During the Handshake
+10.2.3.  Immediate Close during the Handshake
 
    When sending CONNECTION_CLOSE, the goal is to ensure that the peer
    will process the frame.  Generally, this means sending the frame in a
@@ -3459,8 +3463,8 @@ Table of Contents
 
                      Figure 10: Stateless Reset Packet
 
-   This design ensures that a stateless reset packet is - to the extent
-   possible - indistinguishable from a regular packet with a short
+   This design ensures that a stateless reset packet is -- to the extent
+   possible -- indistinguishable from a regular packet with a short
    header.
 
    A stateless reset uses an entire UDP datagram, starting with the
@@ -3488,10 +3492,10 @@ Table of Contents
    shorter than the packet it responds to.
 
    These values assume that the Stateless Reset Token is the same length
-   as the minimum expansion of the packet protection AEAD.  Additional
-   unpredictable bytes are necessary if the endpoint could have
-   negotiated a packet protection scheme with a larger minimum
-   expansion.
+   as the minimum expansion of the packet protection Authenticated
+   Encryption with Associated Data (AEAD).  Additional unpredictable
+   bytes are necessary if the endpoint could have negotiated a packet
+   protection scheme with a larger minimum expansion.
 
    An endpoint MUST NOT send a stateless reset that is three times or
    more larger than the packet it receives to avoid being used for
@@ -3518,12 +3522,12 @@ Table of Contents
    as sending a stateless reset.
 
    An endpoint cannot determine the Source Connection ID from a packet
-   with a short header, therefore it cannot set the Destination
+   with a short header; therefore, it cannot set the Destination
    Connection ID in the stateless reset packet.  The Destination
    Connection ID will therefore differ from the value used in previous
    packets.  A random Destination Connection ID makes the connection ID
    appear to be the result of moving to a new connection ID that was
-   provided using a NEW_CONNECTION_ID frame (Section 19.15).
+   provided using a NEW_CONNECTION_ID frame; see Section 19.15.
 
    Using a randomized connection ID results in two problems:
 
@@ -3533,7 +3537,7 @@ Table of Contents
       another Stateless Reset in response; see Section 10.3.3.  A
       Stateless Reset that is not correctly routed is an ineffective
       error detection and recovery mechanism.  In this case, endpoints
-      will need to rely on other methods - such as timers - to detect
+      will need to rely on other methods -- such as timers -- to detect
       that the connection has failed.
 
    *  The randomly generated connection ID can be used by entities other
@@ -3546,8 +3550,8 @@ Table of Contents
    stateless reset that will be accepted by peers that support any
    version that the endpoint might support (or might have supported
    prior to losing state).  Designers of new versions of QUIC need to be
-   aware of this and either reuse this design, or use a portion of the
-   packet other than the last 16 bytes for carrying data.
+   aware of this and either (1) reuse this design or (2) use a portion
+   of the packet other than the last 16 bytes for carrying data.
 
 10.3.1.  Detecting a Stateless Reset
 
@@ -3566,7 +3570,7 @@ Table of Contents
    Endpoints MAY skip this check if any packet from a datagram is
    successfully processed.  However, the comparison MUST be performed
    when the first packet in an incoming datagram either cannot be
-   associated with a connection, or cannot be decrypted.
+   associated with a connection or cannot be decrypted.
 
    An endpoint MUST NOT check for any Stateless Reset Tokens associated
    with connection IDs it has not used or for connection IDs that have
@@ -3579,11 +3583,11 @@ Table of Contents
    from information leakage through timing side channels.  Another
    approach would be to store and compare the transformed values of
    Stateless Reset Tokens instead of the raw token values, where the
-   transformation is defined as a cryptographically-secure pseudo-random
-   function using a secret key (e.g., block cipher, HMAC [RFC2104]).  An
-   endpoint is not expected to protect information about whether a
-   packet was successfully decrypted, or the number of valid Stateless
-   Reset Tokens.
+   transformation is defined as a cryptographically secure pseudorandom
+   function using a secret key (e.g., block cipher, Hashed Message
+   Authentication Code (HMAC) [RFC2104]).  An endpoint is not expected
+   to protect information about whether a packet was successfully
+   decrypted or the number of valid Stateless Reset Tokens.
 
    If the last 16 bytes of the datagram are identical in value to a
    Stateless Reset Token, the endpoint MUST enter the draining period
@@ -3593,7 +3597,7 @@ Table of Contents
 
    The stateless reset token MUST be difficult to guess.  In order to
    create a Stateless Reset Token, an endpoint could randomly generate
-   ([RANDOM]) a secret for every connection that it creates.  However,
+   [RANDOM] a secret for every connection that it creates.  However,
    this presents a coordination problem when there are multiple
    instances in a cluster or a storage problem for an endpoint that
    might lose state.  Stateless reset specifically exists to handle the
@@ -3603,10 +3607,11 @@ Table of Contents
    endpoint by generating the proof using a pseudorandom function that
    takes a static key and the connection ID chosen by the endpoint (see
    Section 5.1) as input.  An endpoint could use HMAC [RFC2104] (for
-   example, HMAC(static_key, connection_id)) or HKDF [RFC5869] (for
-   example, using the static key as input keying material, with the
-   connection ID as salt).  The output of this function is truncated to
-   16 bytes to produce the Stateless Reset Token for that connection.
+   example, HMAC(static_key, connection_id)) or the HMAC-based Key
+   Derivation Function (HKDF) [RFC5869] (for example, using the static
+   key as input keying material, with the connection ID as salt).  The
+   output of this function is truncated to 16 bytes to produce the
+   Stateless Reset Token for that connection.
 
    An endpoint that loses state can use the same method to generate a
    valid Stateless Reset Token.  The connection ID comes from the packet
@@ -3624,12 +3629,12 @@ Table of Contents
    the connection, so a value can only be used once.  This method for
    choosing the Stateless Reset Token means that the combination of
    connection ID and static key MUST NOT be used for another connection.
-   A denial of service attack is possible if the same connection ID is
-   used by instances that share a static key, or if an attacker can
-   cause a packet to be routed to an instance that has no state but the
-   same static key; see Section 21.11.  A connection ID from a
-   connection that is reset by revealing the Stateless Reset Token MUST
-   NOT be reused for new connections at nodes that share a static key.
+   A denial-of-service attack is possible if the same connection ID is
+   used by instances that share a static key or if an attacker can cause
+   a packet to be routed to an instance that has no state but the same
+   static key; see Section 21.11.  A connection ID from a connection
+   that is reset by revealing the Stateless Reset Token MUST NOT be
+   reused for new connections at nodes that share a static key.
 
    The same Stateless Reset Token MUST NOT be used for multiple
    connection IDs.  Endpoints are not required to compare new values
@@ -3643,7 +3648,7 @@ Table of Contents
 
    The design of a Stateless Reset is such that without knowing the
    stateless reset token it is indistinguishable from a valid packet.
-   For instance, if a server sends a Stateless Reset to another server
+   For instance, if a server sends a Stateless Reset to another server,
    it might receive another Stateless Reset in response, which could
    lead to an infinite exchange.
 
@@ -3663,9 +3668,9 @@ Table of Contents
    packet could reveal to an observer that it is a Stateless Reset,
    depending upon the length of the peer's connection IDs.  Conversely,
    refusing to send a Stateless Reset in response to a small packet
-   might result in Stateless Reset not being useful in detecting cases
-   of broken connections where only very small packets are sent; such
-   failures might only be detected by other means, such as timers.
+   might result in Stateless Reset packets not being useful in detecting
+   cases of broken connections where only very small packets are sent;
+   such failures might only be detected by other means, such as timers.
 
 11.  Error Handling
 
@@ -6723,8 +6728,8 @@ Table of Contents
    Error Code:  A variable-length integer error code that indicates the
       reason for closing this connection.  A CONNECTION_CLOSE frame of
       type 0x1c uses codes from the space defined in Section 20.1.  A
-      CONNECTION_CLOSE frame of type 0x1d uses codes defined by the
-      application protocol; see Section 20.2.
+      CONNECTION_CLOSE frame of type 0x1d uses codes from the
+      application protocol error code space; see Section 20.2.
 
    Frame Type:  A variable-length integer encoding the type of frame
       that triggered the error.  A value of 0 (equivalent to the mention
@@ -8119,20 +8124,20 @@ Table of Contents
    [QUIC-INVARIANTS]
               Thomson, M., "Version-Independent Properties of QUIC",
               Work in Progress, Internet-Draft, draft-ietf-quic-
-              invariants, 30 March 2021,
+              invariants, 30 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               invariants.txt>.
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", Work in Progress, Internet-Draft,
-              draft-ietf-quic-recovery, 30 March 2021,
+              draft-ietf-quic-recovery, 30 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               recovery.txt>.
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using Transport
               Layer Security (TLS) to Secure QUIC", Work in Progress,
-              Internet-Draft, draft-ietf-quic-tls, 30 March 2021,
+              Internet-Draft, draft-ietf-quic-tls, 30 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               tls.txt>.
 
@@ -8242,9 +8247,9 @@ Table of Contents
    [QUIC-MANAGEABILITY]
               Kuehlewind, M. and B. Trammell, "Manageability of the QUIC
               Transport Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-quic-manageability-10, 22 February 2021,
+              draft-ietf-quic-manageability-11, 21 April 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
-              manageability-10.txt>.
+              manageability-11.txt>.
 
    [RANDOM]   Eastlake 3rd, D., Schiller, J., and S. Crocker,
               "Randomness Requirements for Security", BCP 106, RFC 4086,
