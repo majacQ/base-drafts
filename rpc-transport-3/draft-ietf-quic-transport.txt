@@ -7170,9 +7170,9 @@ Table of Contents
    original packet to be ignored by the recipient.
 
    It is also assumed that an attacker has the resources necessary to
-   affect NAT state, potentially both causing an endpoint to lose its
-   NAT binding, and an attacker to obtain the same port for use with its
-   traffic.
+   affect NAT state.  In particular, an attacker can cause an endpoint
+   to lose its NAT binding and then obtain the same port for use with
+   its own traffic.
 
    In the presence of an off-path attacker, QUIC aims to provide the
    following properties:
@@ -7783,19 +7783,13 @@ Table of Contents
    provisional registration:
 
    Value:  The assigned codepoint.
-
    Status:  "Permanent" or "Provisional".
-
    Specification:  A reference to a publicly available specification for
       the value.
-
    Date:  The date of the last update to the registration.
-
    Change Controller:  The entity that is responsible for the definition
       of the registration.
-
    Contact:  Contact details for the registrant.
-
    Notes:  Supplementary notes about the registration.
 
    Provisional registrations MAY omit the Specification and Notes
@@ -7806,12 +7800,12 @@ Table of Contents
 
 22.1.2.  Selecting Codepoints
 
-   New uses of codepoints from QUIC registries SHOULD use a randomly
-   selected codepoint that excludes both existing allocations and the
-   first unallocated codepoint in the selected space.  Requests for
-   multiple codepoints MAY use a contiguous range.  This minimizes the
-   risk that differing semantics are attributed to the same codepoint by
-   different implementations.
+   New requests for codepoints from QUIC registries SHOULD use a
+   randomly selected codepoint that excludes both existing allocations
+   and the first unallocated codepoint in the selected space.  Requests
+   for multiple codepoints MAY use a contiguous range.  This minimizes
+   the risk that differing semantics are attributed to the same
+   codepoint by different implementations.
 
    The use of the first unassigned codepoint is reserved for allocation
    using the Standards Action policy; see Section 4.9 of [RFC8126].  The
@@ -7900,8 +7894,8 @@ Table of Contents
    The codepoint of 0x00000001 to the protocol is assigned with
    permanent status to the protocol defined in this document.  The
    codepoint of 0x00000000 is permanently reserved; the note for this
-   codepoint indicates that this version is reserved for Version
-   Negotiation.
+   codepoint indicates that this version is reserved for version
+   negotiation.
 
    All codepoints that follow the pattern 0x?a?a?a?a are reserved and
    MUST NOT be assigned by IANA, and MUST NOT appear in the listing of
@@ -7984,7 +7978,7 @@ Table of Contents
    In addition to the fields in Section 22.1.1, permanent registrations
    in this registry MUST include the following field:
 
-   Frame Name:  A short mnemonic for the frame type.
+   Frame Type Name:  A short mnemonic for the frame type.
 
    In addition to the advice in Section 22.1, specifications for new
    permanent registrations SHOULD describe the means by which an
@@ -8004,7 +7998,7 @@ Table of Contents
    "QUIC" heading.
 
    The "QUIC Transport Error Codes" registry governs a 62-bit space.
-   This space is split into three regions that are governed by different
+   This space is split into three ranges that are governed by different
    policies.  Permanent registrations in this registry are assigned
    using the Specification Required policy (Section 4.6 of [RFC8126]),
    except for values between 0x00 and 0x3f (in hexadecimal), inclusive,
@@ -8388,7 +8382,7 @@ A.2.  Sample Packet Number Encoding Algorithm
      num_bytes = ceil(min_bits / 8)
 
      // Encode the integer value and truncate to
-     // the num_bytes least-significant bytes.
+     // the num_bytes least significant bytes.
      return encode(full_pn, num_bytes)
 
              Figure 46: Sample Packet Number Encoding Algorithm
@@ -8477,9 +8471,9 @@ A.4.  Sample ECN Validation Algorithm
 
    After the testing period ends, the ECN state for the path becomes
    "unknown".  From the "unknown" state, successful validation of the
-   ECN counts an ACK frame (see Section 13.4.2.1) causes the ECN state
-   for the path to become "capable", unless no marked packet has been
-   acknowledged.
+   ECN counts in an ACK frame (see Section 13.4.2.1) causes the ECN
+   state for the path to become "capable" unless no marked packet has
+   been acknowledged.
 
    If validation of ECN counts fails at any time, the ECN state for the
    affected path becomes "failed".  An endpoint can also mark the ECN
