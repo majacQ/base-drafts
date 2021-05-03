@@ -5045,17 +5045,17 @@ Table of Contents
       field, the least significant two bits (those with a mask of 0x03)
       of byte 0 contain the length of the packet number, encoded as an
       unsigned, two-bit integer that is one less than the length of the
-      packet number field in bytes.  That is, the length of the packet
-      number field is the value of this field, plus one.  These bits are
+      Packet Number field in bytes.  That is, the length of the Packet
+      Number field is the value of this field, plus one.  These bits are
       protected using header protection; see Section 5.4 of [QUIC-TLS].
 
    Length:  The length of the remainder of the packet (that is, the
       Packet Number and Payload fields) in bytes, encoded as a variable-
       length integer (Section 16).
 
-   Packet Number:  The packet number field is 1 to 4 bytes long.  The
+   Packet Number:  The Packet Number field is 1 to 4 bytes long.  The
       packet number is protected using header protection; see
-      Section 5.4 of [QUIC-TLS].  The length of the packet number field
+      Section 5.4 of [QUIC-TLS].  The length of the Packet Number field
       is encoded in the Packet Number Length bits of byte 0; see above.
 
 17.2.1.  Version Negotiation Packet
@@ -5503,8 +5503,8 @@ Table of Contents
    Packet Number Length:  The least significant two bits (those with a
       mask of 0x03) of byte 0 contain the length of the packet number,
       encoded as an unsigned, two-bit integer that is one less than the
-      length of the packet number field in bytes.  That is, the length
-      of the packet number field is the value of this field, plus one.
+      length of the Packet Number field in bytes.  That is, the length
+      of the Packet Number field is the value of this field, plus one.
       These bits are protected using header protection; see Section 5.4
       of [QUIC-TLS].
 
@@ -5512,9 +5512,9 @@ Table of Contents
       connection ID that is chosen by the intended recipient of the
       packet.  See Section 5.1 for more details.
 
-   Packet Number:  The packet number field is 1 to 4 bytes long.  The
+   Packet Number:  The Packet Number field is 1 to 4 bytes long.  The
       packet number is protected using header protection; see
-      Section 5.4 of [QUIC-TLS].  The length of the packet number field
+      Section 5.4 of [QUIC-TLS].  The length of the Packet Number field
       is encoded in Packet Number Length field.  See Section 17.1 for
       details.
 
@@ -7030,8 +7030,8 @@ Table of Contents
    packet will cause it to be dropped by the receiving endpoint as
    invalid, as packet payloads are both authenticated and encrypted.
 
-   In the presence of an on-path attacker, QUIC aims to provide the
-   following properties:
+   QUIC aims to constrain the capabilities of an on-path attacker as
+   follows:
 
    1.  An on-path attacker can prevent use of a path for a connection,
        causing the connection to fail if it cannot use a different path
@@ -7095,8 +7095,8 @@ Table of Contents
    to lose its NAT binding and then obtain the same port for use with
    its own traffic.
 
-   In the presence of an off-path attacker, QUIC aims to provide the
-   following properties:
+   QUIC aims to constrain the capabilities of an off-path attacker as
+   follows:
 
    1.  An off-path attacker can race packets and attempt to become a
        "limited" on-path attacker.
@@ -7162,8 +7162,8 @@ Table of Contents
    original path.  If a limited on-path attacker drops packets, the
    original copy will still arrive at the destination endpoint.
 
-   In the presence of a limited on-path attacker, QUIC aims to provide
-   the following properties:
+   QUIC aims to constrain the capabilities of a limited off-path
+   attacker as follows:
 
    1.  A limited on-path attacker cannot cause a connection to close
        once the handshake has completed.
@@ -7879,7 +7879,7 @@ Table of Contents
 
         Table 6: Initial QUIC Transport Parameters Registry Entries
 
-   Each value of the format "31 * N + 27" for integer values of N (that
+   Each value of the form "31 * N + 27" for integer values of N (that
    is, 27, 58, 89, ...) are reserved; these values MUST NOT be assigned
    by IANA and MUST NOT appear in the listing of assigned values.
 
