@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="Internet-Draft">
+<html lang="en" class="RFC">
 <head>
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>QUIC: A UDP-Based Multiplexed and Secure Transport</title>
+<title>RFC 9000: QUIC: A UDP-Based Multiplexed and Secure Transport</title>
 <meta content="Jana Iyengar" name="author">
 <meta content="Martin Thomson" name="author">
 <meta content="
@@ -17,7 +17,7 @@ integration of TLS for key negotiation, loss detection, and an exemplary
 congestion control algorithm. 
     " name="description">
 <meta content="xml2rfc 3.7.0" name="generator">
-<meta content="draft-ietf-quic-transport" name="ietf.draft">
+<meta content="9000" name="rfc.number">
 <!-- Generator version information:
   xml2rfc 3.7.0
     Python 3.8.8
@@ -36,7 +36,7 @@ congestion control algorithm.
     setuptools 51.3.3
     six 1.15.0
 -->
-<link href="draft-ietf-quic-transport.xml" rel="alternate" type="application/rfc+xml">
+<link href="rfc9000.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@import url('https://martinthomson.github.io/i-d-template/fonts.css');
 
@@ -837,35 +837,38 @@ address div.right {
 }
 </style>
 
-</head>
+<link href="https://dx.doi.org/10.17487/rfc9000" rel="alternate">
+  <link href="urn:issn:2070-1721" rel="alternate">
+  <link href="https://datatracker.ietf.org/doc/draft-ietf-quic-transport-34" rel="prev">
+  </head>
 <body>
 <table class="ears">
 <thead><tr>
-<td class="left">Internet-Draft</td>
+<td class="left">RFC 9000</td>
 <td class="center">QUIC Transport Protocol</td>
 <td class="right">May 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Iyengar &amp; Thomson</td>
-<td class="center">Expires 3 November 2021</td>
+<td class="center">Standards Track</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
 <div id="external-metadata" class="document-information"></div>
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
-<dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">QUIC</dd>
-<dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-quic-transport</dd>
+<dt class="label-stream">Stream:</dt>
+<dd class="stream">Internet Engineering Task Force (IETF)</dd>
+<dt class="label-rfc">RFC:</dt>
+<dd class="rfc"><a href="https://datatracker.ietf.org/doc/html/rfc9000" class="eref">9000</a></dd>
+<dt class="label-category">Category:</dt>
+<dd class="category">Standards Track</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-05-02" class="published">2 May 2021</time>
+<time datetime="2021-05" class="published">May 2021</time>
     </dd>
-<dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Standards Track</dd>
-<dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-11-03">3 November 2021</time></dd>
+<dt class="label-issn">ISSN:</dt>
+<dd class="issn">2070-1721</dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -881,6 +884,7 @@ address div.right {
 </dd>
 </dl>
 </div>
+<h1 id="rfcnum">RFC 9000</h1>
 <h1 id="title">QUIC: A UDP-Based Multiplexed and Secure Transport</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
@@ -916,20 +920,18 @@ code and issues list for this draft can be found at
 <a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
         </h2>
 <p id="section-boilerplate.1-1">
-        This Internet-Draft is submitted in full conformance with the
-        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+            This is an Internet Standards Track document.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-2">
-        Internet-Drafts are working documents of the Internet Engineering Task
-        Force (IETF). Note that other groups may also distribute working
-        documents as Internet-Drafts. The list of current Internet-Drafts is
-        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+            This document is a product of the Internet Engineering Task Force
+            (IETF).  It represents the consensus of the IETF community.  It has
+            received public review and has been approved for publication by
+            the Internet Engineering Steering Group (IESG).  Further
+            information on Internet Standards is available in Section 2 of 
+            RFC 7841.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-3">
-        Internet-Drafts are draft documents valid for a maximum of six months
-        and may be updated, replaced, or obsoleted by other documents at any
-        time. It is inappropriate to use Internet-Drafts as reference
-        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
-<p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 November 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+            Information about the current status of this document, any
+            errata, and how to provide feedback on it may be obtained at
+            <span><a href="https://www.rfc-editor.org/info/rfc9000">https://www.rfc-editor.org/info/rfc9000</a></span>.<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -957,803 +959,803 @@ code and issues list for this draft can be found at
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.1">
+<nav class="toc"><ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-overview" class="xref">Overview</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-document-structure" class="xref">Document Structure</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-terms-and-definitions" class="xref">Terms and Definitions</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-notational-conventions" class="xref">Notational Conventions</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.2">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-streams" class="xref">Streams</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-stream-types-and-identifier" class="xref">Stream Types and Identifiers</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.2.2.2">
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-sending-and-receiving-data" class="xref">Sending and Receiving Data</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.2.2.3">
                 <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="xref">2.3</a>.  <a href="#name-stream-prioritization" class="xref">Stream Prioritization</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.2.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.2.2.4">
                 <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="xref">2.4</a>.  <a href="#name-operations-on-streams" class="xref">Operations on Streams</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.3">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-stream-states" class="xref">Stream States</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-sending-stream-states" class="xref">Sending Stream States</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-receiving-stream-states" class="xref">Receiving Stream States</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-permitted-frame-types" class="xref">Permitted Frame Types</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-bidirectional-stream-states" class="xref">Bidirectional Stream States</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-solicited-state-transitions" class="xref">Solicited State Transitions</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.4">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-flow-control" class="xref">Flow Control</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-data-flow-control" class="xref">Data Flow Control</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-increasing-flow-control-lim" class="xref">Increasing Flow Control Limits</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-flow-control-performance" class="xref">Flow Control Performance</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-handling-stream-cancellatio" class="xref">Handling Stream Cancellation</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.5">
                 <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-stream-final-size" class="xref">Stream Final Size</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.4.2.6">
                 <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-controlling-concurrency" class="xref">Controlling Concurrency</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.5">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-connections" class="xref">Connections</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-connection-id" class="xref">Connection ID</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.1">
                     <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="xref">5.1.1</a>.  <a href="#name-issuing-connection-ids" class="xref">Issuing Connection IDs</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.1.2.2">
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="xref">5.1.2</a>.  <a href="#name-consuming-and-retiring-conn" class="xref">Consuming and Retiring Connection IDs</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-matching-packets-to-connect" class="xref">Matching Packets to Connections</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.5.2.2.2.1">
                     <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="xref">5.2.1</a>.  <a href="#name-client-packet-handling" class="xref">Client Packet Handling</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.2.2.2">
                     <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="xref">5.2.2</a>.  <a href="#name-server-packet-handling" class="xref">Server Packet Handling</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.2.2.3">
                     <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="xref">5.2.3</a>.  <a href="#name-considerations-for-simple-l" class="xref">Considerations for Simple Load Balancers</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-operations-on-connections" class="xref">Operations on Connections</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.6">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-version-negotiation" class="xref">Version Negotiation</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.6.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-sending-version-negotiation" class="xref">Sending Version Negotiation Packets</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-handling-version-negotiatio" class="xref">Handling Version Negotiation Packets</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.6.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.6.2.2.2.1">
                     <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="xref">6.2.1</a>.  <a href="#name-version-negotiation-between" class="xref">Version Negotiation Between Draft Versions</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-using-reserved-versions" class="xref">Using Reserved Versions</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.7">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-cryptographic-and-transport" class="xref">Cryptographic and Transport Handshake</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.7.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-example-handshake-flows" class="xref">Example Handshake Flows</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.2">
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-negotiating-connection-ids" class="xref">Negotiating Connection IDs</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.3">
                 <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="xref">7.3</a>.  <a href="#name-authenticating-connection-i" class="xref">Authenticating Connection IDs</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.4">
                 <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="xref">7.4</a>.  <a href="#name-transport-parameters" class="xref">Transport Parameters</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.7.2.4.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.7.2.4.2.1">
                     <p id="section-toc.1-1.7.2.4.2.1.1"><a href="#section-7.4.1" class="xref">7.4.1</a>.  <a href="#name-values-of-transport-paramet" class="xref">Values of Transport Parameters for 0-RTT</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.4.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.4.2.2">
                     <p id="section-toc.1-1.7.2.4.2.2.1"><a href="#section-7.4.2" class="xref">7.4.2</a>.  <a href="#name-new-transport-parameters" class="xref">New Transport Parameters</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.7.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.7.2.5">
                 <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="xref">7.5</a>.  <a href="#name-cryptographic-message-buffe" class="xref">Cryptographic Message Buffering</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.8">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-address-validation" class="xref">Address Validation</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-address-validation-during-c" class="xref">Address Validation During Connection Establishment</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1.2.1">
                     <p id="section-toc.1-1.8.2.1.2.1.1"><a href="#section-8.1.1" class="xref">8.1.1</a>.  <a href="#name-token-construction" class="xref">Token Construction</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1.2.2">
                     <p id="section-toc.1-1.8.2.1.2.2.1"><a href="#section-8.1.2" class="xref">8.1.2</a>.  <a href="#name-address-validation-using-re" class="xref">Address Validation using Retry Packets</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1.2.3">
                     <p id="section-toc.1-1.8.2.1.2.3.1"><a href="#section-8.1.3" class="xref">8.1.3</a>.  <a href="#name-address-validation-for-futu" class="xref">Address Validation for Future Connections</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.1.2.4">
                     <p id="section-toc.1-1.8.2.1.2.4.1"><a href="#section-8.1.4" class="xref">8.1.4</a>.  <a href="#name-address-validation-token-in" class="xref">Address Validation Token Integrity</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-path-validation" class="xref">Path Validation</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2.2.1">
                     <p id="section-toc.1-1.8.2.2.2.1.1"><a href="#section-8.2.1" class="xref">8.2.1</a>.  <a href="#name-initiating-path-validation" class="xref">Initiating Path Validation</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2.2.2">
                     <p id="section-toc.1-1.8.2.2.2.2.1"><a href="#section-8.2.2" class="xref">8.2.2</a>.  <a href="#name-path-validation-responses" class="xref">Path Validation Responses</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2.2.3">
                     <p id="section-toc.1-1.8.2.2.2.3.1"><a href="#section-8.2.3" class="xref">8.2.3</a>.  <a href="#name-successful-path-validation" class="xref">Successful Path Validation</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.8.2.2.2.4">
                     <p id="section-toc.1-1.8.2.2.2.4.1"><a href="#section-8.2.4" class="xref">8.2.4</a>.  <a href="#name-failed-path-validation" class="xref">Failed Path Validation</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.9">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-connection-migration" class="xref">Connection Migration</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.9.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.1">
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-probing-a-new-path" class="xref">Probing a New Path</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-initiating-connection-migra" class="xref">Initiating Connection Migration</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-responding-to-connection-mi" class="xref">Responding to Connection Migration</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.9.2.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.3.2.1">
                     <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="xref">9.3.1</a>.  <a href="#name-peer-address-spoofing" class="xref">Peer Address Spoofing</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.3.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.3.2.2">
                     <p id="section-toc.1-1.9.2.3.2.2.1"><a href="#section-9.3.2" class="xref">9.3.2</a>.  <a href="#name-on-path-address-spoofing" class="xref">On-Path Address Spoofing</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.3.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.3.2.3">
                     <p id="section-toc.1-1.9.2.3.2.3.1"><a href="#section-9.3.3" class="xref">9.3.3</a>.  <a href="#name-off-path-packet-forwarding" class="xref">Off-Path Packet Forwarding</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.4">
                 <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="xref">9.4</a>.  <a href="#name-loss-detection-and-congesti" class="xref">Loss Detection and Congestion Control</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.5">
                 <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="xref">9.5</a>.  <a href="#name-privacy-implications-of-con" class="xref">Privacy Implications of Connection Migration</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.6">
                 <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="xref">9.6</a>.  <a href="#name-servers-preferred-address" class="xref">Server's Preferred Address</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.9.2.6.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.9.2.6.2.1">
                     <p id="section-toc.1-1.9.2.6.2.1.1"><a href="#section-9.6.1" class="xref">9.6.1</a>.  <a href="#name-communicating-a-preferred-a" class="xref">Communicating a Preferred Address</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.6.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.6.2.2">
                     <p id="section-toc.1-1.9.2.6.2.2.1"><a href="#section-9.6.2" class="xref">9.6.2</a>.  <a href="#name-migration-to-a-preferred-ad" class="xref">Migration to a Preferred Address</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.6.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.6.2.3">
                     <p id="section-toc.1-1.9.2.6.2.3.1"><a href="#section-9.6.3" class="xref">9.6.3</a>.  <a href="#name-interaction-of-client-migra" class="xref">Interaction of Client Migration and Preferred Address</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.9.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.9.2.7">
                 <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="xref">9.7</a>.  <a href="#name-use-of-ipv6-flow-label-and-" class="xref">Use of IPv6 Flow-Label and Migration</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.10">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-connection-termination" class="xref">Connection Termination</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.10.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-idle-timeout" class="xref">Idle Timeout</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.10.2.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.1.2.1">
                     <p id="section-toc.1-1.10.2.1.2.1.1"><a href="#section-10.1.1" class="xref">10.1.1</a>.  <a href="#name-liveness-testing" class="xref">Liveness Testing</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.1.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.1.2.2">
                     <p id="section-toc.1-1.10.2.1.2.2.1"><a href="#section-10.1.2" class="xref">10.1.2</a>.  <a href="#name-deferring-idle-timeout" class="xref">Deferring Idle Timeout</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-immediate-close" class="xref">Immediate Close</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.10.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2.2.1">
                     <p id="section-toc.1-1.10.2.2.2.1.1"><a href="#section-10.2.1" class="xref">10.2.1</a>.  <a href="#name-closing-connection-state" class="xref">Closing Connection State</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.2.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2.2.2">
                     <p id="section-toc.1-1.10.2.2.2.2.1"><a href="#section-10.2.2" class="xref">10.2.2</a>.  <a href="#name-draining-connection-state" class="xref">Draining Connection State</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.2.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.2.2.3">
                     <p id="section-toc.1-1.10.2.2.2.3.1"><a href="#section-10.2.3" class="xref">10.2.3</a>.  <a href="#name-immediate-close-during-the-" class="xref">Immediate Close During the Handshake</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.3">
                 <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="xref">10.3</a>.  <a href="#name-stateless-reset" class="xref">Stateless Reset</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.10.2.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.10.2.3.2.1">
                     <p id="section-toc.1-1.10.2.3.2.1.1"><a href="#section-10.3.1" class="xref">10.3.1</a>.  <a href="#name-detecting-a-stateless-reset" class="xref">Detecting a Stateless Reset</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.3.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.3.2.2">
                     <p id="section-toc.1-1.10.2.3.2.2.1"><a href="#section-10.3.2" class="xref">10.3.2</a>.  <a href="#name-calculating-a-stateless-res" class="xref">Calculating a Stateless Reset Token</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.10.2.3.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.10.2.3.2.3">
                     <p id="section-toc.1-1.10.2.3.2.3.1"><a href="#section-10.3.3" class="xref">10.3.3</a>.  <a href="#name-looping" class="xref">Looping</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.11">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-error-handling" class="xref">Error Handling</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.11.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-connection-errors" class="xref">Connection Errors</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-stream-errors" class="xref">Stream Errors</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.12">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-12" class="xref">12</a>. <a href="#name-packets-and-frames" class="xref">Packets and Frames</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.12.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.12.2.1">
                 <p id="section-toc.1-1.12.2.1.1"><a href="#section-12.1" class="xref">12.1</a>.  <a href="#name-protected-packets" class="xref">Protected Packets</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.12.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.12.2.2">
                 <p id="section-toc.1-1.12.2.2.1"><a href="#section-12.2" class="xref">12.2</a>.  <a href="#name-coalescing-packets" class="xref">Coalescing Packets</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.12.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.12.2.3">
                 <p id="section-toc.1-1.12.2.3.1"><a href="#section-12.3" class="xref">12.3</a>.  <a href="#name-packet-numbers" class="xref">Packet Numbers</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.12.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.12.2.4">
                 <p id="section-toc.1-1.12.2.4.1"><a href="#section-12.4" class="xref">12.4</a>.  <a href="#name-frames-and-frame-types" class="xref">Frames and Frame Types</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.12.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.12.2.5">
                 <p id="section-toc.1-1.12.2.5.1"><a href="#section-12.5" class="xref">12.5</a>.  <a href="#name-frames-and-number-spaces" class="xref">Frames and Number Spaces</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.13">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-13" class="xref">13</a>. <a href="#name-packetization-and-reliabili" class="xref">Packetization and Reliability</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.13.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.13.2.1">
                 <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="xref">13.1</a>.  <a href="#name-packet-processing" class="xref">Packet Processing</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2">
                 <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="xref">13.2</a>.  <a href="#name-generating-acknowledgments" class="xref">Generating Acknowledgments</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.1">
                     <p id="section-toc.1-1.13.2.2.2.1.1"><a href="#section-13.2.1" class="xref">13.2.1</a>.  <a href="#name-sending-ack-frames" class="xref">Sending ACK Frames</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.2">
                     <p id="section-toc.1-1.13.2.2.2.2.1"><a href="#section-13.2.2" class="xref">13.2.2</a>.  <a href="#name-acknowledgment-frequency" class="xref">Acknowledgment Frequency</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.3">
                     <p id="section-toc.1-1.13.2.2.2.3.1"><a href="#section-13.2.3" class="xref">13.2.3</a>.  <a href="#name-managing-ack-ranges" class="xref">Managing ACK Ranges</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.4">
                     <p id="section-toc.1-1.13.2.2.2.4.1"><a href="#section-13.2.4" class="xref">13.2.4</a>.  <a href="#name-limiting-ranges-by-tracking" class="xref">Limiting Ranges by Tracking ACK Frames</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.5">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.5">
                     <p id="section-toc.1-1.13.2.2.2.5.1"><a href="#section-13.2.5" class="xref">13.2.5</a>.  <a href="#name-measuring-and-reporting-hos" class="xref">Measuring and Reporting Host Delay</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.6">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.6">
                     <p id="section-toc.1-1.13.2.2.2.6.1"><a href="#section-13.2.6" class="xref">13.2.6</a>.  <a href="#name-ack-frames-and-packet-prote" class="xref">ACK Frames and Packet Protection</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2.2.7">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.2.2.7">
                     <p id="section-toc.1-1.13.2.2.2.7.1"><a href="#section-13.2.7" class="xref">13.2.7</a>.  <a href="#name-padding-frames-consume-cong" class="xref">PADDING Frames Consume Congestion Window</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.3">
                 <p id="section-toc.1-1.13.2.3.1"><a href="#section-13.3" class="xref">13.3</a>.  <a href="#name-retransmission-of-informati" class="xref">Retransmission of Information</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.4">
                 <p id="section-toc.1-1.13.2.4.1"><a href="#section-13.4" class="xref">13.4</a>.  <a href="#name-explicit-congestion-notific" class="xref">Explicit Congestion Notification</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.13.2.4.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.13.2.4.2.1">
                     <p id="section-toc.1-1.13.2.4.2.1.1"><a href="#section-13.4.1" class="xref">13.4.1</a>.  <a href="#name-reporting-ecn-counts" class="xref">Reporting ECN Counts</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.4.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.13.2.4.2.2">
                     <p id="section-toc.1-1.13.2.4.2.2.1"><a href="#section-13.4.2" class="xref">13.4.2</a>.  <a href="#name-ecn-validation" class="xref">ECN Validation</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.14">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#section-14" class="xref">14</a>. <a href="#name-datagram-size" class="xref">Datagram Size</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.14.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.14.2.1">
                 <p id="section-toc.1-1.14.2.1.1"><a href="#section-14.1" class="xref">14.1</a>.  <a href="#name-initial-datagram-size" class="xref">Initial Datagram Size</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.2">
                 <p id="section-toc.1-1.14.2.2.1"><a href="#section-14.2" class="xref">14.2</a>.  <a href="#name-path-maximum-transmission-u" class="xref">Path Maximum Transmission Unit</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.14.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.14.2.2.2.1">
                     <p id="section-toc.1-1.14.2.2.2.1.1"><a href="#section-14.2.1" class="xref">14.2.1</a>.  <a href="#name-handling-of-icmp-messages-b" class="xref">Handling of ICMP Messages by PMTUD</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.3">
                 <p id="section-toc.1-1.14.2.3.1"><a href="#section-14.3" class="xref">14.3</a>.  <a href="#name-datagram-packetization-laye" class="xref">Datagram Packetization Layer PMTU Discovery</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.14.2.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.14.2.3.2.1">
                     <p id="section-toc.1-1.14.2.3.2.1.1"><a href="#section-14.3.1" class="xref">14.3.1</a>.  <a href="#name-dplpmtud-and-initial-connec" class="xref">DPLPMTUD and Initial Connectivity</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.3.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.3.2.2">
                     <p id="section-toc.1-1.14.2.3.2.2.1"><a href="#section-14.3.2" class="xref">14.3.2</a>.  <a href="#name-validating-the-network-path" class="xref">Validating the Network Path with DPLPMTUD</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.3.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.3.2.3">
                     <p id="section-toc.1-1.14.2.3.2.3.1"><a href="#section-14.3.3" class="xref">14.3.3</a>.  <a href="#name-handling-of-icmp-messages-by" class="xref">Handling of ICMP Messages by DPLPMTUD</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.14.2.4">
                 <p id="section-toc.1-1.14.2.4.1"><a href="#section-14.4" class="xref">14.4</a>.  <a href="#name-sending-quic-pmtu-probes" class="xref">Sending QUIC PMTU Probes</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.14.2.4.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.14.2.4.2.1">
                     <p id="section-toc.1-1.14.2.4.2.1.1"><a href="#section-14.4.1" class="xref">14.4.1</a>.  <a href="#name-pmtu-probes-containing-sour" class="xref">PMTU Probes Containing Source Connection ID</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.15">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.15">
             <p id="section-toc.1-1.15.1"><a href="#section-15" class="xref">15</a>. <a href="#name-versions" class="xref">Versions</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.16">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.16">
             <p id="section-toc.1-1.16.1"><a href="#section-16" class="xref">16</a>. <a href="#name-variable-length-integer-enc" class="xref">Variable-Length Integer Encoding</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.17">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.17">
             <p id="section-toc.1-1.17.1"><a href="#section-17" class="xref">17</a>. <a href="#name-packet-formats" class="xref">Packet Formats</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.17.2.1">
                 <p id="section-toc.1-1.17.2.1.1"><a href="#section-17.1" class="xref">17.1</a>.  <a href="#name-packet-number-encoding-and-" class="xref">Packet Number Encoding and Decoding</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2">
                 <p id="section-toc.1-1.17.2.2.1"><a href="#section-17.2" class="xref">17.2</a>.  <a href="#name-long-header-packets" class="xref">Long Header Packets</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2.2.1">
                     <p id="section-toc.1-1.17.2.2.2.1.1"><a href="#section-17.2.1" class="xref">17.2.1</a>.  <a href="#name-version-negotiation-packet" class="xref">Version Negotiation Packet</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2.2.2">
                     <p id="section-toc.1-1.17.2.2.2.2.1"><a href="#section-17.2.2" class="xref">17.2.2</a>.  <a href="#name-initial-packet" class="xref">Initial Packet</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2.2.3">
                     <p id="section-toc.1-1.17.2.2.2.3.1"><a href="#section-17.2.3" class="xref">17.2.3</a>.  <a href="#name-0-rtt" class="xref">0-RTT</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2.2.4">
                     <p id="section-toc.1-1.17.2.2.2.4.1"><a href="#section-17.2.4" class="xref">17.2.4</a>.  <a href="#name-handshake-packet" class="xref">Handshake Packet</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.5">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.2.2.5">
                     <p id="section-toc.1-1.17.2.2.2.5.1"><a href="#section-17.2.5" class="xref">17.2.5</a>.  <a href="#name-retry-packet" class="xref">Retry Packet</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.3">
                 <p id="section-toc.1-1.17.2.3.1"><a href="#section-17.3" class="xref">17.3</a>.  <a href="#name-short-header-packets" class="xref">Short Header Packets</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.17.2.3.2.1">
                     <p id="section-toc.1-1.17.2.3.2.1.1"><a href="#section-17.3.1" class="xref">17.3.1</a>.  <a href="#name-1-rtt-packet" class="xref">1-RTT Packet</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.17.2.4">
                 <p id="section-toc.1-1.17.2.4.1"><a href="#section-17.4" class="xref">17.4</a>.  <a href="#name-latency-spin-bit" class="xref">Latency Spin Bit</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.18">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.18">
             <p id="section-toc.1-1.18.1"><a href="#section-18" class="xref">18</a>. <a href="#name-transport-parameter-encodin" class="xref">Transport Parameter Encoding</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.18.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.18.2.1">
                 <p id="section-toc.1-1.18.2.1.1"><a href="#section-18.1" class="xref">18.1</a>.  <a href="#name-reserved-transport-paramete" class="xref">Reserved Transport Parameters</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.18.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.18.2.2">
                 <p id="section-toc.1-1.18.2.2.1"><a href="#section-18.2" class="xref">18.2</a>.  <a href="#name-transport-parameter-definit" class="xref">Transport Parameter Definitions</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.19">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.19">
             <p id="section-toc.1-1.19.1"><a href="#section-19" class="xref">19</a>. <a href="#name-frame-types-and-formats" class="xref">Frame Types and Formats</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.19.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.19.2.1">
                 <p id="section-toc.1-1.19.2.1.1"><a href="#section-19.1" class="xref">19.1</a>.  <a href="#name-padding-frames" class="xref">PADDING Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.2">
                 <p id="section-toc.1-1.19.2.2.1"><a href="#section-19.2" class="xref">19.2</a>.  <a href="#name-ping-frames" class="xref">PING Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.3">
                 <p id="section-toc.1-1.19.2.3.1"><a href="#section-19.3" class="xref">19.3</a>.  <a href="#name-ack-frames" class="xref">ACK Frames</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.19.2.3.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.19.2.3.2.1">
                     <p id="section-toc.1-1.19.2.3.2.1.1"><a href="#section-19.3.1" class="xref">19.3.1</a>.  <a href="#name-ack-ranges" class="xref">ACK Ranges</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.3.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.3.2.2">
                     <p id="section-toc.1-1.19.2.3.2.2.1"><a href="#section-19.3.2" class="xref">19.3.2</a>.  <a href="#name-ecn-counts" class="xref">ECN Counts</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.4">
                 <p id="section-toc.1-1.19.2.4.1"><a href="#section-19.4" class="xref">19.4</a>.  <a href="#name-reset_stream-frames" class="xref">RESET_STREAM Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.5">
                 <p id="section-toc.1-1.19.2.5.1"><a href="#section-19.5" class="xref">19.5</a>.  <a href="#name-stop_sending-frames" class="xref">STOP_SENDING Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.6">
                 <p id="section-toc.1-1.19.2.6.1"><a href="#section-19.6" class="xref">19.6</a>.  <a href="#name-crypto-frames" class="xref">CRYPTO Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.7">
                 <p id="section-toc.1-1.19.2.7.1"><a href="#section-19.7" class="xref">19.7</a>.  <a href="#name-new_token-frames" class="xref">NEW_TOKEN Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.8">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.8">
                 <p id="section-toc.1-1.19.2.8.1"><a href="#section-19.8" class="xref">19.8</a>.  <a href="#name-stream-frames" class="xref">STREAM Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.9">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.9">
                 <p id="section-toc.1-1.19.2.9.1"><a href="#section-19.9" class="xref">19.9</a>.  <a href="#name-max_data-frames" class="xref">MAX_DATA Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.10">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.10">
                 <p id="section-toc.1-1.19.2.10.1"><a href="#section-19.10" class="xref">19.10</a>. <a href="#name-max_stream_data-frames" class="xref">MAX_STREAM_DATA Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.11">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.11">
                 <p id="section-toc.1-1.19.2.11.1"><a href="#section-19.11" class="xref">19.11</a>. <a href="#name-max_streams-frames" class="xref">MAX_STREAMS Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.12">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.12">
                 <p id="section-toc.1-1.19.2.12.1"><a href="#section-19.12" class="xref">19.12</a>. <a href="#name-data_blocked-frames" class="xref">DATA_BLOCKED Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.13">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.13">
                 <p id="section-toc.1-1.19.2.13.1"><a href="#section-19.13" class="xref">19.13</a>. <a href="#name-stream_data_blocked-frames" class="xref">STREAM_DATA_BLOCKED Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.14">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.14">
                 <p id="section-toc.1-1.19.2.14.1"><a href="#section-19.14" class="xref">19.14</a>. <a href="#name-streams_blocked-frames" class="xref">STREAMS_BLOCKED Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.15">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.15">
                 <p id="section-toc.1-1.19.2.15.1"><a href="#section-19.15" class="xref">19.15</a>. <a href="#name-new_connection_id-frames" class="xref">NEW_CONNECTION_ID Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.16">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.16">
                 <p id="section-toc.1-1.19.2.16.1"><a href="#section-19.16" class="xref">19.16</a>. <a href="#name-retire_connection_id-frames" class="xref">RETIRE_CONNECTION_ID Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.17">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.17">
                 <p id="section-toc.1-1.19.2.17.1"><a href="#section-19.17" class="xref">19.17</a>. <a href="#name-path_challenge-frames" class="xref">PATH_CHALLENGE Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.18">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.18">
                 <p id="section-toc.1-1.19.2.18.1"><a href="#section-19.18" class="xref">19.18</a>. <a href="#name-path_response-frames" class="xref">PATH_RESPONSE Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.19">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.19">
                 <p id="section-toc.1-1.19.2.19.1"><a href="#section-19.19" class="xref">19.19</a>. <a href="#name-connection_close-frames" class="xref">CONNECTION_CLOSE Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.20">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.20">
                 <p id="section-toc.1-1.19.2.20.1"><a href="#section-19.20" class="xref">19.20</a>. <a href="#name-handshake_done-frames" class="xref">HANDSHAKE_DONE Frames</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.19.2.21">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.19.2.21">
                 <p id="section-toc.1-1.19.2.21.1"><a href="#section-19.21" class="xref">19.21</a>. <a href="#name-extension-frames" class="xref">Extension Frames</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.20">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.20">
             <p id="section-toc.1-1.20.1"><a href="#section-20" class="xref">20</a>. <a href="#name-error-codes" class="xref">Error Codes</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.20.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.20.2.1">
                 <p id="section-toc.1-1.20.2.1.1"><a href="#section-20.1" class="xref">20.1</a>.  <a href="#name-transport-error-codes" class="xref">Transport Error Codes</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.20.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.20.2.2">
                 <p id="section-toc.1-1.20.2.2.1"><a href="#section-20.2" class="xref">20.2</a>.  <a href="#name-application-protocol-error-" class="xref">Application Protocol Error Codes</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.21">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.21">
             <p id="section-toc.1-1.21.1"><a href="#section-21" class="xref">21</a>. <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.21.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.21.2.1">
                 <p id="section-toc.1-1.21.2.1.1"><a href="#section-21.1" class="xref">21.1</a>.  <a href="#name-overview-of-security-proper" class="xref">Overview of Security Properties</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.21.2.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.21.2.1.2.1">
                     <p id="section-toc.1-1.21.2.1.2.1.1"><a href="#section-21.1.1" class="xref">21.1.1</a>.  <a href="#name-handshake" class="xref">Handshake</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.1.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.1.2.2">
                     <p id="section-toc.1-1.21.2.1.2.2.1"><a href="#section-21.1.2" class="xref">21.1.2</a>.  <a href="#name-protected-packets-2" class="xref">Protected Packets</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.1.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.1.2.3">
                     <p id="section-toc.1-1.21.2.1.2.3.1"><a href="#section-21.1.3" class="xref">21.1.3</a>.  <a href="#name-connection-migration-2" class="xref">Connection Migration</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.2">
                 <p id="section-toc.1-1.21.2.2.1"><a href="#section-21.2" class="xref">21.2</a>.  <a href="#name-handshake-denial-of-service" class="xref">Handshake Denial of Service</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.3">
                 <p id="section-toc.1-1.21.2.3.1"><a href="#section-21.3" class="xref">21.3</a>.  <a href="#name-amplification-attack" class="xref">Amplification Attack</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.4">
                 <p id="section-toc.1-1.21.2.4.1"><a href="#section-21.4" class="xref">21.4</a>.  <a href="#name-optimistic-ack-attack" class="xref">Optimistic ACK Attack</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5">
                 <p id="section-toc.1-1.21.2.5.1"><a href="#section-21.5" class="xref">21.5</a>.  <a href="#name-request-forgery-attacks" class="xref">Request Forgery Attacks</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.1">
                     <p id="section-toc.1-1.21.2.5.2.1.1"><a href="#section-21.5.1" class="xref">21.5.1</a>.  <a href="#name-control-options-for-endpoin" class="xref">Control Options for Endpoints</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.2">
                     <p id="section-toc.1-1.21.2.5.2.2.1"><a href="#section-21.5.2" class="xref">21.5.2</a>.  <a href="#name-request-forgery-with-client" class="xref">Request Forgery with Client Initial Packets</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.3">
                     <p id="section-toc.1-1.21.2.5.2.3.1"><a href="#section-21.5.3" class="xref">21.5.3</a>.  <a href="#name-request-forgery-with-prefer" class="xref">Request Forgery with Preferred Addresses</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.4">
                     <p id="section-toc.1-1.21.2.5.2.4.1"><a href="#section-21.5.4" class="xref">21.5.4</a>.  <a href="#name-request-forgery-with-spoofe" class="xref">Request Forgery with Spoofed Migration</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.5">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.5">
                     <p id="section-toc.1-1.21.2.5.2.5.1"><a href="#section-21.5.5" class="xref">21.5.5</a>.  <a href="#name-request-forgery-with-versio" class="xref">Request Forgery with Version Negotiation</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.5.2.6">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.5.2.6">
                     <p id="section-toc.1-1.21.2.5.2.6.1"><a href="#section-21.5.6" class="xref">21.5.6</a>.  <a href="#name-generic-request-forgery-cou" class="xref">Generic Request Forgery Countermeasures</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.6">
                 <p id="section-toc.1-1.21.2.6.1"><a href="#section-21.6" class="xref">21.6</a>.  <a href="#name-slowloris-attacks" class="xref">Slowloris Attacks</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.7">
                 <p id="section-toc.1-1.21.2.7.1"><a href="#section-21.7" class="xref">21.7</a>.  <a href="#name-stream-fragmentation-and-re" class="xref">Stream Fragmentation and Reassembly Attacks</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.8">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.8">
                 <p id="section-toc.1-1.21.2.8.1"><a href="#section-21.8" class="xref">21.8</a>.  <a href="#name-stream-commitment-attack" class="xref">Stream Commitment Attack</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.9">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.9">
                 <p id="section-toc.1-1.21.2.9.1"><a href="#section-21.9" class="xref">21.9</a>.  <a href="#name-peer-denial-of-service" class="xref">Peer Denial of Service</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.10">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.10">
                 <p id="section-toc.1-1.21.2.10.1"><a href="#section-21.10" class="xref">21.10</a>. <a href="#name-explicit-congestion-notifica" class="xref">Explicit Congestion Notification Attacks</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.11">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.11">
                 <p id="section-toc.1-1.21.2.11.1"><a href="#section-21.11" class="xref">21.11</a>. <a href="#name-stateless-reset-oracle" class="xref">Stateless Reset Oracle</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.12">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.12">
                 <p id="section-toc.1-1.21.2.12.1"><a href="#section-21.12" class="xref">21.12</a>. <a href="#name-version-downgrade" class="xref">Version Downgrade</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.13">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.13">
                 <p id="section-toc.1-1.21.2.13.1"><a href="#section-21.13" class="xref">21.13</a>. <a href="#name-targeted-attacks-by-routing" class="xref">Targeted Attacks by Routing</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.21.2.14">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.21.2.14">
                 <p id="section-toc.1-1.21.2.14.1"><a href="#section-21.14" class="xref">21.14</a>. <a href="#name-traffic-analysis" class="xref">Traffic Analysis</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.22">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.22">
             <p id="section-toc.1-1.22.1"><a href="#section-22" class="xref">22</a>. <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.22.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.22.2.1">
                 <p id="section-toc.1-1.22.2.1.1"><a href="#section-22.1" class="xref">22.1</a>.  <a href="#name-registration-policies-for-q" class="xref">Registration Policies for QUIC Registries</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.22.2.1.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.22.2.1.2.1">
                     <p id="section-toc.1-1.22.2.1.2.1.1"><a href="#section-22.1.1" class="xref">22.1.1</a>.  <a href="#name-provisional-registrations" class="xref">Provisional Registrations</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.1.2.2">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.1.2.2">
                     <p id="section-toc.1-1.22.2.1.2.2.1"><a href="#section-22.1.2" class="xref">22.1.2</a>.  <a href="#name-selecting-codepoints" class="xref">Selecting Codepoints</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.1.2.3">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.1.2.3">
                     <p id="section-toc.1-1.22.2.1.2.3.1"><a href="#section-22.1.3" class="xref">22.1.3</a>.  <a href="#name-reclaiming-provisional-code" class="xref">Reclaiming Provisional Codepoints</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.1.2.4">
+                  <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.1.2.4">
                     <p id="section-toc.1-1.22.2.1.2.4.1"><a href="#section-22.1.4" class="xref">22.1.4</a>.  <a href="#name-permanent-registrations" class="xref">Permanent Registrations</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.2">
                 <p id="section-toc.1-1.22.2.2.1"><a href="#section-22.2" class="xref">22.2</a>.  <a href="#name-quic-versions-registry" class="xref">QUIC Versions Registry</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.3">
                 <p id="section-toc.1-1.22.2.3.1"><a href="#section-22.3" class="xref">22.3</a>.  <a href="#name-quic-transport-parameter-re" class="xref">QUIC Transport Parameter Registry</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.4">
                 <p id="section-toc.1-1.22.2.4.1"><a href="#section-22.4" class="xref">22.4</a>.  <a href="#name-quic-frame-types-registry" class="xref">QUIC Frame Types Registry</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.22.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.22.2.5">
                 <p id="section-toc.1-1.22.2.5.1"><a href="#section-22.5" class="xref">22.5</a>.  <a href="#name-quic-transport-error-codes-" class="xref">QUIC Transport Error Codes Registry</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.23">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.23">
             <p id="section-toc.1-1.23.1"><a href="#section-23" class="xref">23</a>. <a href="#name-references" class="xref">References</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.23.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.23.2.1">
                 <p id="section-toc.1-1.23.2.1.1"><a href="#section-23.1" class="xref">23.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.23.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.23.2.2">
                 <p id="section-toc.1-1.23.2.2.1"><a href="#section-23.2" class="xref">23.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.24">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.24">
             <p id="section-toc.1-1.24.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-pseudocode" class="xref">Pseudocode</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.24.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.24.2.1">
                 <p id="section-toc.1-1.24.2.1.1"><a href="#section-a.1" class="xref">A.1</a>.  <a href="#name-sample-variable-length-inte" class="xref">Sample Variable-Length Integer Decoding</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.24.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.24.2.2">
                 <p id="section-toc.1-1.24.2.2.1"><a href="#section-a.2" class="xref">A.2</a>.  <a href="#name-sample-packet-number-encodi" class="xref">Sample Packet Number Encoding Algorithm</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.24.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.24.2.3">
                 <p id="section-toc.1-1.24.2.3.1"><a href="#section-a.3" class="xref">A.3</a>.  <a href="#name-sample-packet-number-decodi" class="xref">Sample Packet Number Decoding Algorithm</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.24.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.24.2.4">
                 <p id="section-toc.1-1.24.2.4.1"><a href="#section-a.4" class="xref">A.4</a>.  <a href="#name-sample-ecn-validation-algor" class="xref">Sample ECN Validation Algorithm</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.25">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.25">
             <p id="section-toc.1-1.25.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-change-log" class="xref">Change Log</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.25.2.1">
+<ul class="toc compact ulEmpty">
+<li class="toc compact ulEmpty" id="section-toc.1-1.25.2.1">
                 <p id="section-toc.1-1.25.2.1.1"><a href="#section-b.1" class="xref">B.1</a>.  <a href="#name-since-draft-ietf-quic-trans" class="xref">Since draft-ietf-quic-transport-32</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.2">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.2">
                 <p id="section-toc.1-1.25.2.2.1"><a href="#section-b.2" class="xref">B.2</a>.  <a href="#name-since-draft-ietf-quic-transp" class="xref">Since draft-ietf-quic-transport-31</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.3">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.3">
                 <p id="section-toc.1-1.25.2.3.1"><a href="#section-b.3" class="xref">B.3</a>.  <a href="#name-since-draft-ietf-quic-transpo" class="xref">Since draft-ietf-quic-transport-30</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.4">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.4">
                 <p id="section-toc.1-1.25.2.4.1"><a href="#section-b.4" class="xref">B.4</a>.  <a href="#name-since-draft-ietf-quic-transpor" class="xref">Since draft-ietf-quic-transport-29</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.5">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.5">
                 <p id="section-toc.1-1.25.2.5.1"><a href="#section-b.5" class="xref">B.5</a>.  <a href="#name-since-draft-ietf-quic-transport" class="xref">Since draft-ietf-quic-transport-28</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.6">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.6">
                 <p id="section-toc.1-1.25.2.6.1"><a href="#section-b.6" class="xref">B.6</a>.  <a href="#name-since-draft-ietf-quic-transport-" class="xref">Since draft-ietf-quic-transport-27</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.7">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.7">
                 <p id="section-toc.1-1.25.2.7.1"><a href="#section-b.7" class="xref">B.7</a>.  <a href="#name-since-draft-ietf-quic-transport-2" class="xref">Since draft-ietf-quic-transport-26</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.8">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.8">
                 <p id="section-toc.1-1.25.2.8.1"><a href="#section-b.8" class="xref">B.8</a>.  <a href="#name-since-draft-ietf-quic-transport-25" class="xref">Since draft-ietf-quic-transport-25</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.9">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.9">
                 <p id="section-toc.1-1.25.2.9.1"><a href="#section-b.9" class="xref">B.9</a>.  <a href="#name-since-draft-ietf-quic-transport-24" class="xref">Since draft-ietf-quic-transport-24</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.10">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.10">
                 <p id="section-toc.1-1.25.2.10.1"><a href="#section-b.10" class="xref">B.10</a>. <a href="#name-since-draft-ietf-quic-transport-23" class="xref">Since draft-ietf-quic-transport-23</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.11">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.11">
                 <p id="section-toc.1-1.25.2.11.1"><a href="#section-b.11" class="xref">B.11</a>. <a href="#name-since-draft-ietf-quic-transport-22" class="xref">Since draft-ietf-quic-transport-22</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.12">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.12">
                 <p id="section-toc.1-1.25.2.12.1"><a href="#section-b.12" class="xref">B.12</a>. <a href="#name-since-draft-ietf-quic-transport-21" class="xref">Since draft-ietf-quic-transport-21</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.13">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.13">
                 <p id="section-toc.1-1.25.2.13.1"><a href="#section-b.13" class="xref">B.13</a>. <a href="#name-since-draft-ietf-quic-transport-20" class="xref">Since draft-ietf-quic-transport-20</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.14">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.14">
                 <p id="section-toc.1-1.25.2.14.1"><a href="#section-b.14" class="xref">B.14</a>. <a href="#name-since-draft-ietf-quic-transport-1" class="xref">Since draft-ietf-quic-transport-19</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.15">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.15">
                 <p id="section-toc.1-1.25.2.15.1"><a href="#section-b.15" class="xref">B.15</a>. <a href="#name-since-draft-ietf-quic-transport-18" class="xref">Since draft-ietf-quic-transport-18</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.16">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.16">
                 <p id="section-toc.1-1.25.2.16.1"><a href="#section-b.16" class="xref">B.16</a>. <a href="#name-since-draft-ietf-quic-transport-17" class="xref">Since draft-ietf-quic-transport-17</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.17">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.17">
                 <p id="section-toc.1-1.25.2.17.1"><a href="#section-b.17" class="xref">B.17</a>. <a href="#name-since-draft-ietf-quic-transport-16" class="xref">Since draft-ietf-quic-transport-16</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.18">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.18">
                 <p id="section-toc.1-1.25.2.18.1"><a href="#section-b.18" class="xref">B.18</a>. <a href="#name-since-draft-ietf-quic-transport-15" class="xref">Since draft-ietf-quic-transport-15</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.19">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.19">
                 <p id="section-toc.1-1.25.2.19.1"><a href="#section-b.19" class="xref">B.19</a>. <a href="#name-since-draft-ietf-quic-transport-14" class="xref">Since draft-ietf-quic-transport-14</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.20">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.20">
                 <p id="section-toc.1-1.25.2.20.1"><a href="#section-b.20" class="xref">B.20</a>. <a href="#name-since-draft-ietf-quic-transport-13" class="xref">Since draft-ietf-quic-transport-13</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.21">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.21">
                 <p id="section-toc.1-1.25.2.21.1"><a href="#section-b.21" class="xref">B.21</a>. <a href="#name-since-draft-ietf-quic-transport-12" class="xref">Since draft-ietf-quic-transport-12</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.22">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.22">
                 <p id="section-toc.1-1.25.2.22.1"><a href="#section-b.22" class="xref">B.22</a>. <a href="#name-since-draft-ietf-quic-transport-11" class="xref">Since draft-ietf-quic-transport-11</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.23">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.23">
                 <p id="section-toc.1-1.25.2.23.1"><a href="#section-b.23" class="xref">B.23</a>. <a href="#name-since-draft-ietf-quic-transport-10" class="xref">Since draft-ietf-quic-transport-10</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.24">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.24">
                 <p id="section-toc.1-1.25.2.24.1"><a href="#section-b.24" class="xref">B.24</a>. <a href="#name-since-draft-ietf-quic-transport-0" class="xref">Since draft-ietf-quic-transport-09</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.25">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.25">
                 <p id="section-toc.1-1.25.2.25.1"><a href="#section-b.25" class="xref">B.25</a>. <a href="#name-since-draft-ietf-quic-transport-08" class="xref">Since draft-ietf-quic-transport-08</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.26">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.26">
                 <p id="section-toc.1-1.25.2.26.1"><a href="#section-b.26" class="xref">B.26</a>. <a href="#name-since-draft-ietf-quic-transport-07" class="xref">Since draft-ietf-quic-transport-07</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.27">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.27">
                 <p id="section-toc.1-1.25.2.27.1"><a href="#section-b.27" class="xref">B.27</a>. <a href="#name-since-draft-ietf-quic-transport-06" class="xref">Since draft-ietf-quic-transport-06</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.28">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.28">
                 <p id="section-toc.1-1.25.2.28.1"><a href="#section-b.28" class="xref">B.28</a>. <a href="#name-since-draft-ietf-quic-transport-05" class="xref">Since draft-ietf-quic-transport-05</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.29">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.29">
                 <p id="section-toc.1-1.25.2.29.1"><a href="#section-b.29" class="xref">B.29</a>. <a href="#name-since-draft-ietf-quic-transport-04" class="xref">Since draft-ietf-quic-transport-04</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.30">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.30">
                 <p id="section-toc.1-1.25.2.30.1"><a href="#section-b.30" class="xref">B.30</a>. <a href="#name-since-draft-ietf-quic-transport-03" class="xref">Since draft-ietf-quic-transport-03</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.31">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.31">
                 <p id="section-toc.1-1.25.2.31.1"><a href="#section-b.31" class="xref">B.31</a>. <a href="#name-since-draft-ietf-quic-transport-02" class="xref">Since draft-ietf-quic-transport-02</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.32">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.32">
                 <p id="section-toc.1-1.25.2.32.1"><a href="#section-b.32" class="xref">B.32</a>. <a href="#name-since-draft-ietf-quic-transport-01" class="xref">Since draft-ietf-quic-transport-01</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.33">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.33">
                 <p id="section-toc.1-1.25.2.33.1"><a href="#section-b.33" class="xref">B.33</a>. <a href="#name-since-draft-ietf-quic-transport-00" class="xref">Since draft-ietf-quic-transport-00</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.25.2.34">
+              <li class="toc compact ulEmpty" id="section-toc.1-1.25.2.34">
                 <p id="section-toc.1-1.25.2.34.1"><a href="#section-b.34" class="xref">B.34</a>. <a href="#name-since-draft-hamilton-quic-t" class="xref">Since draft-hamilton-quic-transport-protocol-01</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.26">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.26">
             <p id="section-toc.1-1.26.1"><a href="#section-appendix.c" class="xref"></a><a href="#name-contributors" class="xref">Contributors</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.27">
+          <li class="toc compact ulEmpty" id="section-toc.1-1.27">
             <p id="section-toc.1-1.27.1"><a href="#section-appendix.d" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
 </li>
         </ul>
@@ -2733,7 +2735,7 @@ the sender sends these frames, waiting for them will result in the sender being
 blocked for at least an entire round trip.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <p id="section-4.2-6">When a sender receives credit after being blocked, it might be able to send a
 large amount of data in response, resulting in short-term congestion; see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-7.7" class="relref">Section 7.7</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span> for a discussion of how a sender can avoid this
+<span><a href="https://rfc-editor.org/rfc/rfc9002#section-7.7" class="relref">Section 7.7</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span> for a discussion of how a sender can avoid this
 congestion.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2856,7 +2858,7 @@ establish a shared secret using the cryptographic handshake protocol
 <p id="section-5-3">An application protocol can use the connection during the handshake phase with
 some limitations.  0-RTT allows application data to be sent by a client before
 receiving a response from the server.  However, 0-RTT provides no protection
-against replay attacks; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-9.2" class="relref">Section 9.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.  A server can also send
+against replay attacks; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-9.2" class="relref">Section 9.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.  A server can also send
 application data to a client before it receives the final cryptographic
 handshake messages that allow it to confirm the identity and liveness of the
 client.  These capabilities allow an application protocol to offer the option of
@@ -3465,7 +3467,7 @@ the client <span class="bcp14">MUST</span> use the same Destination Connection I
 this connection.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
 <p id="section-7.2-4">The Destination Connection ID field from the first Initial packet sent by a
 client is used to determine packet protection keys for Initial packets.  These
-keys change after receiving a Retry packet; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
+keys change after receiving a Retry packet; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
 <p id="section-7.2-5">The client populates the Source Connection ID field with a value of its choosing
 and sets the Source Connection ID Length field to indicate the length.<a href="#section-7.2-5" class="pilcrow">¶</a></p>
 <p id="section-7.2-6">The first flight of 0-RTT packets use the same Destination Connection ID and
@@ -3635,7 +3637,7 @@ the value of the server transport parameters from a connection and apply them
 to any 0-RTT packets that are sent in subsequent connections to that peer that
 use a session ticket issued on that connection.  This
 information is stored with any information required by the application
-protocol or cryptographic handshake; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.6" class="relref">Section 4.6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-7.4.1-1" class="pilcrow">¶</a></p>
+protocol or cryptographic handshake; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.6" class="relref">Section 4.6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-7.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.4.1-2">Remembered transport parameters apply to the new connection until the handshake
 completes and the client starts sending 1-RTT packets.  Once the handshake
 completes, the client uses the transport parameters established in the
@@ -3795,9 +3797,9 @@ least 64 bits of entropy.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1-3">For the client, the value of the Destination Connection ID field in its first
 Initial packet allows it to validate the server address as a part of
 successfully processing any packet. Initial packets from the server are
-protected with keys that are derived from this value (see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>). Alternatively, the value is echoed by the server in Version
+protected with keys that are derived from this value (see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>). Alternatively, the value is echoed by the server in Version
 Negotiation packets (<a href="#version-negotiation" class="xref">Section 6</a>) or included in the Integrity Tag
-in Retry packets (<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.8" class="relref">Section 5.8</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>).<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+in Retry packets (<span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.8" class="relref">Section 5.8</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>).<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 <p id="section-8.1-4">Prior to validating the client address, servers <span class="bcp14">MUST NOT</span> send more than three
 times as many bytes as the number of bytes they have received.  This limits the
 magnitude of any amplification attack that can be mounted using spoofed source
@@ -3816,7 +3818,7 @@ could occur when the server reaches its anti-amplification limit and the client
 has received acknowledgments for all the data it has sent.  In this case, when
 the client has no reason to send additional packets, the server will be unable
 to send more data because it has not validated the client's address. To prevent
-this deadlock, clients <span class="bcp14">MUST</span> send a packet on a probe timeout (PTO, see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>). Specifically, the client <span class="bcp14">MUST</span> send an Initial packet
+this deadlock, clients <span class="bcp14">MUST</span> send a packet on a probe timeout (PTO, see <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>). Specifically, the client <span class="bcp14">MUST</span> send an Initial packet
 in a UDP datagram that contains at least 1200 bytes if it does not have
 Handshake keys, and otherwise send a Handshake packet.<a href="#section-8.1-6" class="pilcrow">¶</a></p>
 <p id="section-8.1-7">A server might wish to validate the client address before starting the
@@ -4410,7 +4412,7 @@ sending rate.  An endpoint might set a separate timer when a PATH_CHALLENGE is
 sent, which is cancelled if the corresponding PATH_RESPONSE is received. If the
 timer fires before the PATH_RESPONSE is received, the endpoint might send a new
 PATH_CHALLENGE, and restart the timer for a longer period of time.  This timer
-<span class="bcp14">SHOULD</span> be set as described in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2.1" class="relref">Section 6.2.1</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span> and <span class="bcp14">MUST NOT</span> be
+<span class="bcp14">SHOULD</span> be set as described in <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2.1" class="relref">Section 6.2.1</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span> and <span class="bcp14">MUST NOT</span> be
 more aggressive.<a href="#section-9.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -4640,7 +4642,7 @@ them be discarded at the peer, since the idle timeout period might have expired
 at the peer before these packets arrive.<a href="#section-10.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-10.1.1-2">An endpoint can send a PING or another ack-eliciting frame to test the
 connection for liveness if the peer could time out soon, such as within a PTO;
-see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.  This is especially useful if any
+see <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.  This is especially useful if any
 available application data cannot be safely retried. Note that the application
 determines what data is safe to retry.<a href="#section-10.1.1-2" class="pilcrow">¶</a></p>
 </section>
@@ -4757,7 +4759,7 @@ endpoint in the closing state <span class="bcp14">MUST</span> either discard pac
 unvalidated address or limit the cumulative size of packets it sends to an
 unvalidated address to three times the size of packets it receives from that
 address.<a href="#section-10.2.1-7" class="pilcrow">¶</a></p>
-<p id="section-10.2.1-8">An endpoint is not expected to handle key updates when it is closing (<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>). A key update might prevent the endpoint from moving from the
+<p id="section-10.2.1-8">An endpoint is not expected to handle key updates when it is closing (<span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>). A key update might prevent the endpoint from moving from the
 closing state to the draining state, as the endpoint will not be able to
 process subsequently received packets, but it otherwise has no impact.<a href="#section-10.2.1-8" class="pilcrow">¶</a></p>
 </section>
@@ -4792,7 +4794,7 @@ transmission of any packets on this connection.<a href="#section-10.2.2-3" class
 <p id="section-10.2.3-1">When sending CONNECTION_CLOSE, the goal is to ensure that the peer will process
 the frame.  Generally, this means sending the frame in a packet with the highest
 level of packet protection to avoid the packet being discarded.  After the
-handshake is confirmed (see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>), an endpoint <span class="bcp14">MUST</span>
+handshake is confirmed (see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>), an endpoint <span class="bcp14">MUST</span>
 send any CONNECTION_CLOSE frames in a 1-RTT packet.  However, prior to
 confirming the handshake, it is possible that more advanced packet protection
 keys are not available to the peer, so another CONNECTION_CLOSE frame <span class="bcp14">MAY</span> be
@@ -5183,7 +5185,7 @@ packets.  Packets protected with 0-RTT and 1-RTT keys have strong
 confidentiality and integrity protection.<a href="#section-12.1-5" class="pilcrow">¶</a></p>
 <p id="section-12.1-6">The Packet Number field that appears in some packet types has alternative
 confidentiality protection that is applied as part of header protection; see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span> for details. The underlying packet number increases
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span> for details. The underlying packet number increases
 with each packet sent in a given packet number space; see <a href="#packet-numbers" class="xref">Section 12.3</a> for
 details.<a href="#section-12.1-6" class="pilcrow">¶</a></p>
 </section>
@@ -5205,7 +5207,7 @@ cryptographic handshake and start sending data.  This can also be used to
 construct PMTU probes; see <a href="#pmtu-probes-src-cid" class="xref">Section 14.4.1</a>.  Receivers <span class="bcp14">MUST</span> be able to
 process coalesced packets.<a href="#section-12.2-2" class="pilcrow">¶</a></p>
 <p id="section-12.2-3">Coalescing packets in order of increasing encryption levels (Initial, 0-RTT,
-Handshake, 1-RTT; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.1.4" class="relref">Section 4.1.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) makes it more likely the
+Handshake, 1-RTT; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.1.4" class="relref">Section 4.1.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) makes it more likely the
 receiver will be able to process all the packets in a single pass. A packet
 with a short header does not include a length, so it can only be the last
 packet included in a UDP datagram.  An endpoint <span class="bcp14">SHOULD</span> include multiple frames
@@ -5275,7 +5277,7 @@ Reset (<a href="#stateless-reset" class="xref">Section 10.3</a>) in response to 
 <p id="section-12.3-11">A receiver <span class="bcp14">MUST</span> discard a newly unprotected packet unless it is certain that it
 has not processed another packet with the same packet number from the same
 packet number space. Duplicate suppression <span class="bcp14">MUST</span> happen after removing packet
-protection for the reasons described in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-12.3-11" class="pilcrow">¶</a></p>
+protection for the reasons described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-12.3-11" class="pilcrow">¶</a></p>
 <p id="section-12.3-12">Endpoints that track all individual packets for the purposes of detecting
 duplicates are at risk of accumulating excessive state.  The data required for
 detecting duplicates can be limited by maintaining a minimum packet number below
@@ -5726,7 +5728,7 @@ contract: an endpoint promises to never intentionally delay acknowledgments of
 an ack-eliciting packet by more than the indicated value. If it does, any excess
 accrues to the RTT estimate and could result in spurious or delayed
 retransmissions from the peer. A sender uses the receiver's max_ack_delay value
-in determining timeouts for timer-based retransmission, as detailed in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.<a href="#section-13.2.1-1" class="pilcrow">¶</a></p>
+in determining timeouts for timer-based retransmission, as detailed in <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.<a href="#section-13.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-13.2.1-2">An endpoint <span class="bcp14">MUST</span> acknowledge all ack-eliciting Initial and Handshake packets
 immediately and all ack-eliciting 0-RTT and 1-RTT packets within its advertised
 max_ack_delay, with the following exception. Prior to handshake confirmation, an
@@ -5783,8 +5785,8 @@ for other users of the network.<a href="#section-13.2.1-10" class="pilcrow">¶</
           </h4>
 <p id="section-13.2.2-1">A receiver determines how frequently to send acknowledgments in response to
 ack-eliciting packets. This determination involves a trade-off.<a href="#section-13.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-13.2.2-2">Endpoints rely on timely acknowledgment to detect loss; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6" class="relref">Section 6</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>. Window-based congestion controllers, such as the one in
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-7" class="relref">Section 7</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>, rely on acknowledgments to manage their
+<p id="section-13.2.2-2">Endpoints rely on timely acknowledgment to detect loss; see <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6" class="relref">Section 6</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>. Window-based congestion controllers, such as the one in
+<span><a href="https://rfc-editor.org/rfc/rfc9002#section-7" class="relref">Section 7</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>, rely on acknowledgments to manage their
 congestion window. In both cases, delaying acknowledgments can adversely affect
 performance.<a href="#section-13.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-13.2.2-3">On the other hand, reducing the frequency of packets that carry only
@@ -6035,7 +6037,7 @@ acknowledged. This includes packets that are acknowledged after being declared
 lost, which can happen in the presence of network reordering. Doing so requires
 senders to retain information about packets after they are declared lost. A
 sender can discard this information after a period of time elapses that
-adequately allows for reordering, such as a PTO (<span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>), or on other events, such as reaching a memory limit.<a href="#section-13.3-6" class="pilcrow">¶</a></p>
+adequately allows for reordering, such as a PTO (<span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>), or on other events, such as reaching a memory limit.<a href="#section-13.3-6" class="pilcrow">¶</a></p>
 <p id="section-13.3-7">Upon detecting losses, a sender <span class="bcp14">MUST</span> take appropriate congestion control action.
 The details of loss detection and congestion control are described in
 <span>[<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.<a href="#section-13.3-7" class="pilcrow">¶</a></p>
@@ -6100,14 +6102,14 @@ path and disables use of ECN on that path if errors are detected.<a href="#secti
 packets sent on a new path to the peer (<span>[<a href="#RFC8311" class="xref">RFC8311</a>]</span>).<a href="#section-13.4.2-3.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-13.4.2-3.2">The endpoint monitors whether all packets sent with an ECT codepoint are
-eventually deemed lost (<span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6" class="relref">Section 6</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>), indicating
+eventually deemed lost (<span><a href="https://rfc-editor.org/rfc/rfc9002#section-6" class="relref">Section 6</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>), indicating
 that ECN validation has failed.<a href="#section-13.4.2-3.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-13.4.2-4">If an endpoint has cause to expect that IP packets with an ECT codepoint might
 be dropped by a faulty network element, the endpoint could set an ECT codepoint
 for only the first ten outgoing packets on a path, or for a period of three
-PTOs (see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>). If all packets marked with non-zero
+PTOs (see <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.2" class="relref">Section 6.2</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>). If all packets marked with non-zero
 ECN codepoints are subsequently lost, it can disable marking on the assumption
 that the marking caused the loss.<a href="#section-13.4.2-4" class="pilcrow">¶</a></p>
 <p id="section-13.4.2-5">An endpoint thus attempts to use ECN and validates this for each new connection,
@@ -6522,7 +6524,7 @@ encoded in 1 to 4 bytes.  The number of bits required to represent the packet
 number is reduced by including only the least significant bits of the packet
 number.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
 <p id="section-17.1-2">The encoded packet number is protected as described in
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.1-2" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.1-2" class="pilcrow">¶</a></p>
 <p id="section-17.1-3">Prior to receiving an acknowledgment for a packet number space, the full packet
 number <span class="bcp14">MUST</span> be included; it is not to be truncated as described below.<a href="#section-17.1-3" class="pilcrow">¶</a></p>
 <p id="section-17.1-4">After an acknowledgment is received for a packet number space, the sender <span class="bcp14">MUST</span>
@@ -6717,12 +6719,12 @@ contain these additional fields:<a href="#section-17.2-7" class="pilcrow">¶</a>
           <dt id="section-17.2-8.1">Reserved Bits:</dt>
           <dd style="margin-left: 1.5em" id="section-17.2-8.2">
             <p id="section-17.2-8.2.1">Two bits (those with a mask of 0x0c) of byte 0 are reserved across multiple
-packet types.  These bits are protected using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>. The value included prior to protection <span class="bcp14">MUST</span> be set to 0.
+packet types.  These bits are protected using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>. The value included prior to protection <span class="bcp14">MUST</span> be set to 0.
 An endpoint <span class="bcp14">MUST</span> treat receipt of a packet that has a non-zero value for these
 bits after removing both packet and header protection as a connection error
 of type PROTOCOL_VIOLATION. Discarding such a packet after only removing
 header protection can expose the endpoint to attacks; see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2-8.2.1" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2-8.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-17.2-8.3">Packet Number Length:</dt>
@@ -6732,7 +6734,7 @@ bits (those with a mask of 0x03) of byte 0 contain the length of the packet
 number, encoded as an unsigned, two-bit integer that is one less than the
 length of the packet number field in bytes.  That is, the length of the packet
 number field is the value of this field, plus one.  These bits are protected
-using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2-8.4.1" class="pilcrow">¶</a></p>
+using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2-8.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-17.2-8.5">Length:</dt>
@@ -6745,7 +6747,7 @@ Payload fields) in bytes, encoded as a variable-length integer
 <dt id="section-17.2-8.7">Packet Number:</dt>
           <dd style="margin-left: 1.5em" id="section-17.2-8.8">
             <p id="section-17.2-8.8.1">The packet number field is 1 to 4 bytes long. The packet number is protected
-using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.  The length of the
+using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.  The length of the
 packet number field is encoded in the Packet Number Length bits of byte 0; see
 above.<a href="#section-17.2-8.8.1" class="pilcrow">¶</a></p>
 </dd>
@@ -6896,7 +6898,7 @@ packet as spurious or treat it as a connection error.<a href="#section-17.2.2-8"
 <p id="section-17.2.2-9">The first packet sent by a client always includes a CRYPTO frame that contains
 the start or all of the first cryptographic handshake message.  The first
 CRYPTO frame sent always begins at an offset of 0; see <a href="#handshake" class="xref">Section 7</a>.<a href="#section-17.2.2-9" class="pilcrow">¶</a></p>
-<p id="section-17.2.2-10">Note that if the server sends a TLS HelloRetryRequest (see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.7" class="relref">Section 4.7</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>), the client will send another series of Initial packets. These
+<p id="section-17.2.2-10">Note that if the server sends a TLS HelloRetryRequest (see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.7" class="relref">Section 4.7</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>), the client will send another series of Initial packets. These
 Initial packets will continue the cryptographic handshake and will contain
 CRYPTO frames starting at an offset matching the size of the CRYPTO frames sent
 in the first flight of Initial packets.<a href="#section-17.2.2-10" class="pilcrow">¶</a></p>
@@ -6910,8 +6912,8 @@ first Handshake packet.  A server stops sending and processing Initial packets
 when it receives its first Handshake packet.  Though packets might still be in
 flight or awaiting acknowledgment, no further Initial packets need to be
 exchanged beyond this point.  Initial packet protection keys are discarded (see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.9.1" class="relref">Section 4.9.1</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) along with any loss recovery and congestion
-control state; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-recovery#section-6.4" class="relref">Section 6.4</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.<a href="#section-17.2.2.1-1" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.9.1" class="relref">Section 4.9.1</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) along with any loss recovery and congestion
+control state; see <span><a href="https://rfc-editor.org/rfc/rfc9002#section-6.4" class="relref">Section 6.4</a> of [<a href="#QUIC-RECOVERY" class="xref">QUIC-RECOVERY</a>]</span>.<a href="#section-17.2.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-17.2.2.1-2">Any data in CRYPTO frames is discarded - and no longer retransmitted - when
 Initial keys are discarded.<a href="#section-17.2.2.1-2" class="pilcrow">¶</a></p>
 </section>
@@ -6962,7 +6964,7 @@ lost or discarded by the server.  A client <span class="bcp14">SHOULD</span> att
 used for any new packets that are sent; as described in <a href="#retry-continue" class="xref">Section 17.2.5.3</a>,
 reusing packet numbers could compromise packet protection.<a href="#section-17.2.3-5" class="pilcrow">¶</a></p>
 <p id="section-17.2.3-6">A client only receives acknowledgments for its 0-RTT packets once the handshake
-is complete, as defined in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2.3-6" class="pilcrow">¶</a></p>
+is complete, as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.2.3-6" class="pilcrow">¶</a></p>
 <p id="section-17.2.3-7">A client <span class="bcp14">MUST NOT</span> send 0-RTT packets once it starts processing 1-RTT packets
 from the server.  This means that 0-RTT packets cannot contain any response to
 frames from 1-RTT packets.  For instance, a client cannot send an ACK frame in a
@@ -7217,12 +7219,12 @@ as described in <a href="#spin-bit" class="xref">Section 17.4</a>.<a href="#sect
 <dt id="section-17.3.1-4.7">Reserved Bits:</dt>
             <dd style="margin-left: 1.5em" id="section-17.3.1-4.8">
               <p id="section-17.3.1-4.8.1">The next two bits (those with a mask of 0x18) of byte 0 are reserved. These
-bits are protected using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.
+bits are protected using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.
 The value included prior to protection <span class="bcp14">MUST</span> be set to 0. An endpoint <span class="bcp14">MUST</span> treat
 receipt of a packet that has a non-zero value for these bits, after removing
 both packet and header protection, as a connection error of type
 PROTOCOL_VIOLATION. Discarding such a packet after only removing header
-protection can expose the endpoint to attacks; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.8.1" class="pilcrow">¶</a></p>
+protection can expose the endpoint to attacks; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-9.5" class="relref">Section 9.5</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-17.3.1-4.9">Key Phase:</dt>
@@ -7230,7 +7232,7 @@ protection can expose the endpoint to attacks; see <span><a href="https://tools.
               <p id="section-17.3.1-4.10.1">The next bit (0x04) of byte 0 indicates the key phase, which allows a
 recipient of a packet to identify the packet protection keys that are used to
 protect the packet.  See <span>[<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span> for details.  This bit is protected
-using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.10.1" class="pilcrow">¶</a></p>
+using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.10.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-17.3.1-4.11">Packet Number Length:</dt>
@@ -7239,7 +7241,7 @@ using header protection; see <span><a href="https://tools.ietf.org/html/draft-ie
 the length of the packet number, encoded as an unsigned, two-bit integer that
 is one less than the length of the packet number field in bytes.  That is, the
 length of the packet number field is the value of this field, plus one.  These
-bits are protected using header protection; see <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.12.1" class="pilcrow">¶</a></p>
+bits are protected using header protection; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-17.3.1-4.12.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-17.3.1-4.13">Destination Connection ID:</dt>
@@ -7252,7 +7254,7 @@ intended recipient of the packet.  See <a href="#connection-id" class="xref">Sec
             <dd style="margin-left: 1.5em" id="section-17.3.1-4.16">
               <p id="section-17.3.1-4.16.1">The packet number field is 1 to 4 bytes long. The packet number is protected
 using header protection; see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>. The length of the packet number field is encoded
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.4" class="relref">Section 5.4</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>. The length of the packet number field is encoded
 in Packet Number Length field. See <a href="#packet-encoding" class="xref">Section 17.1</a> for details.<a href="#section-17.3.1-4.16.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
@@ -8905,7 +8907,7 @@ more specific error codes.<a href="#section-20.1-2.22.1" class="pilcrow">¶</a><
 <dt id="section-20.1-2.29">KEY_UPDATE_ERROR (0x0e):</dt>
           <dd style="margin-left: 1.5em" id="section-20.1-2.30">
             <p id="section-20.1-2.30.1">An endpoint detected errors in performing key updates; see
-<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-20.1-2.30.1" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-20.1-2.30.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-20.1-2.31">AEAD_LIMIT_REACHED (0x0f):</dt>
@@ -8926,7 +8928,7 @@ except when the path does not support a large enough MTU.<a href="#section-20.1-
             <p id="section-20.1-2.36.1">The cryptographic handshake failed.  A range of 256 values is reserved for
 carrying error codes specific to the cryptographic handshake that is used.
 Codes for errors occurring when TLS is used for the crypto handshake are
-described in <span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-20.1-2.36.1" class="pilcrow">¶</a></p>
+described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.<a href="#section-20.1-2.36.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -9495,7 +9497,7 @@ available for use in this sort of attack. The address validation implicit in
 the handshake ensures that - for a new connection - a client will not send
 other types of packet to a destination that does not understand QUIC or is not
 willing to accept a QUIC connection.<a href="#section-21.5.2-1" class="pilcrow">¶</a></p>
-<p id="section-21.5.2-2">Initial packet protection (<span><a href="https://tools.ietf.org/html/draft-ietf-quic-tls#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) makes it difficult for
+<p id="section-21.5.2-2">Initial packet protection (<span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.2" class="relref">Section 5.2</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>) makes it difficult for
 servers to control the content of Initial packets sent by clients. A client
 choosing an unpredictable Destination Connection ID ensures that servers are
 unable to control any of the encrypted portion of Initial packets from clients.<a href="#section-21.5.2-2" class="pilcrow">¶</a></p>
@@ -10398,15 +10400,15 @@ specification reference is provided.<a href="#section-22.5-4.4.1" class="pilcrow
 <dd class="break"></dd>
 <dt id="QUIC-INVARIANTS">[QUIC-INVARIANTS]</dt>
         <dd>
-<span class="refAuthor">Thomson, M.</span>, <span class="refTitle">"Version-Independent Properties of QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-invariants</span>, <time datetime="2021-05-02" class="refDate">2 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-invariants.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-invariants.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, M.</span>, <span class="refTitle">"Version-Independent Properties of QUIC"</span>, <span class="seriesInfo">RFC 8999</span>, <span class="seriesInfo">DOI 10.17487/RFC8999</span>, <time datetime="2021-05-03" class="refDate">3 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8999">https://datatracker.ietf.org/doc/html/rfc8999</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC-RECOVERY">[QUIC-RECOVERY]</dt>
         <dd>
-<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">I. Swett, Ed.</span>, <span class="refTitle">"QUIC Loss Detection and Congestion Control"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-recovery</span>, <time datetime="2021-05-02" class="refDate">2 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-recovery.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-recovery.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">I. Swett, Ed.</span>, <span class="refTitle">"QUIC Loss Detection and Congestion Control"</span>, <span class="seriesInfo">RFC 9002</span>, <span class="seriesInfo">DOI 10.17487/RFC9002</span>, <time datetime="2021-05-03" class="refDate">3 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9002">https://datatracker.ietf.org/doc/html/rfc9002</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC-TLS">[QUIC-TLS]</dt>
         <dd>
-<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using Transport Layer Security (TLS) to Secure QUIC"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-tls</span>, <time datetime="2021-05-02" class="refDate">2 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt">https://datatracker.ietf.org/doc/html/draft-ietf-quic-tls.txt</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using Transport Layer Security (TLS) to Secure QUIC"</span>, <span class="seriesInfo">RFC 9001</span>, <span class="seriesInfo">DOI 10.17487/RFC9001</span>, <time datetime="2021-05-03" class="refDate">3 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9001">https://datatracker.ietf.org/doc/html/rfc9001</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC1191">[RFC1191]</dt>
         <dd>
@@ -10771,8 +10773,8 @@ incurred.<a href="#section-a.4-8" class="pilcrow">¶</a></p>
       <h2 id="name-change-log">
 <a href="#section-appendix.b" class="section-number selfRef">Appendix B. </a><a href="#name-change-log" class="section-name selfRef">Change Log</a>
       </h2>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-appendix.b-1.1">
+<ul class="ulEmpty normal">
+<li class="ulEmpty normal" id="section-appendix.b-1.1">
           <strong>RFC Editor's Note:</strong>
  Please remove this section prior to publication of a
 final version of this document.<a href="#section-appendix.b-1.1" class="pilcrow">¶</a>
