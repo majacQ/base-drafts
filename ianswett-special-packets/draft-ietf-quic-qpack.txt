@@ -5,10 +5,10 @@
 QUIC                                                           C. Krasic
 Internet-Draft                                                   Netflix
 Intended status: Standards Track                               M. Bishop
-Expires: 28 September 2021                           Akamai Technologies
+Expires: 5 November 2021                             Akamai Technologies
                                                         A. Frindell, Ed.
                                                                 Facebook
-                                                           27 March 2021
+                                                              4 May 2021
 
 
                   QPACK: Header Compression for HTTP/3
@@ -20,17 +20,6 @@ Abstract
    efficiently representing HTTP fields, to be used in HTTP/3.  This is
    a variation of HPACK compression that seeks to reduce head-of-line
    blocking.
-
-Note to Readers
-
-   Discussion of this draft takes place on the QUIC working group
-   mailing list (quic@ietf.org (mailto:quic@ietf.org)), which is
-   archived at https://mailarchive.ietf.org/arch/
-   search/?email_list=quic.
-
-   Working Group information can be found at https://github.com/quicwg;
-   source code and issues list for this draft can be found at
-   https://github.com/quicwg/base-drafts/labels/-qpack.
 
 Status of This Memo
 
@@ -47,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 September 2021.
+   This Internet-Draft will expire on 5 November 2021.
 
 Copyright Notice
 
@@ -133,27 +122,6 @@ Table of Contents
      B.4.  Duplicate Instruction, Stream Cancellation
      B.5.  Dynamic Table Insert, Eviction
    Appendix C.  Sample One Pass Encoding Algorithm
-   Appendix D.  Change Log
-     D.1.  Since draft-ietf-quic-qpack-19
-     D.2.  Since draft-ietf-quic-qpack-18
-     D.3.  Since draft-ietf-quic-qpack-17
-     D.4.  Since draft-ietf-quic-qpack-16
-     D.5.  Since draft-ietf-quic-qpack-15
-     D.6.  Since draft-ietf-quic-qpack-14
-     D.7.  Since draft-ietf-quic-qpack-13
-     D.8.  Since draft-ietf-quic-qpack-12
-     D.9.  Since draft-ietf-quic-qpack-11
-     D.10. Since draft-ietf-quic-qpack-10
-     D.11. Since draft-ietf-quic-qpack-09
-     D.12. Since draft-ietf-quic-qpack-08
-     D.13. Since draft-ietf-quic-qpack-06
-     D.14. Since draft-ietf-quic-qpack-05
-     D.15. Since draft-ietf-quic-qpack-04
-     D.16. Since draft-ietf-quic-qpack-03
-     D.17. Since draft-ietf-quic-qpack-02
-     D.18. Since draft-ietf-quic-qpack-01
-     D.19. Since draft-ietf-quic-qpack-00
-     D.20. Since draft-ietf-quic-qcram-00
    Acknowledgments
    Authors' Addresses
 
@@ -179,8 +147,8 @@ Table of Contents
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
    Definitions of terms that are used in this document:
@@ -1213,11 +1181,11 @@ Table of Contents
 
    QPACK defines two settings for the HTTP/3 SETTINGS frame:
 
-   SETTINGS_QPACK_MAX_TABLE_CAPACITY (0x1):  The default value is zero.
+   SETTINGS_QPACK_MAX_TABLE_CAPACITY (0x01):  The default value is zero.
       See Section 3.2 for usage.  This is the equivalent of the
       SETTINGS_HEADER_TABLE_SIZE from HTTP/2.
 
-   SETTINGS_QPACK_BLOCKED_STREAMS (0x7):  The default value is zero.
+   SETTINGS_QPACK_BLOCKED_STREAMS (0x07):  The default value is zero.
       See Section 2.1.2.
 
 6.  Error Handling
@@ -1504,9 +1472,9 @@ Table of Contents
        +==========================+======+===============+=========+
        | Setting Name             | Code | Specification | Default |
        +==========================+======+===============+=========+
-       | QPACK_MAX_TABLE_CAPACITY | 0x1  | Section 5     | 0       |
+       | QPACK_MAX_TABLE_CAPACITY | 0x01 | Section 5     | 0       |
        +--------------------------+------+---------------+---------+
-       | QPACK_BLOCKED_STREAMS    | 0x7  | Section 5     | 0       |
+       | QPACK_BLOCKED_STREAMS    | 0x07 | Section 5     | 0       |
        +--------------------------+------+---------------+---------+
 
                                   Table 1
@@ -1560,16 +1528,15 @@ Table of Contents
 
    [HTTP3]    Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 27 March 2021,
+              quic-http, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
-              Multiplexed and Secure Transport", Work in Progress,
-              Internet-Draft, draft-ietf-quic-transport, 27 March 2021,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
-              transport.txt>.
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, 4 May 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1591,9 +1558,9 @@ Table of Contents
    [SEMANTICS]
               Fielding, R. T., Nottingham, M., and J. Reschke, "HTTP
               Semantics", Work in Progress, Internet-Draft, draft-ietf-
-              httpbis-semantics-14, 12 January 2021,
+              httpbis-semantics-15, 30 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              semantics-14.txt>.
+              semantics-15.txt>.
 
 9.2.  Informative References
 
@@ -2118,149 +2085,6 @@ Appendix C.  Sample One Pass Encoding Algorithm
                      requiredInsertCount - base - 1, 7)
 
    return encoderBuffer, prefixBuffer + streamBuffer
-
-Appendix D.  Change Log
-
-      *RFC Editor's Note:* Please remove this section prior to
-      publication of a final version of this document.
-
-D.1.  Since draft-ietf-quic-qpack-19
-
-   Editorial changes only
-
-D.2.  Since draft-ietf-quic-qpack-18
-
-   Editorial changes only
-
-D.3.  Since draft-ietf-quic-qpack-17
-
-   Editorial changes only
-
-D.4.  Since draft-ietf-quic-qpack-16
-
-   Editorial changes only
-
-D.5.  Since draft-ietf-quic-qpack-15
-
-   No changes
-
-D.6.  Since draft-ietf-quic-qpack-14
-
-   Added security considerations
-
-D.7.  Since draft-ietf-quic-qpack-13
-
-   No changes
-
-D.8.  Since draft-ietf-quic-qpack-12
-
-   Editorial changes only
-
-D.9.  Since draft-ietf-quic-qpack-11
-
-   Editorial changes only
-
-D.10.  Since draft-ietf-quic-qpack-10
-
-   Editorial changes only
-
-D.11.  Since draft-ietf-quic-qpack-09
-
-   *  Decoders MUST emit Header Acknowledgments (#2939)
-
-   *  Updated error code for multiple encoder or decoder streams (#2970)
-
-   *  Added explicit defaults for new SETTINGS (#2974)
-
-D.12.  Since draft-ietf-quic-qpack-08
-
-   *  Endpoints are permitted to create encoder and decoder streams even
-      if they can't use them (#2100, #2529)
-
-   *  Maximum values for settings removed (#2766, #2767)
-
-D.13.  Since draft-ietf-quic-qpack-06
-
-   *  Clarify initial dynamic table capacity maximums (#2276, #2330,
-      #2330)
-
-D.14.  Since draft-ietf-quic-qpack-05
-
-   *  Introduced the terms dynamic table capacity and maximum dynamic
-      table capacity.
-
-   *  Renamed SETTINGS_HEADER_TABLE_SIZE to
-      SETTINGS_QPACK_MAX_TABLE_CAPACITY.
-
-D.15.  Since draft-ietf-quic-qpack-04
-
-   *  Changed calculation of Delta Base Index to avoid an illegal value
-      (#2002, #2005)
-
-D.16.  Since draft-ietf-quic-qpack-03
-
-   *  Change HTTP settings defaults (#2038)
-
-   *  Substantial editorial reorganization
-
-D.17.  Since draft-ietf-quic-qpack-02
-
-   *  Largest Reference encoded modulo MaxEntries (#1763)
-
-   *  New Static Table (#1355)
-
-   *  Table Size Update with Insert Count=0 is a connection error
-      (#1762)
-
-   *  Stream Cancellations are optional when
-      SETTINGS_HEADER_TABLE_SIZE=0 (#1761)
-
-   *  Implementations must handle 62 bit integers (#1760)
-
-   *  Different error types for each QPACK stream, other changes to
-      error handling (#1726)
-
-   *  Preserve header field order (#1725)
-
-   *  Initial table size is the maximum permitted when table is first
-      usable (#1642)
-
-D.18.  Since draft-ietf-quic-qpack-01
-
-   *  Only header blocks that reference the dynamic table are
-      acknowledged (#1603, #1605)
-
-D.19.  Since draft-ietf-quic-qpack-00
-
-   *  Renumbered instructions for consistency (#1471, #1472)
-
-   *  Decoder is allowed to validate largest reference (#1404, #1469)
-
-   *  Header block acknowledgments also acknowledge the associated
-      largest reference (#1370, #1400)
-
-   *  Added an acknowledgment for unread streams (#1371, #1400)
-
-   *  Removed framing from encoder stream (#1361,#1467)
-
-   *  Control streams use typed unidirectional streams rather than fixed
-      stream IDs (#910,#1359)
-
-D.20.  Since draft-ietf-quic-qcram-00
-
-   *  Separate instruction sets for table updates and header blocks
-      (#1235, #1142, #1141)
-
-   *  Reworked indexing scheme (#1176, #1145, #1136, #1130, #1125,
-      #1314)
-
-   *  Added mechanisms that support one-pass encoding (#1138, #1320)
-
-   *  Added a setting to control the number of blocked decoders (#238,
-      #1140, #1143)
-
-   *  Moved table updates and acknowledgments to dedicated streams
-      (#1121, #1122, #1238)
 
 Acknowledgments
 
