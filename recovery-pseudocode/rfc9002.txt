@@ -1325,9 +1325,10 @@ Table of Contents
 
 9.2.  Informative References
 
-   [FACK]     Mathis, M. and J. Mahdavi, "Forward Acknowledgement:
-              Refining TCP Congestion Control", ACM SIGCOMM , August
-              1996.
+   [FACK]     Mathis, M. and J. Mahdavi, "Forward acknowledgement:
+              Refining TCP Congestion Control", ACM SIGCOMM Computer
+              Communication Review, DOI 10.1145/248157.248181, August
+              1996, <https://doi.org/10.1145/248157.248181>.
 
    [PRR]      Mathis, M., Dukkipati, N., and Y. Cheng, "Proportional
               Rate Reduction for TCP", RFC 6937, DOI 10.17487/RFC6937,
@@ -1341,8 +1342,10 @@ Table of Contents
 
    [RETRANSMISSION]
               Karn, P. and C. Partridge, "Improving Round-Trip Time
-              Estimates in Reliable Transport Protocols", ACM SIGCOMM
-              CCR , January 1995.
+              Estimates in Reliable Transport Protocols", ACM
+              Transactions on Computer Systems,
+              DOI 10.1145/118544.118549, November 1991,
+              <https://doi.org/10.1145/118544.118549>.
 
    [RFC2018]  Mathis, M., Mahdavi, J., Floyd, S., and A. Romanow, "TCP
               Selective Acknowledgment Options", RFC 2018,
