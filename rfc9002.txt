@@ -94,10 +94,9 @@ Table of Contents
      8.1.  Loss and Congestion Signals
      8.2.  Traffic Analysis
      8.3.  Misreporting ECN Markings
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Loss Recovery Pseudocode
      A.1.  Tracking Sent Packets
        A.1.1.  Sent Packet Fields
@@ -1292,13 +1291,9 @@ Table of Contents
    ([RFC3168]), but other responses can be specified, such as
    ([RFC8511]) or ([RFC8311]).
 
-9.  IANA Considerations
+9.  References
 
-   This document has no IANA actions.
-
-10.  References
-
-10.1.  Normative References
+9.1.  Normative References
 
    [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -1328,7 +1323,7 @@ Table of Contents
               March 2017,
               <https://datatracker.ietf.org/doc/html/rfc8085>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [FACK]     Mathis, M. and J. Mahdavi, "Forward Acknowledgement:
               Refining TCP Congestion Control", ACM SIGCOMM , August
