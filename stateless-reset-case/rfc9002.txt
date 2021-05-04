@@ -59,6 +59,7 @@ Table of Contents
      4.6.  Explicit Correction For Delayed Acknowledgments
      4.7.  Probe Timeout Replaces RTO and TLP
      4.8.  The Minimum Congestion Window is Two Packets
+     4.9.  Handshake packets are not special
    5.  Estimating the Round-Trip Time
      5.1.  Generating RTT samples
      5.2.  Estimating min_rtt
@@ -135,8 +136,8 @@ Table of Contents
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
+   14 [BCP14] when, and only when, they appear in all capitals, as shown
+   here.
 
    Definitions of terms that are used in this document:
 
@@ -302,6 +303,13 @@ Table of Contents
    packets.  While this increases network load, it is considered safe,
    since the sender will still reduce its sending rate exponentially
    under persistent congestion (Section 6.2).
+
+4.9.  Handshake packets are not special
+
+   TCP treats the loss of SYN or SYN-ACK packet as persistent congestion
+   and reduces the congestion window to one packet ([RFC5681]).  QUIC
+   treats loss of a packet containing handshake data the same as other
+   losses.
 
 5.  Estimating the Round-Trip Time
 
@@ -486,7 +494,7 @@ Table of Contents
    if (handshake confirmed):
      ack_delay = min(ack_delay, max_ack_delay)
    adjusted_rtt = latest_rtt
-   if (min_rtt + ack_delay < latest_rtt):
+   if (latest_rtt >= min_rtt + ack_delay):
      adjusted_rtt = latest_rtt - ack_delay
    smoothed_rtt = 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
    rttvar_sample = abs(smoothed_rtt - adjusted_rtt)
@@ -1292,6 +1300,14 @@ Table of Contents
 
 10.1.  Normative References
 
+   [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+              Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, May 2017.
+
+              <https://www.rfc-editor.org/info/bcp14>
+
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
               QUIC", RFC 9001, DOI 10.17487/RFC9001, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
@@ -1302,11 +1318,6 @@ Table of Contents
               DOI 10.17487/RFC9000, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
-
    [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
               of Explicit Congestion Notification (ECN) to IP",
               RFC 3168, DOI 10.17487/RFC3168, September 2001,
@@ -1316,10 +1327,6 @@ Table of Contents
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017,
               <https://datatracker.ietf.org/doc/html/rfc8085>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
 
 10.2.  Informative References
 
@@ -1654,7 +1661,7 @@ A.7.  On Receiving an Acknowledgment
 
      // Adjust for acknowledgment delay if plausible.
      adjusted_rtt = latest_rtt
-     if (latest_rtt > min_rtt + ack_delay):
+     if (latest_rtt >= min_rtt + ack_delay):
        adjusted_rtt = latest_rtt - ack_delay
 
      rttvar = 3/4 * rttvar + 1/4 * abs(smoothed_rtt - adjusted_rtt)
