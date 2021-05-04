@@ -2902,9 +2902,10 @@ Table of Contents
    Similarly, an endpoint MUST NOT reuse a connection ID when sending to
    more than one destination address.  Due to network changes outside
    the control of its peer, an endpoint might receive packets from a new
-   source address with the same destination connection ID, in which case
-   it MAY continue to use the current connection ID with the new remote
-   address while still sending from the same local address.
+   source address with the same Destination Connection ID field value,
+   in which case it MAY continue to use the current connection ID with
+   the new remote address while still sending from the same local
+   address.
 
    These requirements regarding connection ID reuse apply only to the
    sending of packets, as unintentional changes in path without a change
@@ -4229,11 +4230,11 @@ Table of Contents
 
 13.2.4.  Limiting Ranges by Tracking ACK Frames
 
-   When a packet containing an ACK frame is sent, the largest
-   acknowledged in that frame can be saved.  When a packet containing an
-   ACK frame is acknowledged, the receiver can stop acknowledging
-   packets less than or equal to the largest acknowledged in the sent
-   ACK frame.
+   When a packet containing an ACK frame is sent, the Largest
+   Acknowledged field in that frame can be saved.  When a packet
+   containing an ACK frame is acknowledged, the receiver can stop
+   acknowledging packets less than or equal to the Largest Acknowledged
+   field in the sent ACK frame.
 
    A receiver that sends only non-ack-eliciting packets, such as ACK
    frames, might not receive an acknowledgment for a long period of
@@ -4904,13 +4905,13 @@ Table of Contents
    After an acknowledgment is received for a packet number space, the
    sender MUST use a packet number size able to represent more than
    twice as large a range as the difference between the largest
-   acknowledged packet and packet number being sent.  A peer receiving
-   the packet will then correctly decode the packet number, unless the
-   packet is delayed in transit such that it arrives after many higher-
-   numbered packets have been received.  An endpoint SHOULD use a large
-   enough packet number encoding to allow the packet number to be
-   recovered even if the packet arrives after packets that are sent
-   afterwards.
+   acknowledged packet number and the packet number being sent.  A peer
+   receiving the packet will then correctly decode the packet number,
+   unless the packet is delayed in transit such that it arrives after
+   many higher-numbered packets have been received.  An endpoint SHOULD
+   use a large enough packet number encoding to allow the packet number
+   to be recovered even if the packet arrives after packets that are
+   sent afterwards.
 
    As a result, the size of the packet number encoding is at least one
    bit more than the base-2 logarithm of the number of contiguous
@@ -5797,12 +5798,12 @@ Table of Contents
 
                     Figure 22: Preferred Address Format
 
-   active_connection_id_limit (0x0e):  The active connection ID limit is
-      an integer value specifying the maximum number of connection IDs
-      from the peer that an endpoint is willing to store.  This value
-      includes the connection ID received during the handshake, that
-      received in the preferred_address transport parameter, and those
-      received in NEW_CONNECTION_ID frames.  The value of the
+   active_connection_id_limit (0x0e):  This is an integer value
+      specifying the maximum number of connection IDs from the peer that
+      an endpoint is willing to store.  This value includes the
+      connection ID received during the handshake, that received in the
+      preferred_address transport parameter, and those received in
+      NEW_CONNECTION_ID frames.  The value of the
       active_connection_id_limit parameter MUST be at least 2.  An
       endpoint that receives a value less than 2 MUST close the
       connection with an error of type TRANSPORT_PARAMETER_ERROR.  If
@@ -5943,7 +5944,7 @@ Table of Contents
       contiguous packets preceding the Largest Acknowledged that are
       being acknowledged.  That is, the smallest packet acknowledged in
       the range is determined by subtracting the First ACK Range value
-      from the Largest Acknowledged.
+      from the Largest Acknowledged field.
 
    ACK Ranges:  Contains additional ranges of packets that are
       alternately not acknowledged (Gap) and acknowledged (ACK Range);
@@ -6072,7 +6073,7 @@ Table of Contents
 
    RESET_STREAM frames contain the following fields:
 
-   Stream ID:  A variable-length integer encoding of the Stream ID of
+   Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
 
    Application Protocol Error Code:  A variable-length integer
@@ -6108,7 +6109,7 @@ Table of Contents
 
    STOP_SENDING frames contain the following fields:
 
-   Stream ID:  A variable-length integer carrying the Stream ID of the
+   Stream ID:  A variable-length integer carrying the stream ID of the
       stream being ignored.
 
    Application Protocol Error Code:  A variable-length integer
@@ -6156,7 +6157,7 @@ Table of Contents
    this limit MUST be treated as a connection error of type
    FRAME_ENCODING_ERROR or CRYPTO_BUFFER_EXCEEDED.
 
-   Unlike STREAM frames, which include a Stream ID indicating to which
+   Unlike STREAM frames, which include a stream ID indicating to which
    stream the data belongs, the CRYPTO frame carries data for a single
    stream per encryption level.  The stream does not have an explicit
    end, so CRYPTO frames do not have a FIN bit.
@@ -8042,17 +8043,17 @@ Table of Contents
 
    [QUIC-INVARIANTS]
               Thomson, M., "Version-Independent Properties of QUIC",
-              RFC 8999, DOI 10.17487/RFC8999, 3 May 2021,
+              RFC 8999, DOI 10.17487/RFC8999, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc8999>.
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
-              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002, 3
+              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002, 4
               May 2021, <https://datatracker.ietf.org/doc/html/rfc9002>.
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using Transport
               Layer Security (TLS) to Secure QUIC", RFC 9001,
-              DOI 10.17487/RFC9001, 3 May 2021,
+              DOI 10.17487/RFC9001, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [RFC1191]  Mogul, J. and S. Deering, "Path MTU discovery", RFC 1191,
