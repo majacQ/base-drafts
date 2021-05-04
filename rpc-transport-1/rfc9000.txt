@@ -1436,7 +1436,7 @@ Table of Contents
    IDs with the active connection.
 
    An endpoint SHOULD limit the number of connection IDs it has retired
-   locally and for which RETIRE_CONNECTION_ID frames have not yet been
+   locally for which RETIRE_CONNECTION_ID frames have not yet been
    acknowledged.  An endpoint SHOULD allow for sending and tracking a
    number of RETIRE_CONNECTION_ID frames of at least twice the value of
    the active_connection_id_limit transport parameter.  An endpoint MUST
