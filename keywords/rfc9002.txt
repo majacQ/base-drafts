@@ -1304,13 +1304,13 @@ Table of Contents
               <https://www.rfc-editor.org/info/bcp14>
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, DOI 10.17487/RFC9001, 4 May 2021,
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
-              DOI 10.17487/RFC9000, 4 May 2021,
+              DOI 10.17487/RFC9000, May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
