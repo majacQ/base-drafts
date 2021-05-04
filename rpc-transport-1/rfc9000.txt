@@ -414,7 +414,7 @@ Table of Contents
 
    Connection ID:  An identifier that is used to identify a QUIC
       connection at an endpoint.  Each endpoint selects one or more
-      Connection IDs for its peer to include in packets sent towards the
+      connection IDs for its peer to include in packets sent towards the
       endpoint.  This value is opaque to the peer.
 
    Stream:  A unidirectional or bidirectional channel of ordered bytes
@@ -1436,13 +1436,13 @@ Table of Contents
    IDs with the active connection.
 
    An endpoint SHOULD limit the number of connection IDs it has retired
-   locally and have not yet been acknowledged.  An endpoint SHOULD allow
-   for sending and tracking a number of RETIRE_CONNECTION_ID frames of
-   at least twice the value of the active_connection_id_limit transport
-   parameter.  An endpoint MUST NOT forget a connection ID without
-   retiring it, though it MAY choose to treat having connection IDs in
-   need of retirement that exceed this limit as a connection error of
-   type CONNECTION_ID_LIMIT_ERROR.
+   locally and for which RETIRE_CONNECTION_ID frames have not yet been
+   acknowledged.  An endpoint SHOULD allow for sending and tracking a
+   number of RETIRE_CONNECTION_ID frames of at least twice the value of
+   the active_connection_id_limit transport parameter.  An endpoint MUST
+   NOT forget a connection ID without retiring it, though it MAY choose
+   to treat having connection IDs in need of retirement that exceed this
+   limit as a connection error of type CONNECTION_ID_LIMIT_ERROR.
 
    Endpoints SHOULD NOT issue updates of the Retire Prior To field
    before receiving RETIRE_CONNECTION_ID frames that retire all
@@ -8041,17 +8041,17 @@ Table of Contents
 
    [QUIC-INVARIANTS]
               Thomson, M., "Version-Independent Properties of QUIC",
-              RFC 8999, DOI 10.17487/RFC8999, 3 May 2021,
+              RFC 8999, DOI 10.17487/RFC8999, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc8999>.
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
-              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002, 3
+              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002, 4
               May 2021, <https://datatracker.ietf.org/doc/html/rfc9002>.
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using Transport
               Layer Security (TLS) to Secure QUIC", RFC 9001,
-              DOI 10.17487/RFC9001, 3 May 2021,
+              DOI 10.17487/RFC9001, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [RFC1191]  Mogul, J. and S. Deering, "Path MTU discovery", RFC 1191,
