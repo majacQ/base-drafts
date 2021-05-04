@@ -1,2 +1,0 @@
-draft-ietf-quic-transport is now RFC 9000
-See https://quicwg.org/base-drafts/rfc9000.txt

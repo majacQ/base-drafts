@@ -59,6 +59,7 @@ Table of Contents
      4.6.  Explicit Correction For Delayed Acknowledgments
      4.7.  Probe Timeout Replaces RTO and TLP
      4.8.  The Minimum Congestion Window is Two Packets
+     4.9.  Handshake packets are not special
    5.  Estimating the Round-Trip Time
      5.1.  Generating RTT samples
      5.2.  Estimating min_rtt
@@ -302,6 +303,13 @@ Table of Contents
    packets.  While this increases network load, it is considered safe,
    since the sender will still reduce its sending rate exponentially
    under persistent congestion (Section 6.2).
+
+4.9.  Handshake packets are not special
+
+   TCP treats the loss of SYN or SYN-ACK packet as persistent congestion
+   and reduces the congestion window to one packet ([RFC5681]).  QUIC
+   treats loss of a packet containing handshake data the same as other
+   losses.
 
 5.  Estimating the Round-Trip Time
 
@@ -1293,13 +1301,13 @@ Table of Contents
 10.1.  Normative References
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, DOI 10.17487/RFC9001, 3 May 2021,
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
-              DOI 10.17487/RFC9000, 3 May 2021,
+              DOI 10.17487/RFC9000, 4 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate

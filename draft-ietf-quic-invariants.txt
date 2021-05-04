@@ -1,2 +1,0 @@
-draft-ietf-quic-invariants is now RFC 8999
-See https://quicwg.org/base-drafts/rfc8999.txt

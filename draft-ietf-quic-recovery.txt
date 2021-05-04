@@ -1,2 +1,0 @@
-draft-ietf-quic-recovery is now RFC 9002
-See https://quicwg.org/base-drafts/rfc9002.txt
