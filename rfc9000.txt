@@ -6819,11 +6819,11 @@ Table of Contents
       receive CONNECTION_CLOSE carrying this code except when the path
       does not support a large enough MTU.
 
-   CRYPTO_ERROR (0x01XX):  The cryptographic handshake failed.  A range
-      of 256 values is reserved for carrying error codes specific to the
-      cryptographic handshake that is used.  Codes for errors occurring
-      when TLS is used for the cryptographic handshake are described in
-      Section 4.8 of [QUIC-TLS].
+   CRYPTO_ERROR (0x0100-0x01ff):  The cryptographic handshake failed.  A
+      range of 256 values is reserved for carrying error codes specific
+      to the cryptographic handshake that is used.  Codes for errors
+      occurring when TLS is used for the cryptographic handshake are
+      described in Section 4.8 of [QUIC-TLS].
 
    See Section 22.5 for details on registering new error codes.
 
@@ -8014,6 +8014,10 @@ Table of Contents
    |0x10  | NO_VIABLE_PATH            |No viable       | Section 20    |
    |      |                           |network path    |               |
    |      |                           |exists          |               |
+   +------+---------------------------+----------------+---------------+
+   |0x0100| CRYPTO_ERROR              |TLS alert code  | Section 20    |
+   |-     |                           |                |               |
+   |0x01ff|                           |                |               |
    +------+---------------------------+----------------+---------------+
 
         Table 7: Initial QUIC Transport Error Codes Registry Entries
