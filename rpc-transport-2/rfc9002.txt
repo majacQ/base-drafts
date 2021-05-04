@@ -59,6 +59,7 @@ Table of Contents
      4.6.  Explicit Correction For Delayed Acknowledgments
      4.7.  Probe Timeout Replaces RTO and TLP
      4.8.  The Minimum Congestion Window is Two Packets
+     4.9.  Handshake packets are not special
    5.  Estimating the Round-Trip Time
      5.1.  Generating RTT samples
      5.2.  Estimating min_rtt
@@ -303,6 +304,13 @@ Table of Contents
    since the sender will still reduce its sending rate exponentially
    under persistent congestion (Section 6.2).
 
+4.9.  Handshake packets are not special
+
+   TCP treats the loss of SYN or SYN-ACK packet as persistent congestion
+   and reduces the congestion window to one packet ([RFC5681]).  QUIC
+   treats loss of a packet containing handshake data the same as other
+   losses.
+
 5.  Estimating the Round-Trip Time
 
    At a high level, an endpoint measures the time from when a packet was
@@ -486,7 +494,7 @@ Table of Contents
    if (handshake confirmed):
      ack_delay = min(ack_delay, max_ack_delay)
    adjusted_rtt = latest_rtt
-   if (min_rtt + ack_delay < latest_rtt):
+   if (latest_rtt >= min_rtt + ack_delay):
      adjusted_rtt = latest_rtt - ack_delay
    smoothed_rtt = 7/8 * smoothed_rtt + 1/8 * adjusted_rtt
    rttvar_sample = abs(smoothed_rtt - adjusted_rtt)
@@ -1654,7 +1662,7 @@ A.7.  On Receiving an Acknowledgment
 
      // Adjust for acknowledgment delay if plausible.
      adjusted_rtt = latest_rtt
-     if (latest_rtt > min_rtt + ack_delay):
+     if (latest_rtt >= min_rtt + ack_delay):
        adjusted_rtt = latest_rtt - ack_delay
 
      rttvar = 3/4 * rttvar + 1/4 * abs(smoothed_rtt - adjusted_rtt)
