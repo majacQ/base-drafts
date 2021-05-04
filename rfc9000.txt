@@ -380,8 +380,8 @@ Table of Contents
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
+   14 [BCP14] when, and only when, they appear in all capitals, as shown
+   here.
 
    Commonly used terms in this document are described below.
 
@@ -4683,7 +4683,7 @@ Table of Contents
    current maximum datagram size, referred to as PMTU probes.  All QUIC
    packets that are not sent in a PMTU probe SHOULD be sized to fit
    within the maximum datagram size to avoid the datagram being
-   fragmented or dropped [RFC8085].
+   fragmented or dropped [BCP145].
 
    If a QUIC endpoint determines that the PMTU between any pair of local
    and remote IP addresses cannot support the smallest allowed maximum
@@ -4727,7 +4727,7 @@ Table of Contents
    the payload of an ICMP message to associate the message with a
    corresponding transport connection (see Section 4.6.1 of [DPLPMTUD]).
    ICMP message validation MUST include matching IP addresses and UDP
-   ports [RFC8085] and, when possible, connection IDs to an active QUIC
+   ports [BCP145] and, when possible, connection IDs to an active QUIC
    session.  The endpoint SHOULD ignore all ICMP messages that fail
    validation.
 
@@ -8021,10 +8021,24 @@ Table of Contents
 
 23.1.  Normative References
 
+   [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+              Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, May 2017.
+
+              <https://www.rfc-editor.org/info/bcp14>
+
+   [BCP145]   Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
+              Guidelines", BCP 145, RFC 8085, March 2017.
+
+              <https://www.rfc-editor.org/info/bcp145>
+
    [BCP38]    Ferguson, P. and D. Senie, "Network Ingress Filtering:
               Defeating Denial of Service Attacks which employ IP Source
-              Address Spoofing", BCP 38, RFC 2827, DOI 10.17487/RFC2827,
-              May 2000, <https://datatracker.ietf.org/doc/html/rfc2827>.
+              Address Spoofing", BCP 38, RFC 2827, May 2000.
+
+              <https://www.rfc-editor.org/info/bcp38>
 
    [DPLPMTUD] Fairhurst, G., Jones, T., Tüxen, M., Rüngeler, I., and T.
               Völker, "Packetization Layer Path MTU Discovery for
@@ -8060,11 +8074,6 @@ Table of Contents
               DOI 10.17487/RFC1191, November 1990,
               <https://datatracker.ietf.org/doc/html/rfc1191>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
-
    [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
               of Explicit Congestion Notification (ECN) to IP",
               RFC 3168, DOI 10.17487/RFC3168, September 2001,
@@ -8079,19 +8088,10 @@ Table of Contents
               DOI 10.17487/RFC6437, November 2011,
               <https://datatracker.ietf.org/doc/html/rfc6437>.
 
-   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
-              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
-              March 2017,
-              <https://datatracker.ietf.org/doc/html/rfc8085>.
-
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://datatracker.ietf.org/doc/html/rfc8126>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
 
    [RFC8201]  McCann, J., Deering, S., Mogul, J., and R. Hinden, Ed.,
               "Path MTU Discovery for IP version 6", STD 87, RFC 8201,
@@ -8139,14 +8139,16 @@ Table of Contents
               <https://doi.org/10.1145/1455770.1455782>.
 
    [EARLY-DESIGN]
-              Roskind, J., "QUIC: Multiplexed Transport Over UDP", 2
-              December 2013, <https://goo.gl/dMVtFi>.
+              Roskind, J., "QUIC: Multiplexed Stream Transport Over
+              UDP", 2 December 2013, <https://docs.google.com/document/
+              d/1RNHkx_VvKWyWg6Lr8SZ-saqsQx7rFV-ev2jRFUoVD34/
+              edit?usp=sharing>.
 
    [GATEWAY]  Hätönen, S., Nyrhinen, A., Eggert, L., Strowes, S.,
               Sarolahti, P., and M. Kojo, "An experimental study of home
-              gateway characteristics", Proceedings of the 10th annual
-              conference on Internet measurement - IMC '10,
-              DOI 10.1145/1879141.1879174, 2010,
+              gateway characteristics", Proceedings of the 10th ACM
+              SIGCOMM conference on Internet measurement - IMC ‘10,
+              DOI 10.1145/1879141.1879174, November 2010,
               <https://doi.org/10.1145/1879141.1879174>.
 
    [HTTP2]    Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
@@ -8248,8 +8250,9 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/rfc3552>.
 
    [SLOWLORIS]
-              RSnake Hansen, R., "Welcome to Slowloris...", June 2009,
-              <https://web.archive.org/web/20150315054838/
+              "RSnake" Hansen, R., "Welcome to Slowloris - the low
+              bandwidth, yet greedy and poisonous HTTP client!", June
+              2009, <https://web.archive.org/web/20150315054838/
               http://ha.ckers.org/slowloris/>.
 
 Appendix A.  Pseudocode
