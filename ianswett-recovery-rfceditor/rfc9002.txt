@@ -540,7 +540,7 @@ Table of Contents
    retransmissions and may result in degraded performance due to the
    actions of the congestion controller upon detecting loss.
    Implementations can detect spurious retransmissions and increase the
-   reordering threshold in packets or time to reduce future spurious
+   packet or time reordering threshold to reduce future spurious
    retransmissions and loss events.  Implementations with adaptive time
    thresholds MAY choose to start with smaller initial reordering
    thresholds to minimize recovery latency.
