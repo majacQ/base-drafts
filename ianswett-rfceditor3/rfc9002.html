@@ -1498,11 +1498,11 @@ decreases, the min_rtt will adapt immediately on the first low sample.  If the
 path's actual RTT increases however, the min_rtt will not adapt to it, allowing
 future RTT samples that are smaller than the new RTT to be included in
 smoothed_rtt.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Endpoints <span class="bcp14">SHOULD</span> set the min_rtt to the newest RTT sample afterpersistent
+<p id="section-5.2-5">Endpoints <span class="bcp14">SHOULD</span> set the min_rtt to the newest RTT sample after persistent
 congestion is established. This helps when an increase in path delay
 results in persistent congestion beingincorrectly declared. This also allows
 a connection to reset itsestimate of min_rtt and smoothed_rtt after a
-disruptive network event (Section 5.3).<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+disruptive network event; see <a href="#smoothed-rtt" class="xref">Section 5.3</a>.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <p id="section-5.2-6">Endpoints <span class="bcp14">MAY</span> re-establish the min_rtt at other times in the connection, such as
 when traffic volume is low and an acknowledgment is received with a low
 acknowledgment delay. Implementations <span class="bcp14">SHOULD NOT</span> refresh the min_rtt
@@ -2458,11 +2458,11 @@ responses can be specified, such as (<span>[<a href="#RFC8511" class="xref">RFC8
 <dd class="break"></dd>
 <dt id="QUIC-TLS">[QUIC-TLS]</dt>
         <dd>
-<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="seriesInfo">RFC 9001</span>, <span class="seriesInfo">DOI 10.17487/RFC9001</span>, <time datetime="2021-05-06" class="refDate">6 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9001">https://datatracker.ietf.org/doc/html/rfc9001</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, M., Ed.</span> and <span class="refAuthor">S. Turner, Ed.</span>, <span class="refTitle">"Using TLS to Secure QUIC"</span>, <span class="seriesInfo">RFC 9001</span>, <span class="seriesInfo">DOI 10.17487/RFC9001</span>, <time datetime="2021-05-07" class="refDate">7 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9001">https://datatracker.ietf.org/doc/html/rfc9001</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC-TRANSPORT">[QUIC-TRANSPORT]</dt>
         <dd>
-<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05-06" class="refDate">6 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9000">https://datatracker.ietf.org/doc/html/rfc9000</a>&gt;</span>. </dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05-07" class="refDate">7 May 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc9000">https://datatracker.ietf.org/doc/html/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3168">[RFC3168]</dt>
         <dd>

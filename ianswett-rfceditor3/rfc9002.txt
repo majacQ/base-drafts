@@ -384,12 +384,12 @@ Table of Contents
    not adapt to it, allowing future RTT samples that are smaller than
    the new RTT to be included in smoothed_rtt.
 
-   Endpoints SHOULD set the min_rtt to the newest RTT sample
-   afterpersistent congestion is established.  This helps when an
-   increase in path delay results in persistent congestion
-   beingincorrectly declared.  This also allows a connection to reset
-   itsestimate of min_rtt and smoothed_rtt after a disruptive network
-   event (Section 5.3).
+   Endpoints SHOULD set the min_rtt to the newest RTT sample after
+   persistent congestion is established.  This helps when an increase in
+   path delay results in persistent congestion beingincorrectly
+   declared.  This also allows a connection to reset itsestimate of
+   min_rtt and smoothed_rtt after a disruptive network event; see
+   Section 5.3.
 
    Endpoints MAY re-establish the min_rtt at other times in the
    connection, such as when traffic volume is low and an acknowledgment
@@ -1304,13 +1304,13 @@ Table of Contents
               <https://www.rfc-editor.org/info/bcp14>
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, DOI 10.17487/RFC9001, 6 May 2021,
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, 7 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
-              DOI 10.17487/RFC9000, 6 May 2021,
+              DOI 10.17487/RFC9000, 7 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
