@@ -120,7 +120,7 @@ Table of Contents
      B.7.  Process ECN Information
      B.8.  On Packets Lost
      B.9.  Removing Discarded Packets From Bytes In Flight
-   Appendix C.  Contributors
+   Contributors
    Acknowledgments
    Authors' Addresses
 
@@ -1304,13 +1304,13 @@ Table of Contents
               <https://www.rfc-editor.org/info/bcp14>
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using TLS to Secure
-              QUIC", RFC 9001, DOI 10.17487/RFC9001, 7 May 2021,
+              QUIC", RFC 9001, DOI 10.17487/RFC9001, 8 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [QUIC-TRANSPORT]
               Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
-              DOI 10.17487/RFC9000, 7 May 2021,
+              DOI 10.17487/RFC9000, 8 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9000>.
 
    [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
@@ -2036,7 +2036,7 @@ B.9.  Removing Discarded Packets From Bytes In Flight
        if packet.in_flight
          bytes_in_flight -= size
 
-Appendix C.  Contributors
+Contributors
 
    The IETF QUIC Working Group received an enormous amount of support
    from many people.  The following people provided substantive
