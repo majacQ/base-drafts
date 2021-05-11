@@ -127,7 +127,7 @@ Table of Contents
 1.  Introduction
 
    QUIC is a secure, general-purpose transport protocol, described in
-   [QUIC-TRANSPORT]).  This document describes loss detection and
+   [QUIC-TRANSPORT].  This document describes loss detection and
    congestion control mechanisms for QUIC.
 
 2.  Conventions and Definitions
@@ -184,7 +184,7 @@ Table of Contents
       acknowledgment.
 
    *  Packets containing frames besides ACK or CONNECTION_CLOSE frames
-      count toward congestion control limits and are considered in-
+      count toward congestion control limits and are considered to be in
       flight.
 
    *  PADDING frames cause packets to contribute toward bytes in flight
@@ -212,7 +212,7 @@ Table of Contents
 
    TCP conflates transmission order at the sender with delivery order at
    the receiver, resulting in the retransmission ambiguity problem
-   ([RETRANSMISSION]).  QUIC separates transmission order from delivery
+   [RETRANSMISSION].  QUIC separates transmission order from delivery
    order: packet numbers indicate transmission order, and delivery order
    is determined by the stream offsets in STREAM frames.
 
@@ -299,7 +299,7 @@ Table of Contents
    additional latency when a receiver delays its acknowledgment.
 
    QUIC therefore recommends that the minimum congestion window be two
-   packets.  While this increases network load, it is considered safe,
+   packets.  While this increases network load, it is considered safe
    since the sender will still reduce its sending rate exponentially
    under persistent congestion (Section 6.2).
 
@@ -522,7 +522,8 @@ Table of Contents
    [RACK].  This section provides an overview of how these algorithms
    are implemented in QUIC.
 
-   A packet is declared lost if it meets all the following conditions:
+   A packet is declared lost if it meets all of the following
+   conditions:
 
    *  The packet is unacknowledged, in flight, and was sent prior to an
       acknowledged packet.
@@ -902,7 +903,7 @@ Table of Contents
 7.1.  Explicit Congestion Notification
 
    If a path has been validated to support Explicit Congestion
-   Notification (ECN) [RFC3168], [RFC8311], QUIC treats a Congestion
+   Notification (ECN) [RFC3168] [RFC8311], QUIC treats a Congestion
    Experienced (CE) codepoint in the IP header as a signal of
    congestion.  This document specifies an endpoint's response when the
    peer-reported ECN-CE count increases; see Section 13.4.2 of
@@ -1244,14 +1245,14 @@ Table of Contents
    would have fully utilized the congestion window without pacing delay.
 
    A sender MAY implement alternative mechanisms to update its
-   congestion window after periods of under-utilization, such as those
+   congestion window after periods of underutilization, such as those
    proposed for TCP in [RFC7661].
 
 8.  Security Considerations
 
 8.1.  Loss and Congestion Signals
 
-   Loss detection and congestion control fundamentally involve
+   Loss detection and congestion control fundamentally involve the
    consumption of signals, such as delay, loss, and ECN markings, from
    unauthenticated entities.  An attacker can cause endpoints to reduce
    their sending rate by manipulating these signals: by dropping
