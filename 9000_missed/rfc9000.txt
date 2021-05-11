@@ -916,7 +916,7 @@ Table of Contents
    receiving streams are in terminal states.
 
    Table 2 shows a more complex mapping of bidirectional stream states
-   that loosely correspond to the stream states discussed in HTTP/2
+   that loosely correspond to the stream states defined in HTTP/2
    [HTTP2].  This shows that multiple states on sending or receiving
    parts of streams are mapped to the same composite state.  Note that
    this is just one possibility for such a mapping; this mapping
@@ -1561,7 +1561,7 @@ Table of Contents
 
    A server in a deployment that does not implement a solution to
    maintain connection continuity when the client address changes SHOULD
-   indicate that migration is not supported using the
+   indicate that migration is not supported by using the
    disable_active_migration transport parameter.  The
    disable_active_migration transport parameter does not prohibit
    connection migration after a client has acted on a preferred_address
