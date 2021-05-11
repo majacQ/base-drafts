@@ -268,9 +268,9 @@ Table of Contents
 4.7.  Probe Timeout Replaces RTO and TLP
 
    QUIC uses a probe timeout (PTO; see Section 6.2), with a timer based
-   on TCP's RTO computation; see [RFC6297].  QUIC's PTO includes the
-   peer's maximum expected acknowledgment delay instead of using a fixed
-   minimum timeout.
+   on TCP's retransmission timeout (RTO) computation; see [RFC6298].
+   QUIC's PTO includes the peer's maximum expected acknowledgment delay
+   instead of using a fixed minimum timeout.
 
    Similar to the RACK-TLP loss detection algorithm for TCP ([RACK]),
    QUIC does not collapse the congestion window when the PTO expires,
@@ -385,11 +385,10 @@ Table of Contents
    the new RTT to be included in smoothed_rtt.
 
    Endpoints SHOULD set the min_rtt to the newest RTT sample after
-   persistent congestion is established.  This is to allow a connection
-   to reset its estimate of min_rtt and smoothed_rtt (Section 5.3) after
-   a disruptive network event, and because it is possible that an
-   increase in path delay resulted in persistent congestion being
-   incorrectly declared.
+   persistent congestion is established.  This avoids repeatedly
+   declaring persistent congestion when the RTT increases.  This also
+   allows a connection to reset itsestimate of min_rtt and smoothed_rtt
+   after a disruptive network event; see Section 5.3.
 
    Endpoints MAY re-establish the min_rtt at other times in the
    connection, such as when traffic volume is low and an acknowledgment
@@ -540,7 +539,7 @@ Table of Contents
    retransmissions and may result in degraded performance due to the
    actions of the congestion controller upon detecting loss.
    Implementations can detect spurious retransmissions and increase the
-   reordering threshold in packets or time to reduce future spurious
+   packet or time reordering threshold to reduce future spurious
    retransmissions and loss events.  Implementations with adaptive time
    thresholds MAY choose to start with smaller initial reordering
    thresholds to minimize recovery latency.
@@ -706,13 +705,13 @@ Table of Contents
    Appendix A.2) for a new path, but the delay SHOULD NOT be considered
    an RTT sample.
 
-   Initial packets and Handshake packets could be never acknowledged,
-   but they are removed from bytes in flight when the Initial and
-   Handshake keys are discarded, as described below in Section 6.4.
-   When Initial or Handshake keys are discarded, the PTO and loss
-   detection timers MUST be reset, because discarding keys indicates
-   forward progress and the loss detection timer might have been set for
-   a now discarded packet number space.
+   When the Initial keys and Handshake keys are discarded (Section 6.4),
+   any Initial packets and Handshake packets can no longer be
+   acknowledged, so they are removed from bytes in flight.  When Initial
+   or Handshake keys are discarded, the PTO and loss detection timers
+   MUST be reset, because discarding keys indicates forward progress and
+   the loss detection timer might have been set for a now discarded
+   packet number space.
 
 6.2.2.1.  Before Address Validation
 
@@ -735,7 +734,7 @@ Table of Contents
    from the client, it is the client's responsibility to send packets to
    unblock the server until it is certain that the server has finished
    its address validation (see Section 8 of [QUIC-TRANSPORT]).  That is,
-   the client MUST set the probe timer if the client has not received an
+   the client MUST set the PTO timer if the client has not received an
    acknowledgment for any of its Handshake packets and the handshake is
    not confirmed (see Section 4.1.2 of [QUIC-TLS]), even if there are no
    packets in flight.  When the PTO fires, the client MUST send a
@@ -860,11 +859,11 @@ Table of Contents
    arrive before Initial packets, early 0-RTT packets will be declared
    lost, but that is expected to be infrequent.
 
-   It is expected that keys are discarded after packets encrypted with
-   them would be acknowledged or declared lost.  However, Initial and
-   Handshake secrets are discarded as soon as handshake and 1-RTT keys
-   are proven to be available to both client and server; see
-   Section 4.9.1 of [QUIC-TLS].
+   It is expected that keys are discarded at some time after the packets
+   encrypted with them are either acknowledged or declared lost.
+   However, Initial and Handshake secrets are discarded as soon as
+   handshake and 1-RTT keys are proven to be available to both client
+   and server; see Section 4.9.1 of [QUIC-TLS].
 
 7.  Congestion Control
 
@@ -1233,9 +1232,9 @@ Table of Contents
 
    When bytes in flight is smaller than the congestion window and
    sending is not pacing limited, the congestion window is under-
-   utilized.  When this occurs, the congestion window SHOULD NOT be
-   increased in either slow start or congestion avoidance.  This can
-   happen due to insufficient application data or flow control limits.
+   utilized.  This can happen due to insufficient application data or
+   flow control limits.  When this occurs, the congestion window SHOULD
+   NOT be increased in either slow start or congestion avoidance.
 
    A sender that paces packets (see Section 7.7) might delay sending
    packets and not fully utilize the congestion window due to this
@@ -1368,10 +1367,6 @@ Table of Contents
               Transmission Protocol (SCTP)", RFC 5827,
               DOI 10.17487/RFC5827, May 2010,
               <https://datatracker.ietf.org/doc/html/rfc5827>.
-
-   [RFC6297]  Welzl, M. and D. Ros, "A Survey of Lower-than-Best-Effort
-              Transport Protocols", RFC 6297, DOI 10.17487/RFC6297, June
-              2011, <https://datatracker.ietf.org/doc/html/rfc6297>.
 
    [RFC6298]  Paxson, V., Allman, M., Chu, J., and M. Sargent,
               "Computing TCP's Retransmission Timer", RFC 6298,
