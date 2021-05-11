@@ -7831,7 +7831,7 @@ Table of Contents
    Permanent registrations in this registry are assigned using the
    Specification Required policy (Section 4.6 of [RFC8126]).
 
-   The codepoint of 0x00000001 to the protocol is assigned with
+   The codepoint of 0x00000001 for the protocol is assigned with
    permanent status to the protocol defined in this document.  The
    codepoint of 0x00000000 is permanently reserved; the note for this
    codepoint indicates that this version is reserved for version
@@ -7854,8 +7854,8 @@ Table of Contents
    assigned using Standards Action or IESG Approval as defined in
    Sections 4.9 and 4.10 of [RFC8126].
 
-   In addition to the fields in Section 22.1.1, permanent registrations
-   in this registry MUST include the following field:
+   In addition to the fields listed in Section 22.1.1, permanent
+   registrations in this registry MUST include the following field:
 
    Parameter Name:  A short mnemonic for the parameter.
 
@@ -7918,8 +7918,8 @@ Table of Contents
    assigned using Standards Action or IESG Approval as defined in
    Sections 4.9 and 4.10 of [RFC8126].
 
-   In addition to the fields in Section 22.1.1, permanent registrations
-   in this registry MUST include the following field:
+   In addition to the fields listed in Section 22.1.1, permanent
+   registrations in this registry MUST include the following field:
 
    Frame Type Name:  A short mnemonic for the frame type.
 
@@ -7948,8 +7948,8 @@ Table of Contents
    which are assigned using Standards Action or IESG Approval as defined
    in Sections 4.9 and 4.10 of [RFC8126].
 
-   In addition to the fields in Section 22.1.1, permanent registrations
-   in this registry MUST include the following fields:
+   In addition to the fields listed in Section 22.1.1, permanent
+   registrations in this registry MUST include the following fields:
 
    Code:  A short mnemonic for the parameter.
 
