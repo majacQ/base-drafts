@@ -1200,8 +1200,8 @@ Table of Contents
    the congestion controller.
 
    Timely delivery of ACK frames is important for efficient loss
-   recovery.  Packets containing only ACK frames SHOULD therefore not be
-   paced to avoid delaying their delivery to the peer.
+   recovery.  To avoid delaying their delivery to the peer, packets
+   containing only ACK frames SHOULD therefore not be paced.
 
    Endpoints can implement pacing as they choose.  A perfectly paced
    sender spreads packets exactly evenly over time.  For a window-based
