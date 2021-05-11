@@ -120,7 +120,7 @@ Table of Contents
      B.7.  Process ECN Information
      B.8.  On Packets Lost
      B.9.  Removing Discarded Packets From Bytes In Flight
-   Appendix C.  Contributors
+   Contributors
    Acknowledgments
    Authors' Addresses
 
@@ -647,7 +647,7 @@ Table of Contents
    flight, the timer MUST be set to the earlier value of the Initial and
    Handshake packet number spaces.
 
-   An endpoint MUST NOT set its PTO timer for the application data
+   An endpoint MUST NOT set its PTO timer for the Application Data
    packet number space until the handshake is confirmed.  Doing so
    prevents the endpoint from retransmitting information in packets when
    either the peer does not yet have the keys to process them or the
@@ -2036,7 +2036,7 @@ B.9.  Removing Discarded Packets From Bytes In Flight
        if packet.in_flight
          bytes_in_flight -= size
 
-Appendix C.  Contributors
+Contributors
 
    The IETF QUIC Working Group received an enormous amount of support
    from many people.  The following people provided substantive
