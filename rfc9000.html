@@ -10514,7 +10514,7 @@ EncodePacketNumber(full_pn, largest_acked):
 and is sending a packet with a number of 0xac5c02, there are 29,519 (0x734f)
 outstanding packet numbers.  In order to represent at least twice this range
 (59,038 packets, or 0xe69e), 16 bits are required.<a href="#section-a.2-5" class="pilcrow">¶</a></p>
-<p id="section-a.2-6">In the same state, sending a packet with a number of 0xace8fe needs the 24-bit
+<p id="section-a.2-6">In the same state, sending a packet with a number of 0xace8fe uses the 24-bit
 encoding, because at least 18 bits are required to represent twice the range
 (131,222 packets, or 0x020096).<a href="#section-a.2-6" class="pilcrow">¶</a></p>
 </section>
@@ -10588,19 +10588,19 @@ determined to not support ECN.<a href="#section-a.4-1" class="pilcrow">¶</a></p
 intended to show how a path might be tested for ECN support.  Endpoints can
 implement different methods.<a href="#section-a.4-2" class="pilcrow">¶</a></p>
 <p id="section-a.4-3">The path is assigned an ECN state that is one of "testing", "unknown", "failed",
-or "capable".  On paths with a "testing" or "capable" state the endpoint sends
+or "capable".  On paths with a "testing" or "capable" state, the endpoint sends
 packets with an ECT marking -- ECT(0) by default; otherwise, the endpoint sends
 unmarked packets.<a href="#section-a.4-3" class="pilcrow">¶</a></p>
 <p id="section-a.4-4">To start testing a path, the ECN state is set to "testing", and existing ECN
 counts are remembered as a baseline.<a href="#section-a.4-4" class="pilcrow">¶</a></p>
 <p id="section-a.4-5">The testing period runs for a number of packets or a limited time, as determined
-by the endpoint.  The goal is not to limit the duration of the testing period,
+by the endpoint.  The goal is not to limit the duration of the testing period
 but to ensure that enough marked packets are sent for received ECN counts to
 provide a clear indication of how the path treats marked packets.
 <a href="#ecn-validation" class="xref">Section 13.4.2</a> suggests limiting this to ten packets or three times the PTO.<a href="#section-a.4-5" class="pilcrow">¶</a></p>
 <p id="section-a.4-6">After the testing period ends, the ECN state for the path becomes "unknown".
 From the "unknown" state, successful validation of the ECN counts in an ACK
-frame (see <a href="#ecn-ack" class="xref">Section 13.4.2.1</a>) causes the ECN state for the path to become "capable"
+frame (see <a href="#ecn-ack" class="xref">Section 13.4.2.1</a>) causes the ECN state for the path to become "capable",
 unless no marked packet has been acknowledged.<a href="#section-a.4-6" class="pilcrow">¶</a></p>
 <p id="section-a.4-7">If validation of ECN counts fails at any time, the ECN state for the affected
 path becomes "failed".  An endpoint can also mark the ECN state for a path as

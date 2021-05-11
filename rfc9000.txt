@@ -8340,7 +8340,7 @@ A.2.  Sample Packet Number Encoding Algorithm
    least twice this range (59,038 packets, or 0xe69e), 16 bits are
    required.
 
-   In the same state, sending a packet with a number of 0xace8fe needs
+   In the same state, sending a packet with a number of 0xace8fe uses
    the 24-bit encoding, because at least 18 bits are required to
    represent twice the range (131,222 packets, or 0x020096).
 
@@ -8403,7 +8403,7 @@ A.4.  Sample ECN Validation Algorithm
 
    The path is assigned an ECN state that is one of "testing",
    "unknown", "failed", or "capable".  On paths with a "testing" or
-   "capable" state the endpoint sends packets with an ECT marking --
+   "capable" state, the endpoint sends packets with an ECT marking --
    ECT(0) by default; otherwise, the endpoint sends unmarked packets.
 
    To start testing a path, the ECN state is set to "testing", and
@@ -8411,7 +8411,7 @@ A.4.  Sample ECN Validation Algorithm
 
    The testing period runs for a number of packets or a limited time, as
    determined by the endpoint.  The goal is not to limit the duration of
-   the testing period, but to ensure that enough marked packets are sent
+   the testing period but to ensure that enough marked packets are sent
    for received ECN counts to provide a clear indication of how the path
    treats marked packets.  Section 13.4.2 suggests limiting this to ten
    packets or three times the PTO.
@@ -8419,7 +8419,7 @@ A.4.  Sample ECN Validation Algorithm
    After the testing period ends, the ECN state for the path becomes
    "unknown".  From the "unknown" state, successful validation of the
    ECN counts in an ACK frame (see Section 13.4.2.1) causes the ECN
-   state for the path to become "capable" unless no marked packet has
+   state for the path to become "capable", unless no marked packet has
    been acknowledged.
 
    If validation of ECN counts fails at any time, the ECN state for the
