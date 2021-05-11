@@ -884,7 +884,7 @@ Table of Contents
 3.3.  Permitted Frame Types
 
    The sender of a stream sends just three frame types that affect the
-   state of a stream at either sender or receiver: STREAM
+   state of a stream at either the sender or the receiver: STREAM
    (Section 19.8), STREAM_DATA_BLOCKED (Section 19.13), and RESET_STREAM
    (Section 19.4).
 
