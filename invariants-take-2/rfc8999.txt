@@ -413,7 +413,7 @@ Appendix A.  Incorrect Assumptions
    *  QUIC has a minimum size for the first handshake packet sent by a
       client.
 
-   *  QUIC stipulates that a client speaks first.
+   *  QUIC stipulates that a client speak first.
 
    *  QUIC packets always have the second bit of the first byte (0x40)
       set.
