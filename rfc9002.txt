@@ -589,9 +589,9 @@ Table of Contents
    round-trip time multiplier, is 9/8.  The RECOMMENDED value of the
    timer granularity (kGranularity) is 1ms.
 
-   Note:  TCP's RACK ([RACK]) specifies a slightly larger threshold,
-      equivalent to 5/4, for a similar purpose.  Experience with QUIC
-      shows that 9/8 works well.
+      |  Note: TCP's RACK ([RACK]) specifies a slightly larger
+      |  threshold, equivalent to 5/4, for a similar purpose.
+      |  Experience with QUIC shows that 9/8 works well.
 
    Implementations MAY experiment with absolute thresholds, thresholds
    from previous connections, adaptive thresholds, or including RTT
@@ -1168,11 +1168,11 @@ Table of Contents
                                  Table 1
 
    Packets 2 through 8 are declared lost when the acknowledgment for
-   packet 9 is received at t = 12.2.
+   packet 9 is received at "t = 12.2".
 
    The congestion period is calculated as the time between the oldest
-   and newest lost packets: 8 - 1 = 7.  The persistent congestion
-   duration is: 2 * 3 = 6.  Because the threshold was reached and
+   and newest lost packets: "8 - 1 = 7".  The persistent congestion
+   duration is "2 * 3 = 6".  Because the threshold was reached and
    because none of the packets between the oldest and the newest lost
    packets were acknowledged, the network is considered to have
    experienced persistent congestion.
@@ -1324,9 +1324,10 @@ Table of Contents
 
 9.2.  Informative References
 
-   [FACK]     Mathis, M. and J. Mahdavi, "Forward Acknowledgement:
-              Refining TCP Congestion Control", ACM SIGCOMM , August
-              1996.
+   [FACK]     Mathis, M. and J. Mahdavi, "Forward acknowledgement:
+              Refining TCP Congestion Control", ACM SIGCOMM Computer
+              Communication Review, DOI 10.1145/248157.248181, August
+              1996, <https://doi.org/10.1145/248157.248181>.
 
    [PRR]      Mathis, M., Dukkipati, N., and Y. Cheng, "Proportional
               Rate Reduction for TCP", RFC 6937, DOI 10.17487/RFC6937,
@@ -1340,8 +1341,10 @@ Table of Contents
 
    [RETRANSMISSION]
               Karn, P. and C. Partridge, "Improving Round-Trip Time
-              Estimates in Reliable Transport Protocols", ACM SIGCOMM
-              CCR , January 1995.
+              Estimates in Reliable Transport Protocols", ACM
+              Transactions on Computer Systems,
+              DOI 10.1145/118544.118549, November 1991,
+              <https://doi.org/10.1145/118544.118549>.
 
    [RFC2018]  Mathis, M., Mahdavi, J., Floyd, S., and A. Romanow, "TCP
               Selective Acknowledgment Options", RFC 2018,
