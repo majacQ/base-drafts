@@ -184,7 +184,7 @@ Table of Contents
       acknowledgment.
 
    *  Packets containing frames besides ACK or CONNECTION_CLOSE frames
-      count toward congestion control limits and are considered in
+      count toward congestion control limits and are considered to be in
       flight.
 
    *  PADDING frames cause packets to contribute toward bytes in flight
