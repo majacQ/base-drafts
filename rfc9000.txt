@@ -7849,7 +7849,10 @@ Table of Contents
    The "QUIC Transport Parameters" registry governs a 62-bit space.
    This registry follows the registration policy from Section 22.1.
    Permanent registrations in this registry are assigned using the
-   Specification Required policy (Section 4.6 of [RFC8126]).
+   Specification Required policy (Section 4.6 of [RFC8126]), except for
+   values between 0x00 and 0x3f (in hexadecimal), inclusive, which are
+   assigned using Standards Action or IESG Approval as defined in
+   Sections 4.9 and 4.10 of [RFC8126].
 
    In addition to the fields in Section 22.1.1, permanent registrations
    in this registry MUST include the following field:
@@ -8062,17 +8065,18 @@ Table of Contents
 
    [QUIC-INVARIANTS]
               Thomson, M., "Version-Independent Properties of QUIC",
-              RFC 8999, DOI 10.17487/RFC8999, 8 May 2021,
+              RFC 8999, DOI 10.17487/RFC8999, 11 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc8999>.
 
    [QUIC-RECOVERY]
               Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
-              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002, 8
-              May 2021, <https://datatracker.ietf.org/doc/html/rfc9002>.
+              and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
+              11 May 2021,
+              <https://datatracker.ietf.org/doc/html/rfc9002>.
 
    [QUIC-TLS] Thomson, M., Ed. and S. Turner, Ed., "Using Transport
               Layer Security (TLS) to Secure QUIC", RFC 9001,
-              DOI 10.17487/RFC9001, 8 May 2021,
+              DOI 10.17487/RFC9001, 11 May 2021,
               <https://datatracker.ietf.org/doc/html/rfc9001>.
 
    [RFC1191]  Mogul, J. and S. Deering, "Path MTU discovery", RFC 1191,
