@@ -159,7 +159,7 @@ Table of Contents
    first packet in a datagram.
 
    QUIC defines two types of packet headers: long and short.  Packets
-   with long headers are identified by the most significant bit of the
+   with a long header are identified by the most significant bit of the
    first byte being set; packets with a short header have that bit
    cleared.
 
@@ -258,7 +258,7 @@ Table of Contents
    The properties described in this document apply to all versions of
    QUIC.  A protocol that does not conform to the properties described
    in this document is not QUIC.  Future documents might describe
-   additional properties that apply to a specific QUIC version, or to a
+   additional properties that apply to a specific QUIC version or to a
    range of QUIC versions.
 
 6.  Version Negotiation
@@ -413,7 +413,7 @@ Appendix A.  Incorrect Assumptions
    *  QUIC has a minimum size for the first handshake packet sent by a
       client.
 
-   *  QUIC stipulates that a client speaks first.
+   *  QUIC stipulates that a client speak first.
 
    *  QUIC packets always have the second bit of the first byte (0x40)
       set.
