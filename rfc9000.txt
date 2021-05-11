@@ -750,7 +750,7 @@ Table of Contents
    part of the stream enters the "Data Recvd" state, which is a terminal
    state.
 
-   From any state that is one of"Ready", "Send", or "Data Sent", an
+   From any state that is one of "Ready", "Send", or "Data Sent", an
    application can signal that it wishes to abandon transmission of
    stream data.  Alternatively, an endpoint might receive a STOP_SENDING
    frame from its peer.  In either case, the endpoint sends a
