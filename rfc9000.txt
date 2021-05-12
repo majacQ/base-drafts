@@ -917,12 +917,12 @@ Table of Contents
    receiving streams are in terminal states.
 
    Table 2 shows a more complex mapping of bidirectional stream states
-   that loosely correspond to the stream states in HTTP/2 [HTTP2].  This
-   shows that multiple states on sending or receiving parts of streams
-   are mapped to the same composite state.  Note that this is just one
-   possibility for such a mapping; this mapping requires that data be
-   acknowledged before the transition to a "closed" or "half-closed"
-   state.
+   that loosely correspond to the stream states defined in HTTP/2
+   [HTTP2].  This shows that multiple states on sending or receiving
+   parts of streams are mapped to the same composite state.  Note that
+   this is just one possibility for such a mapping; this mapping
+   requires that data be acknowledged before the transition to a
+   "closed" or "half-closed" state.
 
       +===================+=======================+=================+
       | Sending Part      | Receiving Part        | Composite State |
@@ -990,7 +990,7 @@ Table of Contents
    RESET_STREAM frame instead of retransmitting the data.
 
    An endpoint SHOULD copy the error code from the STOP_SENDING frame to
-   the RESET_STREAM frame it sends, but can use any application error
+   the RESET_STREAM frame it sends, but it can use any application error
    code.  An endpoint that sends a STOP_SENDING frame MAY ignore the
    error code in any RESET_STREAM frames subsequently received for that
    stream.
@@ -1497,8 +1497,8 @@ Table of Contents
 
    Due to packet reordering or loss, a client might receive packets for
    a connection that are encrypted with a key it has not yet computed.
-   The client MAY drop these packets, or MAY buffer them in anticipation
-   of later packets that allow it to compute the key.
+   The client MAY drop these packets, or it MAY buffer them in
+   anticipation of later packets that allow it to compute the key.
 
    If a client receives a packet that uses a different version than it
    initially selected, it MUST discard that packet.
@@ -1544,7 +1544,7 @@ Table of Contents
 
 5.2.3.  Considerations for Simple Load Balancers
 
-   A server deployment could balance load among servers using only
+   A server deployment could load-balance among servers using only
    source and destination IP addresses and ports.  Changes to the
    client's IP address or port could result in packets being forwarded
    to the wrong server.  Such a server deployment could use one of the
@@ -1562,7 +1562,7 @@ Table of Contents
 
    A server in a deployment that does not implement a solution to
    maintain connection continuity when the client address changes SHOULD
-   indicate migration is not supported using the
+   indicate that migration is not supported by using the
    disable_active_migration transport parameter.  The
    disable_active_migration transport parameter does not prohibit
    connection migration after a client has acted on a preferred_address
@@ -1926,10 +1926,11 @@ Table of Contents
    successful connection by injecting packets carrying attacker-chosen
    connection IDs during the handshake.
 
-   An endpoint MUST treat absence of the initial_source_connection_id
-   transport parameter from either endpoint or the absence of the
-   original_destination_connection_id transport parameter from the
-   server as a connection error of type TRANSPORT_PARAMETER_ERROR.
+   An endpoint MUST treat the absence of the
+   initial_source_connection_id transport parameter from either endpoint
+   or the absence of the original_destination_connection_id transport
+   parameter from the server as a connection error of type
+   TRANSPORT_PARAMETER_ERROR.
 
    An endpoint MUST treat the following as a connection error of type
    TRANSPORT_PARAMETER_ERROR or PROTOCOL_VIOLATION:
@@ -2093,7 +2094,7 @@ Table of Contents
 
    Omitting or setting a zero value for certain transport parameters can
    result in 0-RTT data being enabled but not usable.  The applicable
-   subset of transport parameters that permit sending of application
+   subset of transport parameters that permit the sending of application
    data SHOULD be set to non-zero values for 0-RTT.  This includes
    initial_max_data and either (1) initial_max_streams_bidi and
    initial_max_stream_data_bidi_remote, or (2) initial_max_streams_uni

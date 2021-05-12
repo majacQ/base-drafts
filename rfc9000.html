@@ -2391,7 +2391,7 @@ of sending and receiving stream states.  The simplest model presents the stream
 as "open" when either sending or receiving parts are in a non-terminal state and
 "closed" when both sending and receiving streams are in terminal states.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2"><a href="#stream-bidi-mapping" class="xref">Table 2</a> shows a more complex mapping of bidirectional stream
-states that loosely correspond to the stream states in HTTP/2
+states that loosely correspond to the stream states defined in HTTP/2
 <span>[<a href="#HTTP2" class="xref">HTTP2</a>]</span>.  This shows that multiple states on sending or receiving
 parts of streams are mapped to the same composite state.  Note that this is just
 one possibility for such a mapping; this mapping requires that data be
@@ -2493,9 +2493,9 @@ the packets containing outstanding data are acknowledged or declared lost.  If
 any outstanding data is declared lost, the endpoint <span class="bcp14">SHOULD</span> send a RESET_STREAM
 frame instead of retransmitting the data.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
 <p id="section-3.5-5">An endpoint <span class="bcp14">SHOULD</span> copy the error code from the STOP_SENDING frame to the
-RESET_STREAM frame it sends, but can use any application error code.  An
-endpoint that sends a STOP_SENDING frame <span class="bcp14">MAY</span> ignore the error code in
-any RESET_STREAM frames subsequently received for that stream.<a href="#section-3.5-5" class="pilcrow">¶</a></p>
+RESET_STREAM frame it sends, but it can use any application error code.  An
+endpoint that sends a STOP_SENDING frame <span class="bcp14">MAY</span> ignore the error code in any
+RESET_STREAM frames subsequently received for that stream.<a href="#section-3.5-5" class="pilcrow">¶</a></p>
 <p id="section-3.5-6">STOP_SENDING <span class="bcp14">SHOULD</span> only be sent for a stream that has not been reset by the
 peer. STOP_SENDING is most useful for streams in the "Recv" or "Size Known"
 state.<a href="#section-3.5-6" class="pilcrow">¶</a></p>
@@ -2947,7 +2947,7 @@ Connection ID or, if this value is zero length, local IP address and port -- are
 discarded.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-2">Due to packet reordering or loss, a client might receive packets for a
 connection that are encrypted with a key it has not yet computed. The client <span class="bcp14">MAY</span>
-drop these packets, or <span class="bcp14">MAY</span> buffer them in anticipation of later packets that
+drop these packets, or it <span class="bcp14">MAY</span> buffer them in anticipation of later packets that
 allow it to compute the key.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-3">If a client receives a packet that uses a different version than it initially
 selected, it <span class="bcp14">MUST</span> discard that packet.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
@@ -2991,7 +2991,7 @@ to send Handshake packets prior to receiving a server response, so servers
           <h4 id="name-considerations-for-simple-l">
 <a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-considerations-for-simple-l" class="section-name selfRef">Considerations for Simple Load Balancers</a>
           </h4>
-<p id="section-5.2.3-1">A server deployment could balance load among servers using only source and
+<p id="section-5.2.3-1">A server deployment could load-balance among servers using only source and
 destination IP addresses and ports. Changes to the client's IP address or port
 could result in packets being forwarded to the wrong server. Such a server
 deployment could use one of the following methods for connection continuity
@@ -3007,10 +3007,11 @@ address. Note that clients could choose not to use the preferred address.<a href
 </li>
           </ul>
 <p id="section-5.2.3-3">A server in a deployment that does not implement a solution to maintain
-connection continuity when the client address changes <span class="bcp14">SHOULD</span> indicate migration
-is not supported using the disable_active_migration transport parameter.  The
-disable_active_migration transport parameter does not prohibit connection
-migration after a client has acted on a preferred_address transport parameter.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
+connection continuity when the client address changes <span class="bcp14">SHOULD</span> indicate that
+migration is not supported by using the disable_active_migration transport
+parameter.  The disable_active_migration transport parameter does not prohibit
+connection migration after a client has acted on a preferred_address transport
+parameter.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.3-4">Server deployments that use this simple form of load balancing <span class="bcp14">MUST</span> avoid the
 creation of a stateless reset oracle; see <a href="#reset-oracle" class="xref">Section 21.11</a>.<a href="#section-5.2.3-4" class="pilcrow">¶</a></p>
 </section>
@@ -3379,7 +3380,7 @@ Including connection ID values in transport parameters and verifying them
 ensures that an attacker cannot influence the choice of connection ID for a
 successful connection by injecting packets carrying attacker-chosen connection
 IDs during the handshake.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
-<p id="section-7.3-4">An endpoint <span class="bcp14">MUST</span> treat absence of the initial_source_connection_id transport
+<p id="section-7.3-4">An endpoint <span class="bcp14">MUST</span> treat the absence of the initial_source_connection_id transport
 parameter from either endpoint or the absence of the
 original_destination_connection_id transport parameter from the server as a
 connection error of type TRANSPORT_PARAMETER_ERROR.<a href="#section-7.3-4" class="pilcrow">¶</a></p>
@@ -3541,7 +3542,7 @@ that are smaller than the remembered values of the parameters.<a href="#section-
           </ul>
 <p id="section-7.4.1-8">Omitting or setting a zero value for certain transport parameters can result in
 0-RTT data being enabled but not usable.  The applicable subset of transport
-parameters that permit sending of application data <span class="bcp14">SHOULD</span> be set to non-zero
+parameters that permit the sending of application data <span class="bcp14">SHOULD</span> be set to non-zero
 values for 0-RTT.  This includes initial_max_data and either (1)
 initial_max_streams_bidi and initial_max_stream_data_bidi_remote, or (2)
 initial_max_streams_uni and initial_max_stream_data_uni.<a href="#section-7.4.1-8" class="pilcrow">¶</a></p>
