@@ -2045,29 +2045,17 @@ Contributors
    contributions to this document:
 
    *  Alessandro Ghedini
-
    *  Benjamin Saunders
-
    *  Gorry Fairhurst
-
    *  山本和彦 (Kazu Yamamoto)
-
    *  奥 一穂 (Kazuho Oku)
-
    *  Lars Eggert
-
    *  Magnus Westerlund
-
    *  Marten Seemann
-
    *  Martin Duke
-
    *  Martin Thomson
-
    *  Mirja Kühlewind
-
    *  Nick Banks
-
    *  Praveen Balasubramanian
 
 Authors' Addresses
