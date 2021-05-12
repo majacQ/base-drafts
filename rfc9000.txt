@@ -899,12 +899,13 @@ Table of Contents
    and STOP_SENDING frames (Section 19.5).
 
    The receiver only sends MAX_STREAM_DATA frames in the "Recv" state.
-   A receiver MAY send STOP_SENDING frames in any state where it has not
-   received a RESET_STREAM frame -- that is, states other than "Reset
-   Recvd" or "Reset Read".  However, there is little value in sending
-   STOP_SENDING frames in the "Data Recvd" state, as all stream data has
-   been received.  A sender could receive either of these two types of
-   frames in any state as a result of delayed delivery of packets.
+   A receiver MAY send a STOP_SENDING frame in any state where it has
+   not received a RESET_STREAM frame -- that is, states other than
+   "Reset Recvd" or "Reset Read".  However, there is little value in
+   sending STOP_SENDING frames in the "Data Recvd" state, as all stream
+   data has been received.  A sender could receive either of these two
+   types of frames in any state as a result of delayed delivery of
+   packets.
 
 3.4.  Bidirectional Stream States
 
@@ -928,7 +929,7 @@ Table of Contents
       +===================+=======================+=================+
       | No Stream / Ready | No Stream / Recv (*1) | idle            |
       +-------------------+-----------------------+-----------------+
-      | Ready / Send /    | Recv/Size Known       | open            |
+      | Ready / Send /    | Recv / Size Known     | open            |
       | Data Sent         |                       |                 |
       +-------------------+-----------------------+-----------------+
       | Ready / Send /    | Data Recvd / Data     | half-closed     |

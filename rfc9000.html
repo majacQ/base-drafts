@@ -2372,7 +2372,7 @@ carrying them.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">The receiver of a stream sends MAX_STREAM_DATA frames
 (<a href="#frame-max-stream-data" class="xref">Section 19.10</a>) and STOP_SENDING frames (<a href="#frame-stop-sending" class="xref">Section 19.5</a>).<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">The receiver only sends MAX_STREAM_DATA frames in the "Recv" state.  A receiver
-<span class="bcp14">MAY</span> send STOP_SENDING frames in any state where it has not received a
+<span class="bcp14">MAY</span> send a STOP_SENDING frame in any state where it has not received a
 RESET_STREAM frame -- that is, states other than "Reset Recvd" or "Reset Read".
 However, there is little value in sending STOP_SENDING frames in the "Data
 Recvd" state, as all stream data has been received.  A sender could receive
@@ -2417,7 +2417,7 @@ acknowledged before the transition to a "closed" or "half-closed" state.<a href=
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Ready / Send / Data Sent</td>
-              <td class="text-left" rowspan="1" colspan="1">Recv/Size Known</td>
+              <td class="text-left" rowspan="1" colspan="1">Recv / Size Known</td>
               <td class="text-left" rowspan="1" colspan="1">open</td>
             </tr>
             <tr>
