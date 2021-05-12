@@ -121,7 +121,6 @@ Table of Contents
      B.8.  On Packets Lost
      B.9.  Removing Discarded Packets from Bytes in Flight
    Contributors
-   Acknowledgments
    Authors' Addresses
 
 1.  Introduction
@@ -826,7 +825,7 @@ Table of Contents
    A Retry packet causes a client to send another Initial packet,
    effectively restarting the connection process.  A Retry packet
    indicates that the Initial packet was received but not processed.  A
-   Retry packet cannot be treated as an acknowledgment, because it does
+   Retry packet cannot be treated as an acknowledgment because it does
    not indicate that a packet was processed or specify the packet
    number.
 
@@ -2070,8 +2069,6 @@ Contributors
    *  Nick Banks
 
    *  Praveen Balasubramanian
-
-Acknowledgments
 
 Authors' Addresses
 
