@@ -303,8 +303,8 @@ Table of Contents
       TLS.
 
    *  The TLS component provides a series of updates to the QUIC
-      component, including (a) new packet protection keys to install (b)
-      state changes such as handshake completion, the server
+      component, including (a) new packet protection keys to install and
+      (b) state changes such as handshake completion, the server
       certificate, etc.
 
    Figure 4 shows these interactions in more detail, with the QUIC
@@ -432,7 +432,7 @@ Table of Contents
    this interface: one where QUIC requests handshake messages and one
    where QUIC provides bytes that comprise handshake messages.
 
-   Before starting the handshake QUIC provides TLS with the transport
+   Before starting the handshake, QUIC provides TLS with the transport
    parameters (see Section 8.2) that it wishes to carry.
 
    A QUIC client starts TLS by requesting TLS handshake bytes from TLS.
@@ -441,7 +441,7 @@ Table of Contents
    handshake bytes.
 
    At any time, the TLS stack at an endpoint will have a current sending
-   encryption level and receiving encryption level.  TLS encryption
+   encryption level and a receiving encryption level.  TLS encryption
    levels determine the QUIC packet type and keys that are used for
    protecting data.
 
@@ -511,7 +511,7 @@ Table of Contents
 
    Once the handshake is complete, TLS becomes passive.  TLS can still
    receive data from its peer and respond in kind, but it will not need
-   to send more data unless specifically requested - either by an
+   to send more data unless specifically requested -- either by an
    application or QUIC.  One reason to send data is that the server
    might wish to provide additional or updated session tickets to a
    client.
@@ -728,9 +728,9 @@ Table of Contents
    authentication vary based on application protocol and deployment.
 
    A server MUST NOT use post-handshake client authentication (as
-   defined in Section 4.6.2 of [TLS13]), because the multiplexing
-   offered by QUIC prevents clients from correlating the certificate
-   request with the application-level event that triggered it (see
+   defined in Section 4.6.2 of [TLS13]) because the multiplexing offered
+   by QUIC prevents clients from correlating the certificate request
+   with the application-level event that triggered it (see
    [HTTP2-TLS13]).  More specifically, servers MUST NOT send post-
    handshake TLS CertificateRequest messages, and clients MUST treat
    receipt of such messages as a connection error of type
@@ -796,7 +796,7 @@ Table of Contents
    TLS 0-RTT data.  QUIC uses 0-RTT packets to carry early data.
    Accordingly, the max_early_data_size parameter is repurposed to hold
    a sentinel value 0xffffffff to indicate that the server is willing to
-   accept QUIC 0-RTT data; to indicate that the server does not accept
+   accept QUIC 0-RTT data.  To indicate that the server does not accept
    0-RTT data, the early_data extension is omitted from the
    NewSessionTicket.  The amount of data that the client can send in
    QUIC 0-RTT is controlled by the initial_max_data transport parameter
@@ -1049,7 +1049,7 @@ Table of Contents
 
    This secret is determined by using HKDF-Extract (see Section 2.2 of
    [HKDF]) with a salt of 0x38762cf7f55934b34d179ae6a4c80cadccbb7f0a and
-   an input keying material (IKM) of the Destination Connection ID
+   the input keying material (IKM) of the Destination Connection ID
    field.  This produces an intermediate pseudorandom key (PRK) that is
    used to derive two separate secrets for sending and receiving.
 
@@ -1282,13 +1282,13 @@ Table of Contents
    To ensure that sufficient data is available for sampling, packets are
    padded so that the combined lengths of the encoded packet number and
    protected payload is at least 4 bytes longer than the sample required
-   for header protection.  The cipher suites defined in [TLS13] - other
+   for header protection.  The cipher suites defined in [TLS13] -- other
    than TLS_AES_128_CCM_8_SHA256, for which a header protection scheme
-   is not defined in this document - have 16-byte expansions and 16-byte
-   header protection samples.  This results in needing at least 3 bytes
-   of frames in the unprotected payload if the packet number is encoded
-   on a single byte, or 2 bytes of frames for a 2-byte packet number
-   encoding.
+   is not defined in this document -- have 16-byte expansions and
+   16-byte header protection samples.  This results in needing at least
+   3 bytes of frames in the unprotected payload if the packet number is
+   encoded on a single byte, or 2 bytes of frames for a 2-byte packet
+   number encoding.
 
    The sampled ciphertext can be determined by the following pseudocode:
 
@@ -1872,9 +1872,9 @@ Table of Contents
    Initial packets that is not otherwise authenticated.
 
    It is also possible for the attacker to tamper with data that is
-   carried in Handshake packets, but because that tampering requires
-   modifying TLS handshake messages, that tampering will cause the TLS
-   handshake to fail.
+   carried in Handshake packets, but because that sort of tampering
+   requires modifying TLS handshake messages, any such tampering will
+   cause the TLS handshake to fail.
 
 8.  QUIC-Specific Adjustments to the TLS Handshake
 
@@ -1888,7 +1888,7 @@ Table of Contents
 8.1.  Protocol Negotiation
 
    QUIC requires that the cryptographic handshake provide authenticated
-   protocol negotiation.  TLS uses Application Layer Protocol
+   protocol negotiation.  TLS uses Application-Layer Protocol
    Negotiation [ALPN] to select an application protocol.  Unless another
    mechanism is used for agreeing on an application protocol, endpoints
    MUST use ALPN for this purpose.
@@ -2115,7 +2115,7 @@ Table of Contents
    would reveal the packet number or its encoded size.
 
    During a key update, the time taken to generate new keys could reveal
-   through timing side-channels that a key update has occurred.
+   through timing side channels that a key update has occurred.
    Alternatively, where an attacker injects packets, this side channel
    could reveal the value of the Key Phase on injected packets.  After
    receiving a key update, an endpoint SHOULD generate and save the next
@@ -2137,9 +2137,9 @@ Table of Contents
    In using TLS, the central key schedule of TLS is used.  As a result
    of the TLS handshake messages being integrated into the calculation
    of secrets, the inclusion of the QUIC transport parameters extension
-   ensures that handshake and 1-RTT keys are not the same as those that
-   might be produced by a server running TLS over TCP.  To avoid the
-   possibility of cross-protocol key synchronization, additional
+   ensures that the handshake and 1-RTT keys are not the same as those
+   that might be produced by a server running TLS over TCP.  To avoid
+   the possibility of cross-protocol key synchronization, additional
    measures are provided to improve key separation.
 
    The QUIC packet protection keys and IVs are derived using a different
