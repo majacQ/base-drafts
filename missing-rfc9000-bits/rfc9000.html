@@ -3008,7 +3008,7 @@ address. Note that clients could choose not to use the preferred address.<a href
           </ul>
 <p id="section-5.2.3-3">A server in a deployment that does not implement a solution to maintain
 connection continuity when the client address changes <span class="bcp14">SHOULD</span> indicate that
-migration is not supported using the disable_active_migration transport
+migration is not supported by using the disable_active_migration transport
 parameter.  The disable_active_migration transport parameter does not prohibit
 connection migration after a client has acted on a preferred_address transport
 parameter.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
@@ -3494,7 +3494,7 @@ constraints conflict.<a href="#section-7.4-9" class="pilcrow">¶</a></p>
           </h4>
 <p id="section-7.4.1-1">Using 0-RTT depends on both client and server using protocol parameters that
 were negotiated from a previous connection.  To enable 0-RTT, endpoints store
-the value of the server transport parameters with any session tickets it
+the values of the server transport parameters with any session tickets it
 receives on the connection.  Endpoints also store any information required by
 the application protocol or cryptographic handshake; see <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.6" class="relref">Section 4.6</a> of [<a href="#QUIC-TLS" class="xref">QUIC-TLS</a>]</span>.  The values of stored transport parameters are used when attempting
 0-RTT using the session tickets.<a href="#section-7.4.1-1" class="pilcrow">¶</a></p>
