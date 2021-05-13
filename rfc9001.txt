@@ -2722,45 +2722,25 @@ Contributors
    contributions to this document:
 
    *  Adam Langley
-
    *  Alessandro Ghedini
-
    *  Christian Huitema
-
    *  Christopher Wood
-
    *  David Schinazi
-
    *  Dragana Damjanovic
-
    *  Eric Rescorla
-
-   *  Felix Guenther
-
+   *  Felix Günther
    *  Ian Swett
-
    *  Jana Iyengar
-
    *  奥 一穂 (Kazuho Oku)
-
    *  Marten Seemann
-
    *  Martin Duke
-
    *  Mike Bishop
-
    *  Mikkel Fahnøe Jørgensen
-
    *  Nick Banks
-
    *  Nick Harper
-
    *  Roberto Peon
-
    *  Rui Paulo
-
    *  Ryan Hamilton
-
    *  Victor Vasiliev
 
 Authors' Addresses

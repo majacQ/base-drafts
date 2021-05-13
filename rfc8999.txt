@@ -314,8 +314,8 @@ Table of Contents
 
    An endpoint that receives a Version Negotiation packet might change
    the version that it decides to use for subsequent packets.  The
-   conditions under which an endpoint changes QUIC version will depend
-   on the version of QUIC that it chooses.
+   conditions under which an endpoint changes its QUIC version will
+   depend on the version of QUIC that it chooses.
 
    See [QUIC-TRANSPORT] for a more thorough description of how an
    endpoint that supports QUIC version 1 generates and consumes a
