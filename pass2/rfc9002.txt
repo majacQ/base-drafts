@@ -386,7 +386,7 @@ Table of Contents
    Endpoints SHOULD set the min_rtt to the newest RTT sample after
    persistent congestion is established.  This avoids repeatedly
    declaring persistent congestion when the RTT increases.  This also
-   allows a connection to reset itsestimate of min_rtt and smoothed_rtt
+   allows a connection to reset its estimate of min_rtt and smoothed_rtt
    after a disruptive network event; see Section 5.3.
 
    Endpoints MAY reestablish the min_rtt at other times in the
