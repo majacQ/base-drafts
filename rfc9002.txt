@@ -271,9 +271,9 @@ Table of Contents
    QUIC's PTO includes the peer's maximum expected acknowledgment delay
    instead of using a fixed minimum timeout.
 
-   Similar to the RACK-TLP loss detection algorithm for TCP [RACK], QUIC
-   does not collapse the congestion window when the PTO expires, since a
-   single packet loss at the tail does not indicate persistent
+   Similar to the RACK-TLP loss detection algorithm for TCP [RFC8985],
+   QUIC does not collapse the congestion window when the PTO expires,
+   since a single packet loss at the tail does not indicate persistent
    congestion.  Instead, QUIC collapses the congestion window when
    persistent congestion is declared; see Section 7.6.  In doing this,
    QUIC avoids unnecessary congestion window reductions, obviating the
@@ -518,7 +518,7 @@ Table of Contents
    Acknowledgment-based loss detection implements the spirit of TCP's
    Fast Retransmit [RFC5681], Early Retransmit [RFC5827], Forward
    Acknowledgment [FACK], SACK loss recovery [RFC6675], and RACK-TLP
-   [RACK].  This section provides an overview of how these algorithms
+   [RFC8985].  This section provides an overview of how these algorithms
    are implemented in QUIC.
 
    A packet is declared lost if it meets all of the following
@@ -558,7 +558,7 @@ Table of Contents
    elements that could observe and reorder TCP packets cannot do that
    for QUIC and also because QUIC packet numbers are encrypted.
    Algorithms that increase the reordering threshold after spuriously
-   detecting losses, such as RACK [RACK], have proven to be useful in
+   detecting losses, such as RACK [RFC8985], have proven to be useful in
    TCP and are expected to be at least as useful in QUIC.
 
 6.1.2.  Time Threshold
@@ -589,9 +589,9 @@ Table of Contents
    multiplier, is 9/8.  The RECOMMENDED value of the timer granularity
    (kGranularity) is 1 millisecond.
 
-      |  Note: TCP's RACK [RACK] specifies a slightly larger threshold,
-      |  equivalent to 5/4, for a similar purpose.  Experience with QUIC
-      |  shows that 9/8 works well.
+      |  Note: TCP's RACK [RFC8985] specifies a slightly larger
+      |  threshold, equivalent to 5/4, for a similar purpose.
+      |  Experience with QUIC shows that 9/8 works well.
 
    Implementations MAY experiment with absolute thresholds, thresholds
    from previous connections, adaptive thresholds, or the including of
@@ -617,7 +617,7 @@ Table of Contents
    mechanisms; see Section 6.1.
 
    The PTO algorithm used in QUIC implements the reliability functions
-   of Tail Loss Probe [RACK], RTO [RFC5681], and F-RTO algorithms for
+   of Tail Loss Probe [RFC8985], RTO [RFC5681], and F-RTO algorithms for
    TCP [RFC5682].  The timeout computation is based on TCP's RTO period
    [RFC6298].
 
@@ -1070,7 +1070,7 @@ Table of Contents
 
    This duration allows a sender to send as many packets before
    establishing persistent congestion, including some in response to PTO
-   expiration, as TCP does with Tail Loss Probes [RACK] and an RTO
+   expiration, as TCP does with Tail Loss Probes [RFC8985] and an RTO
    [RFC5681].
 
    Larger values of kPersistentCongestionThreshold cause the sender to
@@ -1336,12 +1336,6 @@ Table of Contents
               Rate Reduction for TCP", RFC 6937, DOI 10.17487/RFC6937,
               May 2013, <https://datatracker.ietf.org/doc/html/rfc6937>.
 
-   [RACK]     Cheng, Y., Cardwell, N., Dukkipati, N., and P. Jha, "The
-              RACK-TLP Loss Detection Algorithm for TCP", Work in
-              Progress, Internet-Draft, draft-ietf-tcpm-rack-15, 22
-              December 2020, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tcpm-rack-15.txt>.
-
    [RETRANSMISSION]
               Karn, P. and C. Partridge, "Improving Round-Trip Time
               Estimates in Reliable Transport Protocols", ACM
@@ -1414,6 +1408,11 @@ Table of Contents
               "TCP Alternative Backoff with ECN (ABE)", RFC 8511,
               DOI 10.17487/RFC8511, December 2018,
               <https://datatracker.ietf.org/doc/html/rfc8511>.
+
+   [RFC8985]  Cheng, Y., Cardwell, N., Dukkipati, N., and P. Jha, "The
+              RACK-TLP Loss Detection Algorithm for TCP", RFC 8985,
+              DOI 10.17487/RFC8985, February 2021,
+              <https://datatracker.ietf.org/doc/html/rfc8985>.
 
 Appendix A.  Loss Recovery Pseudocode
 
