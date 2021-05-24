@@ -2298,7 +2298,7 @@ Table of Contents
    [QUIC-HTTP]
               Bishop, M., Ed., "Hypertext Transfer Protocol Version 3
               (HTTP/3)", Work in Progress, Internet-Draft, draft-ietf-
-              quic-http, 19 May 2021,
+              quic-http, 24 May 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
               http.txt>.
 
