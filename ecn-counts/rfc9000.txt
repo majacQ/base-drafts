@@ -6030,8 +6030,8 @@ Table of Contents
    The ACK frame uses the least significant bit of the type value (that
    is, type 0x03) to indicate ECN feedback and report receipt of QUIC
    packets with associated ECN codepoints of ECT(0), ECT(1), or ECN-CE
-   in the packet's IP header.  The ECN Counts field is only present when
-   the ACK frame type is 0x03.
+   in the packet's IP header.  ECN counts are only present when the ACK
+   frame type is 0x03.
 
    When present, there are three ECN counts, as shown in Figure 27.
 
@@ -6043,7 +6043,7 @@ Table of Contents
 
                         Figure 27: ECN Count Format
 
-   The three fields in ECN Counts are:
+   The ECN count fields are:
 
    ECT0 Count:  A variable-length integer representing the total number
       of packets received with the ECT(0) codepoint in the packet number
