@@ -5962,7 +5962,7 @@ Table of Contents
       alternately not acknowledged (Gap) and acknowledged (ACK Range);
       see Section 19.3.1.
 
-   ECN Counts:  The three ECN Counts; see Section 19.3.2.
+   ECN Counts:  The three ECN counts; see Section 19.3.2.
 
 19.3.1.  ACK Ranges
 
@@ -6030,7 +6030,7 @@ Table of Contents
    The ACK frame uses the least significant bit of the type value (that
    is, type 0x03) to indicate ECN feedback and report receipt of QUIC
    packets with associated ECN codepoints of ECT(0), ECT(1), or ECN-CE
-   in the packet's IP header.  ECN Counts are only present when the ACK
+   in the packet's IP header.  ECN counts are only present when the ACK
    frame type is 0x03.
 
    When present, there are three ECN counts, as shown in Figure 27.
@@ -6043,7 +6043,7 @@ Table of Contents
 
                         Figure 27: ECN Count Format
 
-   The three ECN Counts are:
+   The ECN count fields are:
 
    ECT0 Count:  A variable-length integer representing the total number
       of packets received with the ECT(0) codepoint in the packet number
