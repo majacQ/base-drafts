@@ -7727,7 +7727,7 @@ Table of Contents
    provisional registration:
 
    Value:  The assigned codepoint.
-   Status:  "Permanent" or "Provisional".
+   Status:  "permanent" or "provisional".
    Specification:  A reference to a publicly available specification for
       the value.
    Date:  The date of the last update to the registration.
