@@ -3,44 +3,11 @@
 The base-drafts repository is the historical home of the QUIC version 1
 specifications that were written by the IETF QUIC Working Group.
 
-The set of documents are:
-
-* [QUIC: A UDP-Based Multiplexed and Secure Transport](https://tools.ietf.org/html/draft-ietf-quic-transport)
-* [Version-Independent Properties of QUIC](https://tools.ietf.org/html/draft-ietf-quic-invariants)
-* [Using TLS to Secure QUIC](https://tools.ietf.org/html/draft-ietf-quic-tls)
-* [QUIC Loss Detection and Congestion Control](https://tools.ietf.org/html/draft-ietf-quic-recovery)
-* [Hypertext Transfer Protocol Version 3 (HTTP/3)](https://tools.ietf.org/html/draft-ietf-quic-http)
-* [QPACK: Header Compression for HTTP/3](https://tools.ietf.org/html/draft-ietf-quic-qpack)
-
-
-**All of the documents have been approved for publication as RFCs. We will no
-longer consider design changes or substantial editorial changes unless they
-relate to severe security, interoperability or deployment problems. See [Post-IESG
-Process](#post-iesg-process) below for further information**
-
-**The QUIC Working Group welcomes discussion about new versions of QUIC, and
-new extensions to QUIC. See [Engaging with the QUIC
-community](#engaging-with-the-quic-community) for guidance**
+The set of documents are described [here](https://github.com/quicwg/base-drafts/blob/main/README.md).
 
 **Be aware that all contributions fall under the "[NOTE WELL](#note-well)" terms
 outlined below and our [Code of Conduct](#code-of-conduct) applies.**
 
-## Post-IESG Process
-
-The consensus of the QUIC Working Group is reflected in the QUIC version 1
-documents, which has been confirmed through the IETF Last Call and IESG review
-stages. The goal of the Post-IESG process is to minimize the risk of changes
-invalidating the established consensus in these documents. Consequently, design
-changes will no longer be considered unless they relate to severe security,
-deployment or implementation problems. If you believe you have identified such a
-problem, please raise the issue on the [Working Group mailing
-list](https://www.ietf.org/mailman/listinfo/quic) with a clear marking in the
-`Subject:` line e.g. "New Issue ...".
-
-Any change will be subject to careful review and discussion, which might involve
-the editors, chairs, Working Group, and our Area Director.
-After this review and discussion, errata may need to be filed for the published RFCs,
-or the Working Group may otherwise address such valid issues.
 # Engaging with the QUIC community
 
 The scope of work in the QUIC Working Group is described in our
